@@ -27,6 +27,7 @@
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
         "class-methods-use-this": "off",
+        "object-curly-spacing": ["error", "always"],
         // eslint-plugin-unused-imports rules
         "unused-imports/no-unused-imports": "error",
         "unused-imports/no-unused-vars": [

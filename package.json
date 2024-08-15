@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "lint": "eslint --fix ./src/**/*.{js,ts,html}",
+    "lint": "eslint ./src/**/*.{js,ts,html}",
+    "lint:fix": "eslint --fix ./src/**/*.{js,ts,html}",
     "format": "prettier --write ./src/**/*.{js,ts,html,css,md,json,scss} --config ./.prettierrc",
     "test": "ng test",
     "prepare": "husky install"
