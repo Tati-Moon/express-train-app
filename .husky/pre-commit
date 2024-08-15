@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 echo '✈️ Starting the code check by eslint and prettier ✈️'
 
 npx lint-staged ||
