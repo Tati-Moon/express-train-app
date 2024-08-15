@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { Subscription } from 'rxjs';
 
-import { Languages } from './core/enums/constants';
+import { Languages } from './core/models/enums/constants';
 import { selectDefaultLanguage } from './redux/selectors/app-language.selector';
 
 @Component({

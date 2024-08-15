@@ -1,0 +1,27 @@
+<div class="header-menu">
+    <button
+        class="p-link layout-topbar-button"
+        appCloseAllOverlay
+        (click)="handleOpenMenu()"
+        (clickOutside)="handleCloseMenu()"
+    >
+        <i class="{{ icon }}"></i>
+    </button>
+
+    @if (show) {
+        <div class="header-menu__content">
+            @for (item of modelMenu; track $index) {
+                @if (item.label) {
+                    <button
+                        class="p-link header-menu__btn"
+                        [routerLink]="item.routerLink"
+                        (click)="handleSelectItem(item)"
+                    >
+                        <i class="{{ item.icon }}"></i>
+                        <span>{{ item.label | translate }}</span>
+                    </button>
+                }
+            }
+        </div>
+    }
+</div>

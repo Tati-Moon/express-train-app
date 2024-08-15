@@ -2,14 +2,11 @@
   "GENERAL": {
     "SIDEBAR": {
       "HOME": "HOME",
-      "MAIN": "Main page",
+      "USER_PROFILE": "User profile",
       "ABOUT": "About page",
-      "AUTH": {
-        "TITLE": "Auth",
-        "LOGIN": "Login page",
-        "ACCESS": "Access page",
-        "ERROR": "Error page"
-      }
+      "LOGIN": "Login page",
+      "ACCESS": "Access page",
+      "ERROR": "Error page"
     },
     "TOPBAR": {
       "SETTINGS": "Settings",

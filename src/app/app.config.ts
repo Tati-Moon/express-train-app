@@ -16,7 +16,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
-import { AppEffects } from './redux/effects/app.effects';
+import { AppConfigEffects } from './redux/effects/app-config.effects';
+import { AppLanguageEffects } from './redux/effects/app-language.effects';
 import { metaReducers, reducers } from './redux/reducers';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -30,7 +31,7 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         provideHttpClient(withInterceptors([])),
         provideStore(reducers, { metaReducers }),
-        provideEffects(AppEffects),
+        provideEffects(AppConfigEffects, AppLanguageEffects),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         importProvidersFrom(
             TranslateModule.forRoot({
