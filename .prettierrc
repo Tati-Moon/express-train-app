@@ -1,0 +1,25 @@
+{
+"printWidth": 120,
+    "tabWidth": 4,
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "semi": true,
+    "singleQuote": true,
+    "quoteProps": "consistent",
+    "trailingComma": "es5",
+    "overrides": [
+        {
+            "files": "*.md",
+            "options": {
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": ["*.json"],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}
