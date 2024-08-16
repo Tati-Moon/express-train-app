@@ -1,3 +1,16 @@
+@mixin display-none {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
 .header-menu {
     &__content {
         margin: 0 0 0 auto;
@@ -52,7 +65,37 @@
         margin-right: 0.5rem;
     }
 
-    .display-none {
-        display: none;
+    &__text {
+        font-size: 1rem;
+    }
+
+    &__icon {
+        @include display-none();
+    }
+
+    .active-route {
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+}
+
+@media (max-width: 991px) {
+    .header-menu {
+        &__text {
+            @include display-none();
+        }
+
+        &__icon {
+            position: initial;
+            width: initial;
+            height: initial;
+            margin: initial;
+            border: initial;
+            padding: initial;
+            white-space: initial;
+            clip-path: initial;
+            clip: initial;
+            overflow: initial;
+        }
     }
 }

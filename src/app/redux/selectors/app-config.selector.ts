@@ -10,12 +10,7 @@ export const selectSidebarInit = createSelector(
     (state: AppConfigState) => state[AppConfigFields.SIDEBAR_MENU]
 );
 
-export const selectUserMenuInit = createSelector(
+export const selectHeaderMenuInit = createSelector(
     selectAppConfig,
-    (state: AppConfigState) => state[AppConfigFields.USER_MENU]
-);
-
-export const selectUserMenuShow = createSelector(
-    selectAppConfig,
-    (state: AppConfigState) => state[AppConfigFields.USER_MENU_OPEN]
+    (state: AppConfigState) => state[AppConfigFields.HEADER_MENU]
 );

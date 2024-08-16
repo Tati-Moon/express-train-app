@@ -2,7 +2,33 @@
     margin-left: auto;
 }
 
+.layout-topbar-logo {
+    width: 215px;
+}
+
+.active-route {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
 @media (max-width: 991px) {
+    .layout-topbar-logo span,
+    .layout-topbar-header-menu {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        border: 0;
+        padding: 0;
+        white-space: nowrap;
+        clip-path: inset(100%);
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+    }
+    .layout-topbar-logo img {
+        margin: 0;
+    }
+
     .layout-topbar-custom-menu {
         order: 3;
         margin: 0;

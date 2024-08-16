@@ -5,23 +5,28 @@
         (click)="handleOpenMenu()"
         (clickOutside)="handleCloseMenu()"
     >
-        <i class="{{ icon }}"></i>
+        <i class="{{ icon }} " [ngClass]="{ 'header-menu__icon': text }"></i>
+        <p class="header-menu__text">
+            {{ text }}
+        </p>
     </button>
 
     @if (show) {
-        <div class="header-menu__content">
+        <ul class="header-menu__content">
             @for (item of modelMenu; track $index) {
                 @if (item.label) {
-                    <button
+                    <a
                         class="p-link header-menu__btn"
                         [routerLink]="item.routerLink"
+                        routerLinkActive="active-route"
+                        [routerLinkActiveOptions]="{ exact: true }"
                         (click)="handleSelectItem(item)"
                     >
                         <i class="{{ item.icon }}"></i>
                         <span>{{ item.label | translate }}</span>
-                    </button>
+                    </a>
                 }
             }
-        </div>
+        </ul>
     }
 </div>
