@@ -10,9 +10,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
-import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
-import { ConfigComponent } from '../../components/config/config.component';
-import { Schemes } from '../../models/enums/constants';
+import { Schemes } from '../../core/models/enums/constants';
+import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 
 @Component({
     selector: 'app-login',
@@ -26,7 +25,6 @@ import { Schemes } from '../../models/enums/constants';
         FormsModule,
         PasswordModule,
         RippleModule,
-        ConfigComponent,
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',

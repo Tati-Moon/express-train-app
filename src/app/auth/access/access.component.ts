@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 
-import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
-import { Schemes } from '../../models/enums/constants';
+import { Schemes } from '../../core/models/enums/constants';
+import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 
 @Component({
     selector: 'app-access',

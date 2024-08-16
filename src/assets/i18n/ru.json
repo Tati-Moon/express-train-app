@@ -2,11 +2,22 @@
   "GENERAL": {
     "SIDEBAR": {
       "HOME": "Домашняя",
+      "TRIP": "Поездка",
       "USER_PROFILE": "Профиль",
+      "ORDERS": "Заказы",
       "ABOUT": "О компании",
       "LOGIN": "Страница входа",
+      "SIGNUP": "Страница регистрации",
       "ACCESS": "Страница запрета",
-      "ERROR": "Страница ошибки"
+      "ERROR": "Страница ошибки",
+      "ADMIN": {
+        "TITLE": "Admin",
+        "OVERVIEW": "Обзор",
+        "STATIONS": "Станции",
+        "CARRIAGES": "Вагоны",
+        "ROUTES": "Маршруты",
+        "ROUTE_WITH_ID": "Маршрут"
+      }
     },
     "TOPBAR": {
       "SETTINGS": "Настройки",

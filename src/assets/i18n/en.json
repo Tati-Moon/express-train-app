@@ -2,11 +2,22 @@
   "GENERAL": {
     "SIDEBAR": {
       "HOME": "HOME",
+      "TRIP": "Trip",
       "USER_PROFILE": "User profile",
+      "ORDERS": "Orders",
       "ABOUT": "About page",
       "LOGIN": "Login page",
+      "SIGNUP": "Sign up page",
       "ACCESS": "Access page",
-      "ERROR": "Error page"
+      "ERROR": "Error page",
+      "ADMIN": {
+        "TITLE": "Admin",
+        "OVERVIEW": "Overview",
+        "STATIONS": "Stations",
+        "CARRIAGES": "Carriages",
+        "ROUTES": "Routes",
+        "ROUTE_WITH_ID": "Route"
+      }
     },
     "TOPBAR": {
       "SETTINGS": "Settings",
