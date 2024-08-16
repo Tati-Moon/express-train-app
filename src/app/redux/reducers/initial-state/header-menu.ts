@@ -23,30 +23,25 @@ export const headerMenuUserInitialState: MenuItem[] = [
 ];
 
 export const headerMenuAdminInitialState: MenuItem[] = [
+    { label: 'GENERAL.SIDEBAR.ADMIN.OVERVIEW', icon: 'pi pi-fw pi-home', routerLink: [Routers.ADMIN] },
     {
-        label: 'GENERAL.SIDEBAR.ADMIN.TITLE',
-        items: [
-            { label: 'GENERAL.SIDEBAR.ADMIN.OVERVIEW', icon: 'pi pi-fw pi-home', routerLink: [Routers.ADMIN] },
-            {
-                label: 'GENERAL.SIDEBAR.ADMIN.STATIONS',
-                icon: 'pi pi-fw pi-user',
-                routerLink: [Routers.ADMIN, Routers.STATIONS],
-            },
-            {
-                label: 'GENERAL.SIDEBAR.ADMIN.CARRIAGES',
-                icon: 'pi pi-fw pi-user',
-                routerLink: [Routers.ADMIN, Routers.CARRIAGES],
-            },
-            {
-                label: 'GENERAL.SIDEBAR.ADMIN.ROUTES',
-                icon: 'pi pi-fw pi-user',
-                routerLink: [Routers.ADMIN, Routers.ROUTES],
-            },
-            {
-                label: 'GENERAL.SIDEBAR.ADMIN.ROUTE_WITH_ID',
-                icon: 'pi pi-fw pi-user',
-                routerLink: [Routers.ADMIN, Routers.ROUTE, RoutersParams.ID],
-            },
-        ],
+        label: 'GENERAL.SIDEBAR.ADMIN.STATIONS',
+        icon: 'pi pi-fw pi-user',
+        routerLink: [Routers.ADMIN, Routers.STATIONS],
+    },
+    {
+        label: 'GENERAL.SIDEBAR.ADMIN.CARRIAGES',
+        icon: 'pi pi-fw pi-user',
+        routerLink: [Routers.ADMIN, Routers.CARRIAGES],
+    },
+    {
+        label: 'GENERAL.SIDEBAR.ADMIN.ROUTES',
+        icon: 'pi pi-fw pi-user',
+        routerLink: [Routers.ADMIN, Routers.ROUTES],
+    },
+    {
+        label: 'GENERAL.SIDEBAR.ADMIN.ROUTE_WITH_ID',
+        icon: 'pi pi-fw pi-user',
+        routerLink: [Routers.ADMIN, Routers.ROUTE, RoutersParams.ID],
     },
 ];

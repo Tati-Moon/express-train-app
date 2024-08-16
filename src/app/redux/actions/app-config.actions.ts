@@ -1,4 +1,5 @@
-import { createActionGroup, emptyProps } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { MenuItem } from 'primeng/api';
 
 export const AppConfigActions = createActionGroup({
     source: 'APP CONFIG',
@@ -6,5 +7,7 @@ export const AppConfigActions = createActionGroup({
         'Init Default Application Config': emptyProps(),
         'Open User Profile Menu': emptyProps(),
         'Close User Profile Menu': emptyProps(),
+        'Init Default State Header Menu': emptyProps(),
+        'Set New State Header Menu': props<{ headerMenu: MenuItem[] }>(),
     },
 });

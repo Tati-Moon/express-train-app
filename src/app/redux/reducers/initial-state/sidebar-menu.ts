@@ -33,5 +33,8 @@ export const sidebarMenuInitialState: MenuItem[] = [
             },
         ],
     },
-    ...headerMenuAdminInitialState,
+    {
+        label: 'GENERAL.SIDEBAR.ADMIN.TITLE',
+        items: [...headerMenuAdminInitialState],
+    },
 ];

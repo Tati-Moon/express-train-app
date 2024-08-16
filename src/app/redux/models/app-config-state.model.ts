@@ -4,6 +4,5 @@ import { AppConfigFields } from './state-fields';
 
 export interface AppConfigState {
     [AppConfigFields.SIDEBAR_MENU]: MenuItem[];
-    [AppConfigFields.USER_MENU]: MenuItem[];
-    [AppConfigFields.USER_MENU_OPEN]: boolean;
+    [AppConfigFields.HEADER_MENU]: MenuItem[];
 }

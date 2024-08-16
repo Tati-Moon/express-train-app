@@ -5,11 +5,17 @@ import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 
-import { AppConfigActions } from '../../../redux/actions/app-config.actions';
+import { AppAdminActions } from '../../../redux/actions/app-admin.actions';
 import { AppLanguageActions } from '../../../redux/actions/app-language.actions';
-import { selectUserMenuInit, selectUserMenuShow } from '../../../redux/selectors/app-config.selector';
+import {
+    selectAdminMenuAvailable,
+    selectAdminMenuInit,
+    selectAdminMenuShow,
+} from '../../../redux/selectors/app-admin.selector';
+import { selectHeaderMenuInit } from '../../../redux/selectors/app-config.selector';
 import { selectLanguageMenuInit, selectLanguageMenuShow } from '../../../redux/selectors/app-language.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { Schemes } from '../../models/enums/constants';
@@ -19,18 +25,21 @@ import { HeaderMenuComponent } from './ui/header-menu/header-menu.component';
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [CommonModule, RouterModule, TranslateModule, MenuModule, HeaderMenuComponent],
+    imports: [CommonModule, RouterModule, TranslateModule, MenuModule, HeaderMenuComponent, ButtonModule],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
     private store = inject(Store);
 
-    public userMenu!: Signal<MenuItem[]>;
-    public userMenuShow!: Signal<boolean>;
+    public adminMenu!: Signal<MenuItem[]>;
+    public adminMenuShow!: Signal<boolean>;
+    public adminMenuAvailable!: Signal<boolean>;
 
     public languageMenu!: Signal<MenuItem[]>;
     public languageMenuShow!: Signal<boolean>;
+
+    public headerMenu!: Signal<MenuItem[]>;
 
     public colorScheme!: Signal<string>;
 
@@ -42,11 +51,14 @@ export class HeaderComponent {
         public layoutService: LayoutService,
         private readonly translateService: TranslateService
     ) {
-        const userMenu$ = this.store.select(selectUserMenuInit);
-        this.userMenu = toSignal(userMenu$, { initialValue: [] });
+        const adminMenu = this.store.select(selectAdminMenuInit);
+        this.adminMenu = toSignal(adminMenu, { initialValue: [] });
 
-        const userMenuShow$ = this.store.select(selectUserMenuShow);
-        this.userMenuShow = toSignal(userMenuShow$, { initialValue: false });
+        const adminMenuShow$ = this.store.select(selectAdminMenuShow);
+        this.adminMenuShow = toSignal(adminMenuShow$, { initialValue: false });
+
+        const adminMenuAvailable$ = this.store.select(selectAdminMenuAvailable);
+        this.adminMenuAvailable = toSignal(adminMenuAvailable$, { initialValue: false });
 
         const languageMenu$ = this.store.select(selectLanguageMenuInit);
         this.languageMenu = toSignal(languageMenu$, { initialValue: [] });
@@ -56,17 +68,20 @@ export class HeaderComponent {
 
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
+
+        const headerMenu$ = this.store.select(selectHeaderMenuInit);
+        this.headerMenu = toSignal(headerMenu$, { initialValue: [] });
     }
 
-    public handleOpenUserMenu(): void {
-        if (!this.userMenuShow()) {
-            this.store.dispatch(AppConfigActions.openUserProfileMenu());
+    public handleOpenAdminMenu(): void {
+        if (!this.adminMenuShow()) {
+            this.store.dispatch(AppAdminActions.openAdminMenu());
         }
     }
 
-    public handleCloseUserMenu(): void {
-        if (this.userMenuShow()) {
-            this.store.dispatch(AppConfigActions.closeUserProfileMenu());
+    public handleCloseAdminMenu(): void {
+        if (this.adminMenuShow()) {
+            this.store.dispatch(AppAdminActions.closeAdminMenu());
         }
     }
 

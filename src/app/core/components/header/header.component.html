@@ -1,5 +1,5 @@
 <div class="layout-topbar">
-    <a class="layout-topbar-logo" routerLink="">
+    <a class="layout-topbar-logo justify-content-center" routerLink="">
         <img src="assets/layout/images/{{ colorScheme() === 'light' ? 'logo-dark' : 'logo-white' }}.svg" alt="logo" />
         <span>Express Train App</span>
     </a>
@@ -8,6 +8,22 @@
         <i class="pi pi-bars"></i>
     </button>
 
+    <div class="layout-topbar-header-menu m-4 flex gap-6">
+        @for (item of headerMenu(); track $index) {
+            @if (item.label) {
+                <a
+                    text="true"
+                    pButton
+                    [routerLink]="item.routerLink"
+                    routerLinkActive="active-route"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                >
+                    <i class="{{ item.icon }} mr-2"></i>
+                    {{ item.label | translate }}</a
+                >
+            }
+        }
+    </div>
     <div class="layout-topbar-custom-menu flex gap-2">
         <app-header-menu
             icon="pi pi-language"
@@ -18,11 +34,14 @@
             (selectedItem)="handleSelectLanguage($event)"
         ></app-header-menu>
 
-        <app-header-menu
-            [modelMenu]="userMenu()"
-            [show]="userMenuShow()"
-            (openMenu)="handleOpenUserMenu()"
-            (closeMenu)="handleCloseUserMenu()"
-        ></app-header-menu>
+        @if (adminMenuAvailable()) {
+            <app-header-menu
+                text="Admin"
+                [modelMenu]="adminMenu()"
+                [show]="adminMenuShow()"
+                (openMenu)="handleOpenAdminMenu()"
+                (closeMenu)="handleCloseAdminMenu()"
+            ></app-header-menu>
+        }
     </div>
 </div>
