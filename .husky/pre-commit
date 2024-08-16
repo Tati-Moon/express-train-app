@@ -1,0 +1,9 @@
+echo '✈️ Starting the code check by eslint and prettier ✈️'
+
+npx lint-staged ||
+(
+    echo '🚧 You need to fix some errors. 🚧';
+    false;
+)
+
+echo '🏁 Error not found. 🏁'

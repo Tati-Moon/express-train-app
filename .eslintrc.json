@@ -1,0 +1,105 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "plugins": ["unused-imports", "simple-import-sort", "@ngrx", "prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "extends": [
+        "airbnb-base",
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        // ESLint rules
+        "prettier/prettier": "error",
+        "import/prefer-default-export": "off",
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error",
+        "max-len": ["error", 120],
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "class-methods-use-this": "off",
+        "object-curly-spacing": ["error", "always"],
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+        // eslint-plugin-unused-imports rules
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+          "warn",
+          {
+            "vars": "all",
+            "varsIgnorePattern": "^_",
+            "args": "after-used",
+            "argsIgnorePattern": "^_"
+          }
+        ],
+        // TypeScript Eslint rules
+        "@typescript-eslint/comma-dangle": "off",
+        "@typescript-eslint/lines-between-class-members": "off",
+        "@typescript-eslint/quotes": ["error", "single"],
+        "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/no-explicit-any": 2,
+        // Angular ESLint rules
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@ngrx/avoid-combining-component-store-selectors": "error",
+        "@ngrx/avoid-mapping-component-store-selectors": "error",
+        "@ngrx/updater-explicit-return-type": "error",
+        "@ngrx/avoid-cyclic-effects": "error",
+        "@ngrx/no-dispatch-in-effects": "error",
+        "@ngrx/no-effects-in-providers": "error",
+        "@ngrx/no-multiple-actions-in-effects": "error",
+        "@ngrx/prefer-action-creator-in-of-type": "error",
+        // "@ngrx/prefer-effect-callback-in-block-statement": "error",
+        "@ngrx/use-effects-lifecycle-interface": "error",
+        "@ngrx/prefer-concat-latest-from": "error",
+        // "@ngrx/signal-state-no-arrays-at-root-level": "error",
+        // "@ngrx/signal-store-feature-should-use-generic-type": "error",
+        "@ngrx/with-state-no-arrays-at-root-level": "error",
+        "@ngrx/avoid-combining-selectors": "error",
+        "@ngrx/avoid-dispatching-multiple-actions-sequentially": "error",
+        "@ngrx/avoid-duplicate-actions-in-reducer": "error",
+        "@ngrx/avoid-mapping-selectors": "error",
+        "@ngrx/good-action-hygiene": "error",
+        "@ngrx/no-multiple-global-stores": "error",
+        "@ngrx/no-reducer-in-key-names": "error",
+        "@ngrx/no-store-subscription": "error",
+        "@ngrx/no-typed-global-store": "error",
+        "@ngrx/on-function-explicit-return-type": "error",
+        "@ngrx/prefer-action-creator-in-dispatch": "error",
+        "@ngrx/prefer-action-creator": "error",
+        "@ngrx/prefer-inline-action-props": "error",
+        "@ngrx/prefer-one-generic-in-create-for-feature-selector": "error",
+        "@ngrx/prefer-selector-in-select": "error",
+        "@ngrx/prefix-selectors-with-select": "error",
+        "@ngrx/select-style": "error",
+        "@ngrx/use-consistent-global-store-name": "error"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended", "plugin:prettier/recommended"]
+    }
+  ]
+}
