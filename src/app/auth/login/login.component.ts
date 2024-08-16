@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
@@ -25,6 +26,7 @@ import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
         FormsModule,
         PasswordModule,
         RippleModule,
+        TranslateModule,
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',

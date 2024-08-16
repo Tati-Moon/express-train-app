@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
         private translateService: TranslateService
     ) {
         const defaultLanguage$ = this.store.select(selectDefaultLanguage);
-        this.defaultLanguage = toSignal(defaultLanguage$, { initialValue: Languages.RU });
+        this.defaultLanguage = toSignal(defaultLanguage$, { initialValue: Languages.EN });
     }
 
     ngOnInit() {
