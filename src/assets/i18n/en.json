@@ -1,4 +1,15 @@
 {
+  "LOGIN_PAGE": {
+    "WELCOME": "Welcome, to Express Train!",
+    "SIGN_IN_CONTINUE": "Sign in to continue",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "Email address",
+    "PASSWORD": "Password",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "REMEMBER_ME": "Remember me",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "SIGN_IN": "Sign In"
+  },
   "GENERAL": {
     "SIDEBAR": {
       "HOME": "Home",
