@@ -76,6 +76,13 @@ export const routes: Routes = [
         path: Routers.NOT_FOUND,
         loadComponent: () => import('./core/pages/error/error.component').then((c) => c.ErrorComponent),
     },
+    {
+        path: Routers.NO_DIRECT_TRAINS_FOUND,
+        loadComponent: () =>
+            import('./core/components/no-direct-trains-found/no-direct-trains-found.component').then(
+                (c) => c.NoDirectTrainsFoundComponent
+            ),
+    },
 
     { path: '**', redirectTo: Routers.NOT_FOUND },
 ];

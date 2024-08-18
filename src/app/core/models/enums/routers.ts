@@ -3,6 +3,7 @@ export enum Routers {
     EMPTY_ROOT = '',
     ACCESS = 'access',
     ERROR = 'error',
+    NO_DIRECT_TRAINS_FOUND = 'no-direct-trains-found',
     LOGOUT = 'logout',
     NOT_FOUND = '404',
     USER_PROFILE = 'profile',

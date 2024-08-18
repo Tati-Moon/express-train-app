@@ -31,6 +31,11 @@ export const sidebarMenuInitialState: MenuItem[] = [
                 icon: 'pi pi-fw pi-times-circle',
                 routerLink: [Routers.ROOT, Routers.ERROR],
             },
+            {
+                label: 'GENERAL.SIDEBAR.NO_DIRECT_TRAINS_FOUND',
+                icon: 'pi pi-fw pi-times-circle',
+                routerLink: [Routers.ROOT, Routers.NO_DIRECT_TRAINS_FOUND],
+            },
         ],
     },
     {
