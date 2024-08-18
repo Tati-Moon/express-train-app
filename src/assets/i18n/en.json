@@ -43,6 +43,11 @@
     "WELCOME": "Welcome, to Express Train!",
     "SIGN_UP_CONTINUE": "Sign up to continue"
   },
+  "NO_DIRECT_TRAINS_FOUND": {
+    "TITLE": "No direct trains found",
+    "MESSAGE": "No seats on direct trains are available right now, but there is always hope. Try again later or travel with a transfer.",
+    "GO_TO_DASHBOARD": "Go to Dashboard"
+  },
   "GENERAL": {
     "SIDEBAR": {
       "HOME": "Home",
@@ -54,6 +59,7 @@
       "SIGNUP": "Sign up page",
       "ACCESS": "Access page",
       "ERROR": "Error page",
+      "NO_DIRECT_TRAINS_FOUND": "No direct trains found",
       "ADMIN": {
         "TITLE": "Admin",
         "OVERVIEW": "Overview",
