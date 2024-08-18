@@ -1,4 +1,33 @@
 {
+  "BUTTONS": {
+    "SIGN_IN": "Sign In",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "REMEMBER_ME": "Remember me",
+    "REGISTER": "Register"
+  },
+  "FIELD": {
+    "EMAIL": {
+      "NAME": "Email",
+      "PLACEHOLDER": "Email address"
+    },
+    "PASSWORD": {
+      "NAME": "Password",
+      "PLACEHOLDER": "Password"
+    },
+    "REPEAT_PASSWORD": {
+      "NAME": "Repeat password",
+      "PLACEHOLDER": "Repeat password"
+    }
+  },
+  "ERRORS": {
+    "REQUIRED": "This field is required.",
+    "INVALID_EMAIL": "Please enter a valid email address.",
+    "PASSWORD_UPPER_LOWER": "Password must contain both uppercase and lowercase letters.",
+    "PASSWORD_NUMERIC": "Password must contain at least one number.",
+    "PASSWORD_SPECIAL_CHAR": "Password must contain at least one special character (e.g., !@#?).",
+    "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long.",
+    "PASSWORD_MISMATCH": "Passwords do not match."
+  },
   "LOGIN_PAGE": {
     "WELCOME": "Welcome, to Express Train!",
     "SIGN_IN_CONTINUE": "Sign in to continue",
@@ -9,6 +38,10 @@
     "REMEMBER_ME": "Remember me",
     "FORGOT_PASSWORD": "Forgot password?",
     "SIGN_IN": "Sign In"
+  },
+  "REGISTER_PAGE": {
+    "WELCOME": "Welcome, to Express Train!",
+    "SIGN_UP_CONTINUE": "Sign up to continue"
   },
   "GENERAL": {
     "SIDEBAR": {

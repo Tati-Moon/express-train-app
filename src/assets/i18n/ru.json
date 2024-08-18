@@ -1,4 +1,33 @@
 {
+  "BUTTONS": {
+    "SIGN_IN": "Войти",
+    "FORGOT_PASSWORD": "Забыли пароль?",
+    "REMEMBER_ME": "Запомнить меня",
+    "REGISTER": "Зарегистрироваться"
+  },
+  "FIELD": {
+    "EMAIL": {
+      "NAME": "Эл. почта",
+      "PLACEHOLDER": "Адрес электронной почты"
+    },
+    "PASSWORD": {
+      "NAME": "Пароль",
+      "PLACEHOLDER": "Пароль"
+    },
+    "REPEAT_PASSWORD": {
+      "NAME": "Повторите пароль",
+      "PLACEHOLDER": "Повторите пароль"
+    }
+  },
+  "ERRORS": {
+    "REQUIRED": "Это поле обязательно для заполнения.",
+    "INVALID_EMAIL": "Пожалуйста, введите действительный адрес электронной почты.",
+    "PASSWORD_UPPER_LOWER": "Пароль должен содержать буквы в верхнем и нижнем регистре.",
+    "PASSWORD_NUMERIC": "Пароль должен содержать хотя бы одну цифру.",
+    "PASSWORD_SPECIAL_CHAR": "Пароль должен содержать хотя бы один специальный символ (например, !@#?).",
+    "PASSWORD_MIN_LENGTH": "Пароль должен быть не менее 8 символов.",
+    "PASSWORD_MISMATCH": "Пароли не совпадают."
+  },
   "LOGIN_PAGE": {
     "WELCOME": "Добро пожаловать в Express Train!",
     "SIGN_IN_CONTINUE": "Войдите, чтобы продолжить",
@@ -9,6 +38,10 @@
     "REMEMBER_ME": "Запомнить меня",
     "FORGOT_PASSWORD": "Забыли пароль?",
     "SIGN_IN": "Войти"
+  },
+  "REGISTER_PAGE": {
+    "WELCOME": "Добро пожаловать в Express Train!",
+    "SIGN_UP_CONTINUE": "Зарегистрируйтесь, чтобы продолжить"
   },
   "GENERAL": {
     "SIDEBAR": {
