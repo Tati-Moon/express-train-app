@@ -18,6 +18,7 @@ import { Schemes } from '../../core/models/enums/constants';
 import { Routers } from '../../core/models/enums/routers';
 import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 import { AuthFormFields } from '../models/auth-form.model';
+import { ErrorMessageService } from '../services/error-message.service';
 import { RegisterFormService } from '../services/register-form.service';
 
 @Component({
@@ -46,7 +47,10 @@ export class SignupComponent {
     messages: Message[] | undefined;
     public Routers = Routers;
     public colorScheme!: Signal<string>;
-    constructor(private registerFormService: RegisterFormService) {
+    constructor(
+        private registerFormService: RegisterFormService,
+        private errorMessageService: ErrorMessageService
+    ) {
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
     }
@@ -80,44 +84,10 @@ export class SignupComponent {
     }
 
     public handleLoginErrorMessages(errors: ValidationErrors | null): string[] {
-        if (!errors) return [];
-
-        const errorMessages: string[] = [];
-
-        if (errors['required']) {
-            errorMessages.push('ERRORS.REQUIRED');
-        }
-        if (errors['invalidEmail']) {
-            errorMessages.push('ERRORS.INVALID_EMAIL');
-        }
-
-        return errorMessages;
+        return this.errorMessageService.getLoginErrorMessages(errors);
     }
 
     public handlePasswordErrorMessages(errors: ValidationErrors | null): string[] {
-        if (!errors) return [];
-
-        const errorMessages: string[] = [];
-
-        if (errors['required']) {
-            errorMessages.push('ERRORS.REQUIRED');
-        }
-        if (errors['hasUpperLowerCase']) {
-            errorMessages.push('ERRORS.PASSWORD_UPPER_LOWER');
-        }
-        if (errors['hasNumeric']) {
-            errorMessages.push('ERRORS.PASSWORD_NUMERIC');
-        }
-        if (errors['hasSpecialChar']) {
-            errorMessages.push('ERRORS.PASSWORD_SPECIAL_CHAR');
-        }
-        if (errors['hasMinLength']) {
-            errorMessages.push('ERRORS.PASSWORD_MIN_LENGTH');
-        }
-        if (errors['matchPassword']) {
-            errorMessages.push('ERRORS.PASSWORD_MISMATCH');
-        }
-
-        return errorMessages;
+        return this.errorMessageService.getPasswordErrorMessages(errors);
     }
 }

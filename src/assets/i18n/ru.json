@@ -1,7 +1,6 @@
 {
   "BUTTONS": {
     "SIGN_IN": "Войти",
-    "FORGOT_PASSWORD": "Забыли пароль?",
     "REMEMBER_ME": "Запомнить меня",
     "REGISTER": "Зарегистрироваться"
   },
@@ -30,14 +29,7 @@
   },
   "LOGIN_PAGE": {
     "WELCOME": "Добро пожаловать в Express Train!",
-    "SIGN_IN_CONTINUE": "Войдите, чтобы продолжить",
-    "EMAIL": "Эл. почта",
-    "EMAIL_PLACEHOLDER": "Адрес электронной почты",
-    "PASSWORD": "Пароль",
-    "PASSWORD_PLACEHOLDER": "Пароль",
-    "REMEMBER_ME": "Запомнить меня",
-    "FORGOT_PASSWORD": "Забыли пароль?",
-    "SIGN_IN": "Войти"
+    "SIGN_IN_CONTINUE": "Войдите, чтобы продолжить"
   },
   "REGISTER_PAGE": {
     "WELCOME": "Добро пожаловать в Express Train!",

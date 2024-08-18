@@ -1,7 +1,6 @@
 {
   "BUTTONS": {
     "SIGN_IN": "Sign In",
-    "FORGOT_PASSWORD": "Forgot password?",
     "REMEMBER_ME": "Remember me",
     "REGISTER": "Register"
   },

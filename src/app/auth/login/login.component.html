@@ -14,52 +14,85 @@
         >
             <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px">
                 <div class="text-center mb-5">
-                    <img src="assets/images/login/user_login.png" alt="Image" height="50" class="mb-3" />
+                    <img src="assets/images/login/user_login.png" alt="user" height="50" class="mb-3" />
                     <div class="text-900 text-3xl font-medium mb-3">{{ 'LOGIN_PAGE.WELCOME' | translate }}</div>
                     <span class="text-600 font-medium">{{ 'LOGIN_PAGE.SIGN_IN_CONTINUE' | translate }}</span>
                 </div>
 
                 <div>
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">{{
-                        'LOGIN_PAGE.EMAIL' | translate
-                    }}</label>
-                    <input
-                        id="email1"
-                        type="text"
-                        placeholder="{{ 'LOGIN_PAGE.EMAIL_PLACEHOLDER' | translate }}"
-                        pInputText
-                        class="w-full md:w-30rem mb-5"
-                        style="padding: 1rem"
-                    />
-
-                    <label for="password1" class="block text-900 font-medium text-xl mb-2">{{
-                        'LOGIN_PAGE.PASSWORD' | translate
-                    }}</label>
-                    <p-password
-                        id="password1"
-                        [(ngModel)]="password"
-                        placeholder="{{ 'LOGIN_PAGE.PASSWORD_PLACEHOLDER' | translate }}"
-                        [toggleMask]="true"
-                        styleClass="mb-5 w-full"
-                        inputStyleClass="w-full p-3 md:w-30rem"
-                    ></p-password>
-
-                    <div class="flex align-items-center justify-content-between mb-5 gap-5">
-                        <div class="flex align-items-center">
-                            <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
-                            <label for="rememberme1">{{ 'LOGIN_PAGE.REMEMBER_ME' | translate }}</label>
+                    <form class="login__form mb-4 flex flex-column" [formGroup]="form" (ngSubmit)="handleSubmit()">
+                        <div class="mb-5">
+                            <label for="email1" class="block text-900 text-xl font-medium mb-2">{{
+                                'FIELD.EMAIL.NAME' | translate
+                            }}</label>
+                            <input
+                                id="email1"
+                                [formControlName]="fields.LOGIN"
+                                type="text"
+                                placeholder="{{ 'FIELD.EMAIL.PLACEHOLDER' | translate }}"
+                                pInputText
+                                class="w-full md:w-30rem"
+                                style="padding: 1rem"
+                            />
+                            @if (form.get(fields.LOGIN); as login) {
+                                @if (!login.pristine) {
+                                    @for (error of handleLoginErrorMessages(login.errors); track $index) {
+                                        <small class="p-error block mt-2"> {{ error | translate }} </small>
+                                    }
+                                }
+                            }
                         </div>
-                        <a
-                            class="font-medium no-underline ml-2 text-right cursor-pointer"
-                            style="color: var(--primary-color)"
-                            >{{ 'LOGIN_PAGE.FORGOT_PASSWORD' | translate }}</a
-                        >
-                    </div>
-                    <p-button
-                        label="{{ 'LOGIN_PAGE.SIGN_IN' | translate }}"
-                        styleClass="w-full p-3 text-xl"
-                        [routerLink]="['/']"
-                    ></p-button>
+                        <div class="mb-5">
+                            <label for="password1" class="block text-900 font-medium text-xl mb-2">{{
+                                'FIELD.PASSWORD.NAME' | translate
+                            }}</label>
+                            <p-password
+                                id="password1"
+                                [formControlName]="fields.PASSWORD"
+                                placeholder="{{ 'FIELD.PASSWORD.PLACEHOLDER' | translate }}"
+                                [toggleMask]="true"
+                                styleClass="w-full"
+                                inputStyleClass="w-full p-3 md:w-30rem"
+                                [feedback]="false"
+                            ></p-password>
+                            @if (form.get(fields.PASSWORD); as password) {
+                                @if (!password.pristine) {
+                                    @for (error of handlePasswordErrorMessages(password.errors); track $index) {
+                                        <small class="p-error block mt-2"> {{ error | translate }} </small>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="flex align-items-center justify-content-between mb-5 gap-5">
+                            <div class="flex align-items-center">
+                                <p-checkbox
+                                    id="rememberme1"
+                                    [formControlName]="fields.REMEMBER_ME"
+                                    [binary]="true"
+                                    styleClass="mr-2"
+                                ></p-checkbox>
+                                <label for="rememberme1">{{ 'BUTTONS.REMEMBER_ME' | translate }}</label>
+                            </div>
+                        </div>
+
+                        <div class="flex align-items-center justify-content-between" style="gap: 1rem">
+                            <p-button
+                                label="{{ 'BUTTONS.SIGN_IN' | translate }}"
+                                styleClass="w-full p-3 text-xl"
+                                class="btn-primary"
+                                (onClick)="handleSubmit()"
+                            >
+                            </p-button>
+                            <p-button
+                                label="{{ 'BUTTONS.REGISTER' | translate }}"
+                                [text]="true"
+                                styleClass="w-full p-3 text-xl"
+                                class="btn-secondary"
+                                [routerLink]="['/signup']"
+                            >
+                            </p-button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
