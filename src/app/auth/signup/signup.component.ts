@@ -30,7 +30,6 @@ import { RegisterFormService } from '../services/register-form.service';
         ButtonModule,
         CheckboxModule,
         InputTextModule,
-        FormsModule,
         PasswordModule,
         RippleModule,
         ConfigComponent,

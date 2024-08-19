@@ -2,7 +2,9 @@
   "BUTTONS": {
     "SIGN_IN": "Sign In",
     "REMEMBER_ME": "Remember me",
-    "REGISTER": "Register"
+    "REGISTER": "Register",
+    "SAVE": "Save",
+    "LOGOUT": "Logout"
   },
   "FIELD": {
     "EMAIL": {
@@ -16,44 +18,32 @@
     "REPEAT_PASSWORD": {
       "NAME": "Repeat password",
       "PLACEHOLDER": "Repeat password"
+    },
+    "NEW_PASSWORD": {
+      "NAME": "New password",
+      "PLACEHOLDER": "Enter new password"
+    },
+    "NAME": {
+      "NAME": "Name",
+      "PLACEHOLDER": "Enter your name"
     }
   },
   "ERRORS": {
     "REQUIRED": "This field is required.",
     "INVALID_EMAIL": "Please enter a valid email address.",
-    "PASSWORD_UPPER_LOWER": "Password must contain both uppercase and lowercase letters.",
+    "PASSWORD_UPPER": "Password must contain uppercase letters (A-Z).",
+    "PASSWORD_LOWER": "Password must contain lowercase letters (a-z).",
     "PASSWORD_NUMERIC": "Password must contain at least one number.",
-    "PASSWORD_SPECIAL_CHAR": "Password must contain at least one special character (e.g., !@#?).",
+    "PASSWORD_SPECIAL_CHAR": "Password must contain at least one special character (e.g., !@#?_).",
     "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long.",
-    "PASSWORD_MISMATCH": "Passwords do not match."
+    "PASSWORD_MAX_LENGTH": "The password must not exceed 30 characters.",
+    "PASSWORD_MISMATCH": "Passwords do not match.",
+    "NAME_MIN_LENGTH": "Name must be at least 2 characters long.",
+    "NAME_MAX_LENGTH": "The name must not exceed 30 characters."
   },
   "PROFILE_PAGE": {
     "TITLE": "Profile",
-    "NAME": "Name",
-    "EMAIL": "Email",
-    "SAVE": "Save",
-    "NAME_PLACEHOLDER": "Enter your name",
-    "EMAIL_PLACEHOLDER": "Enter your email",
-    "NAME_REQUIRED": "Please enter a name.",
-    "NAME_MINLENGTH": "The name must be at least 3 characters long.",
-    "NAME_MAXLENGTH": "The name must not exceed 30 characters.",
-    "NAME_COMMON_ERROR_MESSAGE": "Please check input name.",
-    "EMAIL_REQUIRED": "Please enter an email.",
-    "EMAIL_INVALID": "The email is invalid.",
-    "EMAIL_COMMON_ERROR_MESSAGE": "Please check input email.",
-    "CHANGE_PASSWORD": "Change Password",
-    "LOGOUT": "Logout",
-    "NEWPASSWORD": "New Password",
-    "PASSWORD_REQUIRED": "Please enter a password.",
-    "PASSWORD_STRONG": "Your password isn't strong enough.",
-    "PASSWORD_MINLENGTH": "The password must be at least 8 characters long.",
-    "PASSWORD_MAXLENGTH": "The password must not exceed 30 characters.",
-    "PASSWORD_LOWER": "Lower-case letters (a-z)",
-    "PASSWORD_UPPER": "Upper-case letters (A-Z)",
-    "PASSWORD_NUMBER": "Numbers (0-9)",
-    "PASSWORD_SPECIAL": "Special characters !@#?+_",
-    "NEW_PASSWORD_PLACEHOLDER": "Enter new password",
-    "PASSWORD_COMMON_ERROR_MESSAGE": "Please check input password."
+    "CHANGE_PASSWORD": "Change Password"
   },
   "LOGIN_PAGE": {
     "WELCOME": "Welcome, to Express Train!",

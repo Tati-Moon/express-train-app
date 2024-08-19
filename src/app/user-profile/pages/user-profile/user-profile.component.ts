@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,15 +11,17 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
+import { AuthFormFields } from '../../../auth/models/auth-form.model';
+import { ErrorMessageService } from '../../../auth/services/error-message.service';
+import { UserProfileService } from '../../../auth/services/user-profile-form.service';
 import { Schemes } from '../../../core/models/enums/constants';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
-import { PasswordStrengthValidator } from './password-strength.validator';
-import { UserProfileService } from './user-profile.service';
 
 @Component({
     selector: 'app-user-profile',
     standalone: true,
     imports: [
+        FormsModule,
         ReactiveFormsModule,
         CommonModule,
         InputTextModule,
@@ -34,8 +36,6 @@ import { UserProfileService } from './user-profile.service';
 })
 export class UserProfileComponent implements OnInit {
     private store = inject(Store);
-    public userForm: FormGroup;
-    public passwordForm: FormGroup;
     public isEditingName = false;
     public isEditingEmail = false;
     public isPasswordModalOpen = false;
@@ -43,24 +43,37 @@ export class UserProfileComponent implements OnInit {
 
     constructor(
         private userProfileService: UserProfileService,
+        private errorMessageService: ErrorMessageService,
         private router: Router
     ) {
-        this.userForm = new FormGroup({
-            name: new FormControl({ value: '', disabled: true }, [
-                Validators.required,
-                Validators.minLength(3),
-                Validators.maxLength(30),
-            ]),
-            email: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.email]),
-            role: new FormControl({ value: '', disabled: true }),
-        });
-
-        this.passwordForm = new FormGroup({
-            newPassword: new FormControl('', [Validators.required, PasswordStrengthValidator.strong]),
-        });
-
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
+    }
+
+    public get form() {
+        return this.userProfileService.userProfileForm;
+    }
+    public get passwordForm() {
+        return this.userProfileService.userPasswordForm;
+    }
+    name = this.form.get([this.fields.NAME])?.value;
+    login = this.form.get([this.fields.LOGIN])?.value;
+    password = this.passwordForm.get([this.fields.PASSWORD])?.value;
+
+    public get fields() {
+        return AuthFormFields;
+    }
+
+    public handleNameErrorMessages(errors: ValidationErrors | null): string[] {
+        return this.errorMessageService.getNameErrorMessages(errors);
+    }
+
+    public handleLoginErrorMessages(errors: ValidationErrors | null): string[] {
+        return this.errorMessageService.getLoginErrorMessages(errors);
+    }
+
+    public handlePasswordErrorMessages(errors: ValidationErrors | null): string[] {
+        return this.errorMessageService.getPasswordErrorMessages(errors);
     }
 
     ngOnInit(): void {
@@ -68,52 +81,34 @@ export class UserProfileComponent implements OnInit {
     }
 
     getUserProfile(): void {
-        this.userProfileService.getProfile().subscribe((userProfile) => {
-            this.userForm.patchValue(userProfile);
-        });
+        this.userProfileService.getProfile();
     }
 
     toggleEditName(): void {
         this.isEditingName = !this.isEditingName;
-        this.toggleFormControl('name', this.isEditingName);
     }
 
     toggleEditEmail(): void {
         this.isEditingEmail = !this.isEditingEmail;
-        this.toggleFormControl('email', this.isEditingEmail);
-    }
-
-    toggleFormControl(controlName: string, isEditing: boolean): void {
-        const control = this.userForm.get(controlName);
-        if (isEditing) {
-            control?.enable();
-        } else {
-            control?.disable();
-        }
     }
 
     saveUserEmail(): void {
-        if (this.userForm.valid) {
-            this.userProfileService.updateUserEmail(this.userForm.value).subscribe(() => {
-                this.toggleEditEmail();
-                this.userForm.get('email')?.markAsPristine();
-                this.userForm.get('email')?.markAsUntouched();
-            });
+        if (this.form.get(this.fields.LOGIN)) {
+            this.userProfileService.updateUserEmail(this.form.get(this.fields.LOGIN)?.value);
+            this.toggleEditEmail();
         }
     }
 
     saveUserName(): void {
-        if (this.userForm.valid) {
-            this.userProfileService.updateUserName(this.userForm.value).subscribe(() => {
-                this.toggleEditName();
-                this.userForm.get('name')?.markAsPristine();
-                this.userForm.get('name')?.markAsUntouched();
-            });
+        if (this.form.get(this.fields.NAME)) {
+            this.userProfileService.updateUserName(this.form.get(this.fields.NAME)?.value);
+            this.toggleEditName();
         }
     }
 
     openPasswordModal(): void {
         this.isPasswordModalOpen = true;
+
         this.passwordForm.reset();
     }
 
@@ -122,9 +117,8 @@ export class UserProfileComponent implements OnInit {
     }
 
     changePassword(): void {
-        if (this.passwordForm.valid) {
-            const newPassword = this.passwordForm.get('newPassword')?.value;
-            this.userProfileService.updatePassword(newPassword);
+        if (this.passwordForm.get(this.fields.PASSWORD)) {
+            this.userProfileService.updatePassword(this.form.get(this.fields.PASSWORD)?.value);
             this.closePasswordModal();
             this.passwordForm.reset();
         }

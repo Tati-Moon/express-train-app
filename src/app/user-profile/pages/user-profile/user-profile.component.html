@@ -14,10 +14,10 @@
                 </div>
 
                 <!-- Profile Form -->
-                <div [formGroup]="userForm">
+                <div [formGroup]="form">
                     <div class="flex justify-content-end align-items-center mb-5">
-                        @if (userForm.controls['role'].value !== 'User') {
-                            <span class="text-900 text-2xl font-medium">{{ userForm.controls['role'].value }}</span>
+                        @if (form.get(fields.ROLE)?.value !== 'User') {
+                            <span class="text-900 text-2xl font-medium">{{ form.get(fields.ROLE)?.value }}</span>
                         }
                     </div>
                     <div class="flex justify-content-end align-items-center mb-5">
@@ -28,32 +28,31 @@
                     </div>
                     <div class="form-group">
                         <label for="name" class="block text-900 text-xl font-medium mb-2">{{
-                            'PROFILE_PAGE.NAME' | translate
+                            'FIELD.NAME.NAME' | translate
                         }}</label>
                         @if (isEditingName) {
                             <div class="flex justify-content-between align-items-center mb-2">
                                 <input
-                                    id="name"
+                                    id="name1"
+                                    [formControlName]="fields.NAME"
                                     type="text"
-                                    formControlName="name"
                                     pInputText
                                     class="flex-grow-1 mr-2"
                                     [ngClass]="{
-                                        'p-invalid':
-                                            !userForm.controls['name'].valid && userForm.controls['name'].touched,
+                                        'p-invalid': !form.get(fields.NAME)?.valid && form.get(fields.NAME)?.touched,
                                     }"
-                                    placeholder="{{ 'PROFILE_PAGE.NAME_PLACEHOLDER' | translate }}"
+                                    placeholder="{{ 'FIELD.NAME.PLACEHOLDER' | translate }}"
                                 />
                                 <p-button
                                     icon="pi pi-save"
                                     (click)="saveUserName()"
-                                    [disabled]="!userForm.controls['name'].valid"
+                                    [disabled]="!form.get(fields.NAME)?.valid"
                                     styleClass="ml-2"
                                 ></p-button>
                             </div>
                         } @else {
                             <div class="flex justify-content-between align-items-center mb-2">
-                                <span>{{ userForm.controls['name'].value }}</span>
+                                <span>{{ form.get(fields.NAME)?.value }}</span>
                                 <p-button
                                     (click)="toggleEditName()"
                                     icon="pi pi-pencil"
@@ -63,55 +62,42 @@
                             </div>
                         }
 
-                        @if (!userForm.controls['name'].valid && userForm.controls['name'].touched) {
-                            @if (userForm.controls['name'].hasError('required')) {
-                                <small class="p-error block mt-2">
-                                    {{ 'PROFILE_PAGE.NAME_REQUIRED' | translate }}
-                                </small>
-                            } @else if (userForm.controls['name'].hasError('minlength')) {
-                                <small class="p-error block mt-2">
-                                    {{ 'PROFILE_PAGE.NAME_MINLENGTH' | translate }}
-                                </small>
-                            } @else if (userForm.controls['name'].hasError('maxlength')) {
-                                <small class="p-error block mt-2">
-                                    {{ 'PROFILE_PAGE.NAME_MAXLENGTH' | translate }}
-                                </small>
-                            } @else {
-                                <small class="p-error block mt-2">
-                                    {{ 'PROFILE_PAGE.NAME_COMMON_ERROR_MESSAGE' | translate }}
-                                </small>
+                        @if (form.get(fields.NAME); as login) {
+                            @if (!login.pristine) {
+                                @for (error of handleNameErrorMessages(login.errors); track $index) {
+                                    <small class="p-error block mt-2"> {{ error | translate }} </small>
+                                }
                             }
                         }
                     </div>
 
                     <div class="form-group mb-5">
                         <label for="email" class="block text-900 text-xl font-medium mb-2">{{
-                            'PROFILE_PAGE.EMAIL' | translate
+                            'FIELD.EMAIL.NAME' | translate
                         }}</label>
                         @if (isEditingEmail) {
                             <div class="flex justify-content-between align-items-center mb-2">
                                 <input
-                                    id="email"
+                                    id="email1"
+                                    [formControlName]="fields.LOGIN"
                                     type="email"
-                                    formControlName="email"
                                     pInputText
                                     class="flex-grow-1 mr-2"
                                     [ngClass]="{
-                                        'p-invalid':
-                                            !userForm.controls['email'].valid && userForm.controls['email'].touched,
+                                        'p-invalid': !form.get(fields.LOGIN)?.value && form.get(fields.LOGIN)?.touched,
                                     }"
-                                    placeholder="{{ 'PROFILE_PAGE.EMAIL_PLACEHOLDER' | translate }}"
+                                    placeholder="{{ 'FIELD.EMAIL.PLACEHOLDER' | translate }}"
                                 />
                                 <p-button
                                     icon="pi pi-save"
                                     (click)="saveUserEmail()"
-                                    [disabled]="!userForm.controls['email'].valid"
+                                    [disabled]="!form.get(fields.LOGIN)?.valid"
                                     styleClass="ml-2"
                                 ></p-button>
                             </div>
                         } @else {
                             <div class="flex justify-content-between align-items-center mb-2">
-                                <span>{{ userForm.controls['email'].value }}</span>
+                                <span>{{ form.get(fields.LOGIN)?.value }}</span>
                                 <p-button
                                     (click)="toggleEditEmail()"
                                     icon="pi pi-pencil"
@@ -121,19 +107,11 @@
                             </div>
                         }
 
-                        @if (!userForm.controls['email'].valid && userForm.controls['email'].touched) {
-                            @if (userForm.controls['email'].hasError('required')) {
-                                <small class="p-error block mt-2">
-                                    {{ 'PROFILE_PAGE.EMAIL_REQUIRED' | translate }}
-                                </small>
-                            } @else if (userForm.controls['email'].hasError('email')) {
-                                <small class="p-error block mt-2">
-                                    {{ 'PROFILE_PAGE.EMAIL_INVALID' | translate }}
-                                </small>
-                            } @else {
-                                <small class="p-error block mt-2">
-                                    {{ 'PROFILE_PAGE.EMAIL_COMMON_ERROR_MESSAGE' | translate }}
-                                </small>
+                        @if (form.get(fields.LOGIN); as login) {
+                            @if (!login.pristine) {
+                                @for (error of handleLoginErrorMessages(login.errors); track $index) {
+                                    <small class="p-error block mt-2"> {{ error | translate }} </small>
+                                }
                             }
                         }
                     </div>
@@ -141,7 +119,7 @@
                     <div class="flex gap-2">
                         <p-button
                             icon="pi pi-sign-out"
-                            label="{{ 'PROFILE_PAGE.LOGOUT' | translate }}"
+                            label="{{ 'BUTTONS.LOGOUT' | translate }}"
                             (click)="logout()"
                             severity="warning"
                         ></p-button>
@@ -157,53 +135,38 @@
                 >
                     <div [formGroup]="passwordForm">
                         <div class="mb-3">
-                            <label for="name" class="block text-900 text-xl font-medium mb-2">{{
-                                'PROFILE_PAGE.NEWPASSWORD' | translate
+                            <label for="password" class="block text-900 text-xl font-medium mb-2">{{
+                                'FIELD.NEW_PASSWORD.NAME' | translate
                             }}</label>
                             <input
+                                id="password1"
+                                [formControlName]="fields.PASSWORD"
                                 type="password"
-                                formControlName="newPassword"
                                 pInputText
                                 class="w-full mb-2"
                                 [ngClass]="{
                                     'p-invalid':
-                                        !passwordForm.controls['newPassword'].valid &&
-                                        passwordForm.controls['newPassword'].touched,
+                                        !passwordForm.get(fields.PASSWORD)?.value &&
+                                        passwordForm.get(fields.PASSWORD)?.touched,
                                 }"
-                                placeholder="{{ 'PROFILE_PAGE.NEW_PASSWORD_PLACEHOLDER' | translate }}"
+                                placeholder="{{ 'FIELD.NEW_PASSWORD.PLACEHOLDER' | translate }}"
                             />
-                            @if (
-                                !passwordForm.controls['newPassword'].valid &&
-                                passwordForm.controls['newPassword'].touched
-                            ) {
-                                @if (passwordForm.controls['newPassword'].hasError('required')) {
+                            @if (passwordForm.get(fields.PASSWORD); as password) {
+                                @if (!password.pristine) {
                                     <small class="p-error block mt-2">
-                                        {{ 'PROFILE_PAGE.PASSWORD_REQUIRED' | translate }}
-                                    </small>
-                                } @else if (passwordForm.controls['newPassword'].hasError('strong')) {
-                                    <small class="p-error block mt-2">
-                                        {{ 'PROFILE_PAGE.PASSWORD_STRONG' | translate }}
-                                    </small>
-                                } @else {
-                                    <small class="p-error block mt-2">
-                                        {{ 'PROFILE_PAGE.PASSWORD_COMMON_ERROR_MESSAGE' | translate }}
+                                        <ul>
+                                            @for (error of handlePasswordErrorMessages(password.errors); track $index) {
+                                                <li>{{ error | translate }}</li>
+                                            }
+                                        </ul>
                                     </small>
                                 }
-                                <small class="p-error block mt-2">
-                                    <ul>
-                                        <li>{{ 'PROFILE_PAGE.PASSWORD_MINLENGTH' | translate }}</li>
-                                        <li>{{ 'PROFILE_PAGE.PASSWORD_LOWER' | translate }}</li>
-                                        <li>{{ 'PROFILE_PAGE.PASSWORD_UPPER' | translate }}</li>
-                                        <li>{{ 'PROFILE_PAGE.PASSWORD_NUMBER' | translate }}</li>
-                                        <li>{{ 'PROFILE_PAGE.PASSWORD_SPECIAL' | translate }}</li>
-                                    </ul>
-                                </small>
                             }
                         </div>
                         <p-button
-                            label="{{ 'PROFILE_PAGE.SAVE' | translate }}"
+                            label="{{ 'BUTTONS.SAVE' | translate }}"
                             (click)="changePassword()"
-                            [disabled]="!passwordForm.valid"
+                            [disabled]="!passwordForm.get(fields.PASSWORD)?.valid"
                             styleClass="w-full"
                         ></p-button>
                     </div>

@@ -22,6 +22,29 @@ export class ValidationService {
         };
     }
 
+    public nameValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const { value } = control;
+            const errors: ValidationErrors = {};
+
+            if (!value) {
+                return null;
+            }
+
+            const hasMinLength = value.length >= 3;
+            const hasMaxLength = value.length < 31;
+
+            if (!hasMinLength) {
+                errors['hasMinLength'] = true;
+            }
+            if (!hasMaxLength) {
+                errors['hasMaxLength'] = true;
+            }
+
+            return Object.keys(errors).length > 0 ? errors : null;
+        };
+    }
+
     public strongPasswordValidator(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             const { value } = control;
@@ -34,13 +57,16 @@ export class ValidationService {
             const hasUpperCase = /[A-Z]/.test(value);
             const hasLowerCase = /[a-z]/.test(value);
             const hasNumeric = /[0-9]/.test(value);
-            const hasSpecialChar = /[!@#?]/.test(value);
+            const hasSpecialChar = /[!@#?_]/.test(value);
             const hasMinLength = value.length >= 8;
+            const hasMaxLength = value.length < 31;
 
-            if (!hasUpperCase || !hasLowerCase) {
-                errors['hasUpperLowerCase'] = true;
+            if (!hasUpperCase) {
+                errors['hasUpperCase'] = true;
             }
-
+            if (!hasLowerCase) {
+                errors['hasLowerCase'] = true;
+            }
             if (!hasNumeric) {
                 errors['hasNumeric'] = true;
             }
@@ -49,6 +75,9 @@ export class ValidationService {
             }
             if (!hasMinLength) {
                 errors['hasMinLength'] = true;
+            }
+            if (!hasMaxLength) {
+                errors['hasMaxLength'] = true;
             }
 
             return Object.keys(errors).length > 0 ? errors : null;
