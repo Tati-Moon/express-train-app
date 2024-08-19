@@ -1,9 +1,9 @@
 import { MenuItem } from 'primeng/api';
 
-import { AppConfigFields } from './state-fields';
+import { AppAdminFields } from './state-fields';
 
 export interface AppAdminState {
-    [AppConfigFields.ADMIN_MENU]: MenuItem[];
-    [AppConfigFields.ADMIN_MENU_OPEN]: boolean;
-    [AppConfigFields.ADMIN_MENU_AVAILABLE]: boolean;
+    [AppAdminFields.ADMIN_MENU]: MenuItem[];
+    [AppAdminFields.ADMIN_MENU_OPEN]: boolean;
+    [AppAdminFields.ADMIN_MENU_AVAILABLE]: boolean;
 }

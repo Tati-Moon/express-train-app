@@ -14,3 +14,8 @@ export const selectHeaderMenuInit = createSelector(
     selectAppConfig,
     (state: AppConfigState) => state[AppConfigFields.HEADER_MENU]
 );
+
+export const selectLoaderState = createSelector(
+    selectAppConfig,
+    (state: AppConfigState) => state[AppConfigFields.SHOW_LOADER]
+);

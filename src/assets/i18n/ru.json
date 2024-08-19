@@ -1,4 +1,15 @@
 {
+  "ADMIN": {
+    "CREATE_BTN": "Создать",
+    "NAME": "Название",
+    "LEFT_SEATS": "Количество мест слева",
+    "RIGHT_SEATS": "Количество мест справа",
+    "ROWS": "Количество рядов",
+    "CARRIAGE_CREATE_FORM": {
+      "TITLE": "Новый вагон",
+      "SAVE_BTN": "Сохранить"
+    }
+  },
   "BUTTONS": {
     "SIGN_IN": "Войти",
     "REMEMBER_ME": "Запомнить меня",

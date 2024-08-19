@@ -1,4 +1,15 @@
 {
+  "ADMIN": {
+    "CREATE_BTN": "Create",
+    "NAME": "Name",
+    "LEFT_SEATS": "Count left seats",
+    "RIGHT_SEATS": "Count right seats",
+    "ROWS": "Count rows",
+    "CARRIAGE_CREATE_FORM": {
+      "TITLE": "New carriage",
+      "SAVE_BTN": "Save"
+    }
+  },
   "BUTTONS": {
     "SIGN_IN": "Sign In",
     "REMEMBER_ME": "Remember me",
