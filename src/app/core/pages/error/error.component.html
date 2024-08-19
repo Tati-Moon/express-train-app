@@ -23,13 +23,13 @@
                     >
                         <i class="pi pi-fw pi-exclamation-circle text-2xl text-white"></i>
                     </div>
-                    <h1 class="text-900 font-bold text-5xl mb-2">Error Occured</h1>
-                    <span class="text-600 mb-5">Requested resource is not available.</span>
+                    <h1 class="text-900 font-bold text-5xl mb-2">{{ 'NOT_FOUND.TITLE' | translate }}</h1>
+                    <span class="text-600 mb-5">{{ 'NOT_FOUND.MESSAGE' | translate }}</span>
                     <img src="assets/images/error/asset-error.svg" alt="Error" class="mb-5" width="80%" />
                     <p-button
                         pRipple
                         icon="pi pi-arrow-left"
-                        label="Go to Dashboard"
+                        label="{{ 'NOT_FOUND.GO_TO_DASHBOARD' | translate }}"
                         [text]="true"
                         [routerLink]="['/']"
                     ></p-button>

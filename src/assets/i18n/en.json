@@ -47,6 +47,16 @@
     "MESSAGE": "No seats on direct trains are available right now, but there is always hope. Try again later or travel with a transfer.",
     "GO_TO_DASHBOARD": "Go to Dashboard"
   },
+  "ACCESS": {
+    "TITLE": "Access Denied",
+    "MESSAGE": "You do not have the necessary permisions. Please contact admins.",
+    "GO_TO_DASHBOARD": "Go to Dashboard"
+  },
+  "NOT_FOUND": {
+    "TITLE": "Error Occured",
+    "MESSAGE": "Requested resource is not available.",
+    "GO_TO_DASHBOARD": "Go to Dashboard"
+  },
   "GENERAL": {
     "SIDEBAR": {
       "HOME": "Home",
