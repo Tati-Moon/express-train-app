@@ -12,8 +12,10 @@ import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
 import { Schemes } from '../../core/models/enums/constants';
+import { HttpService } from '../../core/services/http.service';
 import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 import { AuthFormFields } from '../models/auth-form.model';
+import { SignInErrorResponse, SignInSuccessResponse } from '../models/response.model';
 import { ErrorMessageService } from '../services/error-message.service';
 import { LoginFormService } from '../services/login-form.service';
 
@@ -40,7 +42,8 @@ export class LoginComponent {
     public colorScheme!: Signal<string>;
     constructor(
         private loginFormService: LoginFormService,
-        private errorMessageService: ErrorMessageService
+        private errorMessageService: ErrorMessageService,
+        private httpService: HttpService
     ) {
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
@@ -61,10 +64,30 @@ export class LoginComponent {
         }
 
         const login = this.form.get([this.fields.LOGIN])?.value;
-        console.log('🚀 ~ SignupComponent ~ handleSubmit ~ login:', login);
-        // const password = this.form.get([this.fields.PASSWORD])?.value;
-        // console.log('🚀 ~ SignupComponent ~ handleSubmit ~ password:', password);
 
+        const password = this.form.get([this.fields.PASSWORD])?.value;
+
+        this.httpService
+            .post<SignInSuccessResponse | SignInErrorResponse>({
+                url: '/api/signin',
+                body: {
+                    email: login,
+                    password,
+                },
+            })
+            .subscribe({
+                next: (response) => {
+                    if ('token' in response) {
+                        console.log('Login successful:', response.token);
+                    } else if ('error' in response) {
+                        console.error('Login failed:', response.error.message);
+                        // this.handleLoginError(response.error);
+                    }
+                },
+                error: (error) => {
+                    console.error('Unexpected error:', error);
+                },
+            });
         // this.store.dispatch(Actions.login({ login, password }));
         // this.form.reset();
     }

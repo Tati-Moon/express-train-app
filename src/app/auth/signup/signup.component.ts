@@ -16,8 +16,10 @@ import { RippleModule } from 'primeng/ripple';
 import { ConfigComponent } from '../../core/components/config/config.component';
 import { Schemes } from '../../core/models/enums/constants';
 import { Routers } from '../../core/models/enums/routers';
+import { HttpService } from '../../core/services/http.service';
 import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 import { AuthFormFields } from '../models/auth-form.model';
+import { SignUpErrorResponse } from '../models/response.model';
 import { ErrorMessageService } from '../services/error-message.service';
 import { RegisterFormService } from '../services/register-form.service';
 
@@ -49,7 +51,8 @@ export class SignupComponent {
     public colorScheme!: Signal<string>;
     constructor(
         private registerFormService: RegisterFormService,
-        private errorMessageService: ErrorMessageService
+        private errorMessageService: ErrorMessageService,
+        private httpService: HttpService
     ) {
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
@@ -76,9 +79,30 @@ export class SignupComponent {
 
         const login = this.form.get([this.fields.LOGIN])?.value;
         console.log('🚀 ~ SignupComponent ~ handleSubmit ~ login:', login);
-        // const password = this.form.get([this.fields.PASSWORD])?.value;
+        const password = this.form.get([this.fields.PASSWORD])?.value;
         // console.log('🚀 ~ SignupComponent ~ handleSubmit ~ password:', password);
 
+        this.httpService
+            .post<SignUpErrorResponse>({
+                url: '/api/signup',
+                body: {
+                    email: login,
+                    password,
+                },
+            })
+            .subscribe({
+                next: (response) => {
+                    if ('error' in response) {
+                        console.error('Sign-up failed:', response.error.message);
+                        // this.handleSignUpError(response.error);
+                    } else {
+                        console.log('Sign-up successful');
+                    }
+                },
+                error: (error) => {
+                    console.error('Unexpected error:', error);
+                },
+            });
         // this.store.dispatch(Actions.login({ login, password }));
         // this.form.reset();
     }
