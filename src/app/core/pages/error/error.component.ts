@@ -2,6 +2,7 @@ import { Component, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 
@@ -11,7 +12,7 @@ import { Schemes } from '../../models/enums/constants';
 @Component({
     selector: 'app-error',
     standalone: true,
-    imports: [RouterLink, ButtonModule, RippleModule],
+    imports: [RouterLink, ButtonModule, RippleModule, TranslateModule],
     templateUrl: './error.component.html',
     styleUrl: './error.component.scss',
 })
