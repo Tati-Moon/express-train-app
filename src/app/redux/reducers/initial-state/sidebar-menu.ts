@@ -8,9 +8,9 @@ export const sidebarMenuInitialState: MenuItem[] = [
         label: 'GENERAL.SIDEBAR.HOME',
         items: [
             { label: 'GENERAL.SIDEBAR.HOME', icon: 'pi pi-fw pi-home', routerLink: [Routers.EMPTY_ROOT] },
-            { label: 'GENERAL.SIDEBAR.TRIP', icon: 'pi pi-fw pi-user', routerLink: [Routers.TRIP_WITH_RIDE_ID] },
+            { label: 'GENERAL.SIDEBAR.TRIP', icon: 'pi pi-fw pi-car', routerLink: [Routers.TRIP_WITH_RIDE_ID] },
             { label: 'GENERAL.SIDEBAR.USER_PROFILE', icon: 'pi pi-fw pi-user', routerLink: [Routers.USER_PROFILE] },
-            { label: 'GENERAL.SIDEBAR.ORDERS', icon: 'pi pi-fw pi-user', routerLink: [Routers.ORDERS] },
+            { label: 'GENERAL.SIDEBAR.ORDERS', icon: 'pi pi-fw pi-cart-arrow-down', routerLink: [Routers.ORDERS] },
             {
                 label: 'GENERAL.SIDEBAR.LOGIN',
                 icon: 'pi pi-fw pi-sign-in',

@@ -23,25 +23,25 @@ export const headerMenuUserInitialState: MenuItem[] = [
 ];
 
 export const headerMenuAdminInitialState: MenuItem[] = [
-    { label: 'GENERAL.SIDEBAR.ADMIN.OVERVIEW', icon: 'pi pi-fw pi-home', routerLink: [Routers.ADMIN] },
+    { label: 'GENERAL.SIDEBAR.ADMIN.OVERVIEW', icon: 'pi pi-fw pi-user-plus', routerLink: [Routers.ADMIN] },
     {
         label: 'GENERAL.SIDEBAR.ADMIN.STATIONS',
-        icon: 'pi pi-fw pi-user',
+        icon: 'pi pi-fw pi-building-columns',
         routerLink: [Routers.ADMIN, Routers.STATIONS],
     },
     {
         label: 'GENERAL.SIDEBAR.ADMIN.CARRIAGES',
-        icon: 'pi pi-fw pi-user',
+        icon: 'pi pi-fw pi-credit-card',
         routerLink: [Routers.ADMIN, Routers.CARRIAGES],
     },
     {
         label: 'GENERAL.SIDEBAR.ADMIN.ROUTES',
-        icon: 'pi pi-fw pi-user',
+        icon: 'pi pi-fw pi-map-marker',
         routerLink: [Routers.ADMIN, Routers.ROUTES],
     },
     {
         label: 'GENERAL.SIDEBAR.ADMIN.ROUTE_WITH_ID',
-        icon: 'pi pi-fw pi-user',
+        icon: 'pi pi-fw pi-info',
         routerLink: [Routers.ADMIN, Routers.ROUTE, RoutersParams.ID],
     },
 ];
