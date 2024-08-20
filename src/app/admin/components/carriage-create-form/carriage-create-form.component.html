@@ -1,0 +1,110 @@
+<form class="card mb-4 flex flex-column" [formGroup]="form">
+    <div class="flex justify-content-between align-items-center mb-4">
+        <h3 class="m-0 font-bold">{{ 'ADMIN.CARRIAGE_CREATE_FORM.TITLE' | translate }}</h3>
+        <p-button
+            icon="pi pi-times"
+            class="text-right"
+            severity="danger"
+            text="true"
+            (onClick)="handleDiscardCreateCarriage()"
+        >
+        </p-button>
+    </div>
+    <div class="mb-5">
+        <label [for]="fields.NAME" class="block text-900 text-xl font-medium mb-2">{{
+            'ADMIN.NAME' | translate
+        }}</label>
+        <input
+            [id]="fields.NAME"
+            [formControlName]="fields.NAME"
+            type="text"
+            placeholder="{{ 'ADMIN.NAME' | translate }}"
+            pInputText
+            class="w-full"
+            style="padding: 1rem"
+        />
+        @if (form.get(fields.NAME); as name) {
+            @if (!name.pristine) {
+                @for (error of handleErrorMessages(name.errors); track $index) {
+                    <small class="p-error block mt-2"> {{ error | translate }} </small>
+                }
+            }
+        }
+    </div>
+    <div class="mb-5">
+        <label [for]="fields.ROWS" class="block text-900 font-medium text-xl mb-2">{{
+            'ADMIN.ROWS' | translate
+        }}</label>
+        <input
+            [id]="fields.ROWS"
+            [formControlName]="fields.ROWS"
+            type="number"
+            placeholder="{{ 'ADMIN.ROWS' | translate }}"
+            pInputText
+            class="w-full"
+            style="padding: 1rem"
+            min="1"
+            max="100"
+        />
+        @if (form.get(fields.ROWS); as rows) {
+            @if (!rows.pristine) {
+                @for (error of handleErrorMessages(rows.errors); track $index) {
+                    <small class="p-error block mt-2"> {{ error | translate }} </small>
+                }
+            }
+        }
+    </div>
+    <div class="mb-5">
+        <label [for]="fields.LEFT_SEATS" class="block text-900 font-medium text-xl mb-2">{{
+            'ADMIN.LEFT_SEATS' | translate
+        }}</label>
+        <input
+            [id]="fields.LEFT_SEATS"
+            [formControlName]="fields.LEFT_SEATS"
+            type="number"
+            placeholder="{{ 'ADMIN.LEFT_SEATS' | translate }}"
+            pInputText
+            class="w-full"
+            style="padding: 1rem"
+            min="1"
+            max="100"
+        />
+        @if (form.get(fields.LEFT_SEATS); as leftSeats) {
+            @if (!leftSeats.pristine) {
+                @for (error of handleErrorMessages(leftSeats.errors); track $index) {
+                    <small class="p-error block mt-2"> {{ error | translate }} </small>
+                }
+            }
+        }
+    </div>
+    <div class="mb-5">
+        <label [for]="fields.RIGHT_SEATS" class="block text-900 font-medium text-xl mb-2">{{
+            'ADMIN.RIGHT_SEATS' | translate
+        }}</label>
+        <input
+            [id]="fields.RIGHT_SEATS"
+            [formControlName]="fields.RIGHT_SEATS"
+            type="number"
+            placeholder="{{ 'ADMIN.RIGHT_SEATS' | translate }}"
+            pInputText
+            class="w-full"
+            style="padding: 1rem"
+            min="1"
+            max="100"
+        />
+        @if (form.get(fields.RIGHT_SEATS); as rightSeats) {
+            @if (!rightSeats.pristine) {
+                @for (error of handleErrorMessages(rightSeats.errors); track $index) {
+                    <small class="p-error block mt-2"> {{ error | translate }} </small>
+                }
+            }
+        }
+    </div>
+    <p-button
+        label="{{ 'ADMIN.CARRIAGE_CREATE_FORM.SAVE_BTN' | translate }}"
+        class="text-center"
+        styleClass="col-12 md:col-2"
+        (onClick)="handleSaveCarriage(form)"
+    >
+    </p-button>
+</form>

@@ -1,0 +1,22 @@
+<div class="w-full">
+    @for (item of rightSeats; track $index) {
+        <div class="flex justify-content-between m-3">
+            @for (item of rows; track $index) {
+                <div class="m-1">
+                    <p-skeleton width="2rem" height="2rem" />
+                </div>
+            }
+        </div>
+    }
+
+    <p-skeleton width="100%" height="50px" />
+    @for (item of leftSeats; track $index) {
+        <div class="flex justify-content-between m-3">
+            @for (item of rows; track $index) {
+                <div class="m-1">
+                    <p-skeleton width="2rem" height="2rem" />
+                </div>
+            }
+        </div>
+    }
+</div>

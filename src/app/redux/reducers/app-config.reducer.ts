@@ -8,6 +8,7 @@ import { headerMenuGuestInitialState, sidebarMenuInitialState } from './initial-
 export const initialState: AppConfigState = {
     [AppConfigFields.SIDEBAR_MENU]: sidebarMenuInitialState,
     [AppConfigFields.HEADER_MENU]: headerMenuGuestInitialState,
+    [AppConfigFields.SHOW_LOADER]: false,
 };
 
 export const appConfigReducer = createReducer(
@@ -17,6 +18,20 @@ export const appConfigReducer = createReducer(
         (state, { headerMenu }): AppConfigState => ({
             ...state,
             [AppConfigFields.HEADER_MENU]: headerMenu,
+        })
+    ),
+    on(
+        AppConfigActions.setVisibleLoader,
+        (state): AppConfigState => ({
+            ...state,
+            [AppConfigFields.SHOW_LOADER]: true,
+        })
+    ),
+    on(
+        AppConfigActions.setInvisibleLoader,
+        (state): AppConfigState => ({
+            ...state,
+            [AppConfigFields.SHOW_LOADER]: false,
         })
     )
 );

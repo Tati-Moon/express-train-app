@@ -1,4 +1,15 @@
 {
+  "ADMIN": {
+    "CREATE_BTN": "Create",
+    "NAME": "Name",
+    "LEFT_SEATS": "Count left seats",
+    "RIGHT_SEATS": "Count right seats",
+    "ROWS": "Count rows",
+    "CARRIAGE_CREATE_FORM": {
+      "TITLE": "New carriage",
+      "SAVE_BTN": "Save"
+    }
+  },
   "BUTTONS": {
     "SIGN_IN": "Sign In",
     "REMEMBER_ME": "Remember me",
@@ -40,7 +51,9 @@
     "PASSWORD_MAX_LENGTH": "The password must not exceed 30 characters.",
     "PASSWORD_MISMATCH": "Passwords do not match.",
     "NAME_MIN_LENGTH": "Name must be at least 2 characters long.",
-    "NAME_MAX_LENGTH": "The name must not exceed 30 characters."
+    "NAME_MAX_LENGTH": "The name must not exceed 30 characters.",
+    "MIN": "Specify a larger number",
+    "MAX": "Specify a smaller number"
   },
   "PROFILE_PAGE": {
     "TITLE": "Profile",
