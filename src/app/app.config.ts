@@ -14,8 +14,10 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MessageService } from 'primeng/api';
 
 import { routes } from './app.routes';
+import { messagesInterceptor } from './core/interceptors/messages-error.interceptor';
 import { AppCarriagesEffects } from './redux/effects/app-carriages.effects';
 import { AppConfigEffects } from './redux/effects/app-config.effects';
 import { AppLanguageEffects } from './redux/effects/app-language.effects';
@@ -27,10 +29,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        MessageService,
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideAnimationsAsync(),
         provideRouter(routes),
-        provideHttpClient(withInterceptors([])),
+        provideHttpClient(withInterceptors([messagesInterceptor])),
         provideStore(reducers, { metaReducers }),
         provideEffects(AppConfigEffects, AppLanguageEffects, AppCarriagesEffects),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

@@ -14,7 +14,12 @@ export class CarriagesService {
     public getCarriages(): Observable<Carriage[]> {
         return this.http.get<Carriage[]>({ url: environment.apiUrlGetCarriages });
     }
+
     public postCarriage(carriage: Carriage): Observable<Carriage> {
         return this.http.post<Carriage>({ url: environment.apiUrlPostCarriage, body: carriage });
+    }
+
+    public putCarriage(carriage: Carriage): Observable<Carriage> {
+        return this.http.put<Carriage>({ url: environment.apiUrlPostCarriage, body: carriage });
     }
 }

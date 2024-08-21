@@ -26,7 +26,7 @@ export const appCarriagesReducer = createReducer(
         })
     ),
     on(
-        AppCarriagesActions.newCarriageSaved,
+        AppCarriagesActions.newCarriageSavedSuccess,
         (state, { carriage }): AppCarriagesState => ({
             ...state,
             [AppCarriageFields.CARRIAGES]: [...state[AppCarriageFields.CARRIAGES], carriage],
