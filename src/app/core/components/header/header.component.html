@@ -25,14 +25,22 @@
         }
     </div>
     <div class="layout-topbar-custom-menu flex gap-2">
-        <app-header-menu
+        <app-language-menu
+            [flag]="flag"
+            [modelMenu]="languageMenu()"
+            [show]="languageMenuShow()"
+            (openMenu)="handleOpenLanguageMenu()"
+            (closeMenu)="handleCloseLanguageMenu()"
+            (selectedItem)="handleSelectLanguage($event)"
+        ></app-language-menu>
+        <!-- <app-header-menu
             icon="pi pi-language"
             [modelMenu]="languageMenu()"
             [show]="languageMenuShow()"
             (openMenu)="handleOpenLanguageMenu()"
             (closeMenu)="handleCloseLanguageMenu()"
             (selectedItem)="handleSelectLanguage($event)"
-        ></app-header-menu>
+        ></app-header-menu> -->
 
         @if (adminMenuAvailable()) {
             <app-header-menu

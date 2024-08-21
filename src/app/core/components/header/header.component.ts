@@ -7,6 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import { TagModule } from 'primeng/tag';
 
 import { AppAdminActions } from '../../../redux/actions/app-admin.actions';
 import { AppLanguageActions } from '../../../redux/actions/app-language.actions';
@@ -21,11 +22,21 @@ import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { Schemes } from '../../models/enums/constants';
 import { LayoutService } from '../../services/layout.service';
 import { HeaderMenuComponent } from './ui/header-menu/header-menu.component';
+import { LanguageMenuComponent } from './ui/language-menu/language-menu.component';
 
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [CommonModule, RouterModule, TranslateModule, MenuModule, HeaderMenuComponent, ButtonModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        MenuModule,
+        HeaderMenuComponent,
+        ButtonModule,
+        TagModule,
+        LanguageMenuComponent,
+    ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
 })
@@ -42,6 +53,8 @@ export class HeaderComponent {
     public headerMenu!: Signal<MenuItem[]>;
 
     public colorScheme!: Signal<string>;
+
+    public flag: string = 'flag flag-en';
 
     items!: MenuItem[];
 
@@ -99,6 +112,7 @@ export class HeaderComponent {
 
     public handleSelectLanguage(item: MenuItem): void {
         if (item.id) {
+            this.flag = `flag flag-${item.id}`;
             this.store.dispatch(AppLanguageActions.updateApplicationLanguage({ language: item.id }));
         }
     }
