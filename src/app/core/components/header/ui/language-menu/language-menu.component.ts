@@ -3,19 +3,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { TagModule } from 'primeng/tag';
 
 import { CloseAllOverlayDirective } from '../../../../directives/close-all-overlay.directive';
+import { Languages, Schemes } from '../../../../models/enums/constants';
 
 @Component({
     selector: 'app-language-menu',
     standalone: true,
-    imports: [TranslateModule, CommonModule, RouterLink, CloseAllOverlayDirective, RouterModule, TagModule],
+    imports: [TranslateModule, CommonModule, RouterLink, CloseAllOverlayDirective, RouterModule],
     templateUrl: './language-menu.component.html',
     styleUrl: './language-menu.component.scss',
 })
 export class LanguageMenuComponent {
-    // @Input() icon: string = 'pi pi-ellipsis-v';
     @Input() text: string = '';
     @Input() show: boolean = false;
     @Input() modelMenu: MenuItem[] = [];
@@ -23,7 +22,8 @@ export class LanguageMenuComponent {
     @Output() closeMenu = new EventEmitter<boolean>();
     @Output() selectedItem = new EventEmitter<MenuItem>();
 
-    @Input() flag: string = 'flag flag-en';
+    @Input() lang: string = Languages.EN;
+    @Input() colorScheme: string = Schemes.LIGHT;
 
     public handleOpenMenu(): void {
         this.openMenu.emit(true);

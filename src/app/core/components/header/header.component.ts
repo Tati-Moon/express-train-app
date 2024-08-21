@@ -17,7 +17,11 @@ import {
     selectAdminMenuShow,
 } from '../../../redux/selectors/app-admin.selector';
 import { selectHeaderMenuInit } from '../../../redux/selectors/app-config.selector';
-import { selectLanguageMenuInit, selectLanguageMenuShow } from '../../../redux/selectors/app-language.selector';
+import {
+    selectDefaultLanguage,
+    selectLanguageMenuInit,
+    selectLanguageMenuShow,
+} from '../../../redux/selectors/app-language.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { Schemes } from '../../models/enums/constants';
 import { LayoutService } from '../../services/layout.service';
@@ -54,7 +58,7 @@ export class HeaderComponent {
 
     public colorScheme!: Signal<string>;
 
-    public flag: string = 'flag flag-en';
+    public lang!: Signal<string>;
 
     items!: MenuItem[];
 
@@ -84,6 +88,9 @@ export class HeaderComponent {
 
         const headerMenu$ = this.store.select(selectHeaderMenuInit);
         this.headerMenu = toSignal(headerMenu$, { initialValue: [] });
+
+        const lang$ = this.store.select(selectDefaultLanguage);
+        this.lang = toSignal(lang$, { initialValue: this.translateService.currentLang });
     }
 
     public handleOpenAdminMenu(): void {
@@ -112,7 +119,6 @@ export class HeaderComponent {
 
     public handleSelectLanguage(item: MenuItem): void {
         if (item.id) {
-            this.flag = `flag flag-${item.id}`;
             this.store.dispatch(AppLanguageActions.updateApplicationLanguage({ language: item.id }));
         }
     }
