@@ -8,7 +8,7 @@ import { HttpService } from '../../core/services/http.service';
 @Injectable({
     providedIn: 'root',
 })
-export class CarriagesServiceService {
+export class CarriagesService {
     constructor(private http: HttpService) {}
 
     public getCarriages(): Observable<Carriage[]> {

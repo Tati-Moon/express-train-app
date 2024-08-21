@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { exhaustMap, map } from 'rxjs';
 
-import { CarriagesServiceService } from '../../admin/services/carriages-service.service';
+import { CarriagesService } from '../../admin/services/carriages.service';
 import { Carriage } from '../../core/models';
 import { AppCarriagesActions } from '../actions/app-carriages.actions';
 
@@ -12,7 +12,7 @@ export class AppCarriagesEffects {
     private store = inject(Store);
     constructor(
         private actions$: Actions,
-        private carriagesService: CarriagesServiceService
+        private carriagesService: CarriagesService
     ) {}
 
     loadCarriages$ = createEffect(() =>
