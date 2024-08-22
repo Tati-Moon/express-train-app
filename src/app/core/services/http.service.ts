@@ -43,7 +43,9 @@ export class HttpService {
             ? headers.keys().reduce((merged, key) => merged.append(key, headers.getAll(key)!), defaultHeaders)
             : defaultHeaders;
 
-        return this.http.post<T>(url, body, { params, headers: newHeaders });
+        const jsonBody = body ? JSON.stringify(body) : undefined;
+
+        return this.http.post<T>(url, jsonBody, { params, headers: newHeaders });
     }
 
     public put<T>({

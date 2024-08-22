@@ -1,1 +1,23 @@
-<p>carriages works!</p>
+<div class="carriages grid">
+    <div class="carriages__top col-12">
+        <p-button
+            class="text-center"
+            styleClass="col-12 md:col-2"
+            label="{{ 'ADMIN.CREATE_BTN' | translate }}"
+            [disabled]="createCarriageState()"
+            (onClick)="handleCreateCarriage()"
+        ></p-button>
+    </div>
+    @if (createCarriageState()) {
+        <div class="carriages__middle col-12">
+            <app-carriage-create-form
+                (discardCreateCarriage)="handleDiscardCreateCarriage()"
+                (saveCarriage)="handleSaveCarriage($event)"
+            ></app-carriage-create-form>
+            <app-carriage-view [carriage]="formValue"></app-carriage-view>
+        </div>
+    }
+    <div class="carriages__bottom col-12">
+        <app-carriage-table [carriages]="carriages()"></app-carriage-table>
+    </div>
+</div>

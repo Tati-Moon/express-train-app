@@ -1,34 +1,26 @@
 <div class="header-menu">
     <button class="p-link" appCloseAllOverlay (click)="handleOpenMenu()" (clickOutside)="handleCloseMenu()">
-        <p-tag>
-            <div class="flex align-items-center gap-2 px-1">
-                <img alt="Country" src="assets/images/flag/flag_placeholder.png" [ngClass]="flag" />
-            </div>
-            <span style="color: rgb(18, 1, 1)">{{ flag === 'flag flag-en' ? 'EN' : 'RU' }}</span>
-        </p-tag>
+        <img alt="Country" src="assets/images/flag/flag_placeholder.png" class="flag flag-{{ lang }}" />
     </button>
 
     @if (show) {
         <ul class="header-menu__content">
             @for (item of modelMenu; track $index) {
                 @if (item.label) {
-                    <a class="p-link header-menu__btn" [routerLink]="item.routerLink" (click)="handleSelectItem(item)">
-                        <i class="{{ item.icon }}"></i>
-                        <span>{{ item.label | translate }}</span>
+                    <a
+                        class="gap-2 p-link header-menu__btn"
+                        [routerLink]="item.routerLink"
+                        (click)="handleSelectItem(item)"
+                    >
+                        <img
+                            alt="Country"
+                            src="assets/images/flag/flag_placeholder.png"
+                            class="flag flag-{{ item.id }}"
+                        />
+                        <span class="{{ item.id === lang ? 'active-route' : '' }}">{{ item.label | translate }}</span>
                     </a>
                 }
             }
         </ul>
     }
 </div>
-
-<!-- <p-tag [style]="{ background: 'linear-gradient(to right, #0e00, #0000)' }">
-            <div class="flex align-items-center gap-2 px-1">
-                <img
-                    alt="Country"
-                    src="../../../../assets/images/flag/flag_placeholder.png"
-                    class="flag flag-ru"
-                    style="width: 35px; background:url(https://primefaces.org/cdn/primeng/images/flag/flags_responsive.png) no-repeat;background-size:100%;vertical-align: middle; background-position:0 75.206612%" />
-
-            </div>
-        </p-tag> -->

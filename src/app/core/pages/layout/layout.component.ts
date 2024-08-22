@@ -9,6 +9,7 @@ import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { ConfigComponent } from '../../components/config/config.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { LoaderComponent } from '../../components/loader/loader.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { Schemes } from '../../models/enums/constants';
 import { LayoutService } from '../../services/layout.service';
@@ -16,7 +17,15 @@ import { LayoutService } from '../../services/layout.service';
 @Component({
     selector: 'app-layout',
     standalone: true,
-    imports: [HeaderComponent, FooterComponent, SidebarComponent, ConfigComponent, CommonModule, RouterModule],
+    imports: [
+        HeaderComponent,
+        FooterComponent,
+        SidebarComponent,
+        ConfigComponent,
+        CommonModule,
+        RouterModule,
+        LoaderComponent,
+    ],
     templateUrl: './layout.component.html',
     styleUrl: './layout.component.scss',
 })

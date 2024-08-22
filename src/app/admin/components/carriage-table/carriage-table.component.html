@@ -1,0 +1,27 @@
+<div class="card">
+    <p-table [value]="carriages" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'ADMIN.NAME' | translate }}</th>
+                <th>{{ 'ADMIN.LEFT_SEATS' | translate }}</th>
+                <th>{{ 'ADMIN.RIGHT_SEATS' | translate }}</th>
+                <th style="width: 1rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-carriage>
+            <tr>
+                <td>{{ carriage.name }}</td>
+                <td>{{ carriage.leftSeats }}</td>
+                <td>{{ carriage.rightSeats }}</td>
+                <td>
+                    <p-button icon="pi pi-pencil" text="true"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No carriages found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
