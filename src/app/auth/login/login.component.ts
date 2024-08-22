@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
+import { environment } from '../../../environments/environment';
 import { Schemes } from '../../core/models/enums/constants';
 import { HttpService } from '../../core/services/http.service';
 import { AppUserActions } from '../../redux/actions/app-user.actions';
@@ -71,7 +72,7 @@ export class LoginComponent {
 
         this.httpService
             .post<SignInSuccessResponse | SignInErrorResponse>({
-                url: '/api/signin',
+                url: environment.apiSignIn,
                 body: {
                     email: login,
                     password,

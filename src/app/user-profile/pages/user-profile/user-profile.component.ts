@@ -13,6 +13,7 @@ import { PasswordModule } from 'primeng/password';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { catchError, filter, Observable, tap, throwError } from 'rxjs';
 
+import { environment } from '../../../../environments/environment';
 import { AuthFormFields } from '../../../auth/models/auth-form.model';
 import { ErrorMessageService } from '../../../auth/services/error-message.service';
 import { UserProfileService } from '../../../auth/services/user-profile-form.service';
@@ -136,7 +137,7 @@ export class UserProfileComponent implements OnInit {
 
         this.httpService
             .get<UserProfileResponse>({
-                url: '/api/profile',
+                url: environment.apiProfile,
                 headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
             })
             .subscribe({
@@ -177,7 +178,7 @@ export class UserProfileComponent implements OnInit {
         const body = { name, email };
 
         this.httpService
-            .put<PutUserProfileResponse>({ url: '/api/profile', body, headers })
+            .put<PutUserProfileResponse>({ url: environment.apiProfile, body, headers })
             .pipe(
                 tap((response) => this.handleSuccess(response)),
                 catchError((error) => this.handleError(error))
@@ -240,7 +241,7 @@ export class UserProfileComponent implements OnInit {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 
         this.httpService
-            .put<void>({ url: '/api/profile/password', body, headers })
+            .put<void>({ url: environment.apiProfilePassword, body, headers })
             .pipe(
                 tap(() => {
                     console.log('Password updated successfully.');
