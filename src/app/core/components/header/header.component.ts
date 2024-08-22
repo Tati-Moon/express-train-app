@@ -7,7 +7,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
-import { TagModule } from 'primeng/tag';
 
 import { AppAdminActions } from '../../../redux/actions/app-admin.actions';
 import { AppLanguageActions } from '../../../redux/actions/app-language.actions';
@@ -38,7 +37,6 @@ import { LanguageMenuComponent } from './ui/language-menu/language-menu.componen
         MenuModule,
         HeaderMenuComponent,
         ButtonModule,
-        TagModule,
         LanguageMenuComponent,
     ],
     templateUrl: './header.component.html',
@@ -119,7 +117,6 @@ export class HeaderComponent {
 
     public handleSelectLanguage(item: MenuItem): void {
         if (item.id) {
-            // this.flag = `flag flag-${item.id}`;
             this.store.dispatch(AppLanguageActions.updateApplicationLanguage({ language: item.id }));
         }
     }
