@@ -12,7 +12,7 @@ import { Languages, Schemes } from '../../../../models/enums/constants';
     standalone: true,
     imports: [TranslateModule, CommonModule, RouterLink, CloseAllOverlayDirective, RouterModule],
     templateUrl: './language-menu.component.html',
-    styleUrl: './language-menu.component.scss',
+    styleUrls: ['../header-menu/header-menu.component.scss', './language-menu.component.scss'],
 })
 export class LanguageMenuComponent {
     @Input() text: string = '';
