@@ -1,5 +1,5 @@
 .carriage-view {
-    max-height: 350px;
+    max-height: 500px;
     &::-webkit-scrollbar-track {
         border-radius: 4px;
     }
@@ -13,5 +13,11 @@
     }
     &:hover::-webkit-scrollbar-thumb {
         background: #6a7d9b;
+    }
+
+    &-hidden {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
     }
 }

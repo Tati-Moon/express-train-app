@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
@@ -8,7 +8,7 @@ import { PasswordModule } from 'primeng/password';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Carriage } from '../../../core/models';
-import { CarriageCreateFormFields } from '../../models/carriage-create-form.model';
+import { CarriageCreateFormFields, CarriageFormMode } from '../../models/carriage-create-form.model';
 import { CarriageCreateFormService } from '../../services/carriage-create-form.service';
 import { ErrorMessageService } from '../../services/error-message.service';
 
@@ -20,14 +20,21 @@ import { ErrorMessageService } from '../../services/error-message.service';
     styleUrl: './carriage-create-form.component.scss',
 })
 export class CarriageCreateFormComponent implements OnInit {
+    @Input() public mode: CarriageFormMode = null;
+
     @Output() public discardCreateCarriage = new EventEmitter();
     @Output() public saveCarriage = new EventEmitter<Carriage>();
+    @Output() public updateCarriage = new EventEmitter<Carriage>();
+
     constructor(
         private carriageCreateFormService: CarriageCreateFormService,
         private errorMessageService: ErrorMessageService
     ) {}
+
     ngOnInit(): void {
-        this.form.get(this.fields.CODE)?.setValue(uuidv4());
+        if (this.mode === 'CREATE') {
+            this.form.get(this.fields.CODE)?.setValue(uuidv4());
+        }
     }
 
     public get form(): FormGroup {
@@ -41,13 +48,26 @@ export class CarriageCreateFormComponent implements OnInit {
     public handleErrorMessages(errors: ValidationErrors | null): string[] {
         return this.errorMessageService.getErrorMessages(errors);
     }
+
     public handleDiscardCreateCarriage(): void {
         this.discardCreateCarriage.emit();
     }
 
     public handleSaveCarriage(form: FormGroup): void {
-        if (form.valid) {
-            this.saveCarriage.emit(form.value);
+        if (!form.valid) {
+            this.carriageCreateFormService.markFormDirty(form);
+            return;
         }
+
+        this.saveCarriage.emit(form.value);
+    }
+
+    public handleUpdateCarriage(form: FormGroup): void {
+        if (!form.valid) {
+            this.carriageCreateFormService.markFormDirty(form);
+            return;
+        }
+
+        this.updateCarriage.emit(form.value);
     }
 }

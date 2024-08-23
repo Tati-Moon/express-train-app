@@ -100,11 +100,22 @@
             }
         }
     </div>
-    <p-button
-        label="{{ 'ADMIN.CARRIAGE_CREATE_FORM.SAVE_BTN' | translate }}"
-        class="text-center"
-        styleClass="col-12 md:col-2"
-        (onClick)="handleSaveCarriage(form)"
-    >
-    </p-button>
+    @if (mode === 'CREATE') {
+        <p-button
+            label="{{ 'BUTTONS.SAVE' | translate }}"
+            class="text-center"
+            styleClass="col-12 md:col-2"
+            (onClick)="handleSaveCarriage(form)"
+        >
+        </p-button>
+    }
+    @if (mode === 'EDIT') {
+        <p-button
+            label="{{ 'BUTTONS.UPDATE' | translate }}"
+            class="text-center"
+            styleClass="col-12 md:col-2"
+            (onClick)="handleUpdateCarriage(form)"
+        >
+        </p-button>
+    }
 </form>

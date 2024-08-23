@@ -8,10 +8,11 @@ import { TableModule } from 'primeng/table';
 
 import { Carriage } from '../../../core/models';
 import { AppCarriagesActions } from '../../../redux/actions/app-carriages.actions';
-import { selectCarriages, selectCreateCarriageState } from '../../../redux/selectors/app-carriages.selector';
+import { selectCarriages, selectFormMode, selectShowFormState } from '../../../redux/selectors/app-carriages.selector';
 import { CarriageCreateFormComponent } from '../../components/carriage-create-form/carriage-create-form.component';
 import { CarriageTableComponent } from '../../components/carriage-table/carriage-table.component';
 import { CarriageViewComponent } from '../../components/carriage-view/carriage-view.component';
+import { CarriageFormMode } from '../../models/carriage-create-form.model';
 import { CarriageCreateFormService } from '../../services/carriage-create-form.service';
 
 @Component({
@@ -32,7 +33,8 @@ export class CarriagesComponent implements OnInit {
     private store = inject(Store);
     private carriageFormService = inject(CarriageCreateFormService);
 
-    public createCarriageState!: Signal<boolean>;
+    public showForm!: Signal<boolean>;
+    public formMode!: Signal<CarriageFormMode>;
     public carriages!: Signal<Carriage[]>;
 
     public get form(): FormGroup {
@@ -47,8 +49,11 @@ export class CarriagesComponent implements OnInit {
     }
 
     constructor() {
-        const createCarriageState$ = this.store.select(selectCreateCarriageState);
-        this.createCarriageState = toSignal(createCarriageState$, { initialValue: false });
+        const showForm$ = this.store.select(selectShowFormState);
+        this.showForm = toSignal(showForm$, { initialValue: false });
+
+        const formMode$ = this.store.select(selectFormMode);
+        this.formMode = toSignal(formMode$, { initialValue: null });
 
         const carriages$ = this.store.select(selectCarriages);
         this.carriages = toSignal(carriages$, { initialValue: [] });
@@ -63,10 +68,19 @@ export class CarriagesComponent implements OnInit {
     }
 
     public handleDiscardCreateCarriage(): void {
-        this.store.dispatch(AppCarriagesActions.discardCreateCarriage());
+        this.store.dispatch(AppCarriagesActions.hideFormCarriage());
     }
 
     public handleSaveCarriage(carriage: Carriage): void {
         this.store.dispatch(AppCarriagesActions.initSaveNewCarriage({ carriage }));
+    }
+
+    public handleEditCarriage(carriage: Carriage): void {
+        this.store.dispatch(AppCarriagesActions.initEditCarriage());
+        this.form.patchValue(carriage);
+    }
+
+    public handleUpdateCarriage(carriage: Carriage): void {
+        this.store.dispatch(AppCarriagesActions.initUpdateCarriage({ carriage }));
     }
 }

@@ -1,13 +1,25 @@
 {
+  "MESSAGES": {
+    "TITLE": {
+      "WARNING": "Warning",
+      "SUCCESS": "Success",
+      "ERROR": "Error"
+    },
+    "CARRIAGES": {
+      "SAVE_SUCCESS": "The carriage saved!",
+      "UPDATE_SUCCESS": "The carriage updated!"
+    }
+  },
   "ADMIN": {
     "CREATE_BTN": "Create",
     "NAME": "Name",
     "LEFT_SEATS": "Count left seats",
     "RIGHT_SEATS": "Count right seats",
     "ROWS": "Count rows",
+    "NO_CARRIAGE": "No carriages found.",
+    "PICTURE": "Picture",
     "CARRIAGE_CREATE_FORM": {
-      "TITLE": "New carriage",
-      "SAVE_BTN": "Save"
+      "TITLE": "New carriage"
     }
   },
   "BUTTONS": {
@@ -15,6 +27,7 @@
     "REMEMBER_ME": "Remember me",
     "REGISTER": "Register",
     "SAVE": "Save",
+    "UPDATE": "Update",
     "LOGOUT": "Logout"
   },
   "FIELD": {

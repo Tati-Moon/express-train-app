@@ -12,8 +12,10 @@ import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
 import { environment } from '../../../environments/environment';
-import { Schemes } from '../../core/models/enums/constants';
+import { LocalStorageFields, Schemes } from '../../core/models/enums/constants';
+import { Routers } from '../../core/models/enums/routers';
 import { HttpService } from '../../core/services/http.service';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 import { AppUserActions } from '../../redux/actions/app-user.actions';
 import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 import { AuthFormFields } from '../models/auth-form.model';
@@ -46,6 +48,7 @@ export class LoginComponent {
         private loginFormService: LoginFormService,
         private errorMessageService: ErrorMessageService,
         private httpService: HttpService,
+        private localStorageService: LocalStorageService,
         private router: Router
     ) {
         const colorScheme$ = this.store.select(selectColorScheme);
@@ -82,8 +85,9 @@ export class LoginComponent {
                 next: (response) => {
                     if ('token' in response) {
                         console.log('Login successful:', response.token);
+                        this.localStorageService.setItem(LocalStorageFields.TOKEN, response.token);
+                        this.router.navigate([Routers.ROOT]);
                         this.store.dispatch(AppUserActions.logIn({ email: login, token: response.token }));
-                        this.router.navigate(['/']);
                     } else if ('error' in response) {
                         console.error('Login failed:', response.error.message);
                         // this.handleLoginError(response.error);

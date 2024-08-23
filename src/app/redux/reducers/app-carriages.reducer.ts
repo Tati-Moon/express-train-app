@@ -6,7 +6,8 @@ import { AppCarriageFields } from '../models/state-fields';
 
 export const initialState: AppCarriagesState = {
     [AppCarriageFields.CARRIAGES]: [],
-    [AppCarriageFields.CREATE_CARRIAGE]: false,
+    [AppCarriageFields.SHOW_CARRIAGE_FORM]: false,
+    [AppCarriageFields.CARRIAGE_FORM_MODE]: null,
 };
 
 export const appCarriagesReducer = createReducer(
@@ -15,22 +16,25 @@ export const appCarriagesReducer = createReducer(
         AppCarriagesActions.initCreateCarriage,
         (state): AppCarriagesState => ({
             ...state,
-            [AppCarriageFields.CREATE_CARRIAGE]: true,
+            [AppCarriageFields.SHOW_CARRIAGE_FORM]: true,
+            [AppCarriageFields.CARRIAGE_FORM_MODE]: 'CREATE',
         })
     ),
     on(
-        AppCarriagesActions.discardCreateCarriage,
+        AppCarriagesActions.hideFormCarriage,
         (state): AppCarriagesState => ({
             ...state,
-            [AppCarriageFields.CREATE_CARRIAGE]: false,
+            [AppCarriageFields.SHOW_CARRIAGE_FORM]: false,
+            [AppCarriageFields.CARRIAGE_FORM_MODE]: null,
         })
     ),
     on(
-        AppCarriagesActions.newCarriageSaved,
+        AppCarriagesActions.newCarriageSavedSuccess,
         (state, { carriage }): AppCarriagesState => ({
             ...state,
             [AppCarriageFields.CARRIAGES]: [...state[AppCarriageFields.CARRIAGES], carriage],
-            [AppCarriageFields.CREATE_CARRIAGE]: false,
+            [AppCarriageFields.SHOW_CARRIAGE_FORM]: false,
+            [AppCarriageFields.CARRIAGE_FORM_MODE]: null,
         })
     ),
     on(
@@ -38,6 +42,25 @@ export const appCarriagesReducer = createReducer(
         (state, { carriages }): AppCarriagesState => ({
             ...state,
             [AppCarriageFields.CARRIAGES]: carriages,
+        })
+    ),
+    on(
+        AppCarriagesActions.initEditCarriage,
+        (state): AppCarriagesState => ({
+            ...state,
+            [AppCarriageFields.SHOW_CARRIAGE_FORM]: true,
+            [AppCarriageFields.CARRIAGE_FORM_MODE]: 'EDIT',
+        })
+    ),
+    on(
+        AppCarriagesActions.updateCarriageSuccess,
+        (state, { carriage }): AppCarriagesState => ({
+            ...state,
+            [AppCarriageFields.SHOW_CARRIAGE_FORM]: false,
+            [AppCarriageFields.CARRIAGE_FORM_MODE]: null,
+            [AppCarriageFields.CARRIAGES]: state[AppCarriageFields.CARRIAGES].map((item) =>
+                item.code === carriage.code ? carriage : item
+            ),
         })
     )
 );

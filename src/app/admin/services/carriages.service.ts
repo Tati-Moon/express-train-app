@@ -8,13 +8,19 @@ import { HttpService } from '../../core/services/http.service';
 @Injectable({
     providedIn: 'root',
 })
-export class CarriagesServiceService {
+export class CarriagesService {
     constructor(private http: HttpService) {}
 
     public getCarriages(): Observable<Carriage[]> {
         return this.http.get<Carriage[]>({ url: environment.apiUrlGetCarriages });
     }
+
     public postCarriage(carriage: Carriage): Observable<Carriage> {
         return this.http.post<Carriage>({ url: environment.apiUrlPostCarriage, body: carriage });
+    }
+
+    public putCarriage(carriage: Carriage): Observable<Carriage> {
+        const url = environment.apiUrlPatchCarriage + carriage.code;
+        return this.http.put<Carriage>({ url, body: carriage });
     }
 }

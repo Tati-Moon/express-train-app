@@ -3,24 +3,26 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>{{ 'ADMIN.NAME' | translate }}</th>
-                <th>{{ 'ADMIN.LEFT_SEATS' | translate }}</th>
-                <th>{{ 'ADMIN.RIGHT_SEATS' | translate }}</th>
+                <th>{{ 'ADMIN.ROWS' | translate }}</th>
+                <th class="text-center">{{ 'ADMIN.PICTURE' | translate }}</th>
                 <th style="width: 1rem"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-carriage>
             <tr>
                 <td>{{ carriage.name }}</td>
-                <td>{{ carriage.leftSeats }}</td>
-                <td>{{ carriage.rightSeats }}</td>
+                <td>{{ carriage.rows * (carriage.leftSeats + carriage.rightSeats) }}</td>
                 <td>
-                    <p-button icon="pi pi-pencil" text="true"></p-button>
+                    <app-carriage-view [mode]="'picture'" [carriage]="carriage"></app-carriage-view>
+                </td>
+                <td>
+                    <p-button icon="pi pi-pencil" text="true" (onClick)="handleEditCarriage(carriage)"></p-button>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
-                <td colspan="5">No carriages found.</td>
+                <td colspan="5">{{ 'ADMIN.NO_CARRIAGE' | translate }}</td>
             </tr>
         </ng-template>
     </p-table>

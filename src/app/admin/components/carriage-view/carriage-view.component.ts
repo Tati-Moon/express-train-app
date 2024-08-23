@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
 import { SkeletonModule } from 'primeng/skeleton';
 
 import { Carriage } from '../../../core/models';
@@ -8,12 +10,18 @@ import { CarriageViewSkeletonComponent } from '../carriage-view-skeleton/carriag
 @Component({
     selector: 'app-carriage-view',
     standalone: true,
-    imports: [SkeletonModule, CarriageSeatComponent, CarriageViewSkeletonComponent],
+    imports: [SkeletonModule, CarriageSeatComponent, CarriageViewSkeletonComponent, CommonModule],
     templateUrl: './carriage-view.component.html',
     styleUrl: './carriage-view.component.scss',
 })
-export class CarriageViewComponent {
+export class CarriageViewComponent implements AfterViewInit {
     @Input() public carriage!: Carriage | null;
+    @Input() public mode: 'picture' | null = null;
+    public show: boolean = true;
+
+    public imageSrc!: string;
+
+    @ViewChild('card') content!: ElementRef;
 
     public getRowsArray(rows: number): number[] {
         return Array(rows)
@@ -38,5 +46,13 @@ export class CarriageViewComponent {
             return rowIndex * (leftSeats + rightSeats) + leftSeats + seatIndex + 1;
         }
         return '-';
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.mode === 'picture')
+            html2canvas(this.content.nativeElement).then((canvas) => {
+                this.imageSrc = canvas.toDataURL('image/png');
+                this.show = false;
+            });
     }
 }

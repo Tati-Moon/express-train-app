@@ -1,13 +1,25 @@
 {
+  "MESSAGES": {
+    "TITLE": {
+      "WARNING": "Внимание",
+      "SUCCESS": "Успешно",
+      "ERROR": "Ошибка"
+    },
+    "CARRIAGES": {
+      "SAVE_SUCCESS": "Вагон добавлен!",
+      "UPDATE_SUCCESS": "Данные о вагоне обновлены!"
+    }
+  },
   "ADMIN": {
     "CREATE_BTN": "Создать",
     "NAME": "Название",
     "LEFT_SEATS": "Количество мест слева",
     "RIGHT_SEATS": "Количество мест справа",
     "ROWS": "Количество рядов",
+    "NO_CARRIAGE": "Вагоны не найдены",
+    "PICTURE": "Изображение",
     "CARRIAGE_CREATE_FORM": {
-      "TITLE": "Новый вагон",
-      "SAVE_BTN": "Сохранить"
+      "TITLE": "Новый вагон"
     }
   },
   "BUTTONS": {
@@ -15,6 +27,7 @@
     "REMEMBER_ME": "Запомнить меня",
     "REGISTER": "Зарегистрироваться",
     "SAVE": "Сохранить",
+    "UPDATE": "Обновить",
     "LOGOUT": "Выйти"
   },
   "FIELD": {

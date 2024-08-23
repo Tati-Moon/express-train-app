@@ -1,7 +1,8 @@
 export const environment = {
     production: false,
-    apiUrlGetCarriages: 'https://1db76b9276bfe995.mokky.dev/carriages',
-    apiUrlPostCarriage: 'https://1db76b9276bfe995.mokky.dev/carriages',
+    apiUrlGetCarriages: '/api/carriage',
+    apiUrlPostCarriage: '/api/carriage',
+    apiUrlPutCarriage: '/api/carriage/',
     apiLogout: '/api/logout',
     apiSignIn: '/api/signin',
     apiSignUp: '/api/signup',

@@ -4,20 +4,22 @@
             class="text-center"
             styleClass="col-12 md:col-2"
             label="{{ 'ADMIN.CREATE_BTN' | translate }}"
-            [disabled]="createCarriageState()"
+            [disabled]="showForm()"
             (onClick)="handleCreateCarriage()"
         ></p-button>
     </div>
-    @if (createCarriageState()) {
+    @if (showForm()) {
         <div class="carriages__middle col-12">
             <app-carriage-create-form
                 (discardCreateCarriage)="handleDiscardCreateCarriage()"
                 (saveCarriage)="handleSaveCarriage($event)"
+                (updateCarriage)="handleUpdateCarriage($event)"
+                [mode]="formMode()"
             ></app-carriage-create-form>
             <app-carriage-view [carriage]="formValue"></app-carriage-view>
         </div>
     }
     <div class="carriages__bottom col-12">
-        <app-carriage-table [carriages]="carriages()"></app-carriage-table>
+        <app-carriage-table [carriages]="carriages()" (editCarriage)="handleEditCarriage($event)"></app-carriage-table>
     </div>
 </div>
