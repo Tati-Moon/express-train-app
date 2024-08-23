@@ -14,6 +14,7 @@ import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
+import { environment } from '../../../environments/environment';
 import { ConfigComponent } from '../../core/components/config/config.component';
 import { Schemes } from '../../core/models/enums/constants';
 import { Routers } from '../../core/models/enums/routers';
@@ -85,7 +86,7 @@ export class SignupComponent {
 
         this.httpService
             .post<SignUpErrorResponse>({
-                url: '/api/signup',
+                url: environment.apiSignUp,
                 body: {
                     email: login,
                     password,

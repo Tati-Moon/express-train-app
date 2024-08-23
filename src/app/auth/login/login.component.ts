@@ -11,10 +11,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
+import { environment } from '../../../environments/environment';
 import { LocalStorageFields, Schemes } from '../../core/models/enums/constants';
 import { Routers } from '../../core/models/enums/routers';
 import { HttpService } from '../../core/services/http.service';
 import { LocalStorageService } from '../../core/services/local-storage.service';
+import { AppUserActions } from '../../redux/actions/app-user.actions';
 import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 import { AuthFormFields } from '../models/auth-form.model';
 import { SignInErrorResponse, SignInSuccessResponse } from '../models/response.model';
@@ -73,7 +75,7 @@ export class LoginComponent {
 
         this.httpService
             .post<SignInSuccessResponse | SignInErrorResponse>({
-                url: '/api/signin',
+                url: environment.apiSignIn,
                 body: {
                     email: login,
                     password,
@@ -85,6 +87,7 @@ export class LoginComponent {
                         console.log('Login successful:', response.token);
                         this.localStorageService.setItem(LocalStorageFields.TOKEN, response.token);
                         this.router.navigate([Routers.ROOT]);
+                        this.store.dispatch(AppUserActions.logIn({ email: login, token: response.token }));
                     } else if ('error' in response) {
                         console.error('Login failed:', response.error.message);
                         // this.handleLoginError(response.error);

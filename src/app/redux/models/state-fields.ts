@@ -6,6 +6,7 @@ export enum StateFields {
     APP_CONFIG_THEME = 'APP_CONFIG_THEME',
     APP_CONFIG_ADMIN = 'APP_CONFIG_ADMIN',
     APP_CARRIAGES = 'APP_CARRIAGES',
+    APP_USER = 'APP_USER',
 }
 
 export enum AppConfigFields {
@@ -36,4 +37,11 @@ export enum AppLanguageFields {
 export enum AppThemeFields {
     COLOR_SCHEME = 'COLOR_SCHEME',
     THEME = 'THEME',
+}
+
+export enum AppUserFields {
+    USER_EMAIL = 'USER_EMAIL',
+    USER_NAME = 'USER_NAME',
+    USER_TOKEN = 'USER_TOKEN',
+    USER_ROLE = 'USER_ROLE',
 }
