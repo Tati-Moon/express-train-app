@@ -1,5 +1,5 @@
 @if (show) {
-    <div #card class="card flex overflow-auto carriage-view" [ngClass]="{ 'hidden-content': mode === 'picture' }">
+    <div #card class="card flex overflow-auto carriage-view" [ngClass]="{ 'carriage-view-hidden': mode === 'picture' }">
         @if (carriage) {
             @for (row of getRowsArray(carriage.rows); track $index; let rowIndex = $index) {
                 <div>
@@ -25,6 +25,6 @@
 }
 @if (imageSrc) {
     <div class="flex justify-content-center">
-        <img [src]="imageSrc" width="50%" alt="carriage" />
+        <img [src]="imageSrc" width="50%" height="100%" alt="carriage" />
     </div>
 }
