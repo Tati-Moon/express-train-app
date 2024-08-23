@@ -20,6 +20,7 @@ import { UserProfileService } from '../../../auth/services/user-profile-form.ser
 import { Schemes } from '../../../core/models/enums/constants';
 import { HttpService } from '../../../core/services/http.service';
 import { AppUserActions } from '../../../redux/actions/app-user.actions';
+import { UserRole } from '../../../redux/models/app-user-state.model';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { selectToken } from '../../../redux/selectors/app-user.selector';
 
@@ -151,7 +152,7 @@ export class UserProfileComponent implements OnInit {
                         const { email, name, role } = response;
 
                         console.log('User profile loaded successfully:', response.name, response.email, response.role);
-                        this.store.dispatch(AppUserActions.updateUserData({ email, name, role }));
+                        this.store.dispatch(AppUserActions.updateUserData({ email, name, role: role as UserRole }));
 
                         this.userProfileService.getProfile();
                         this.isLoading = false;
@@ -190,7 +191,7 @@ export class UserProfileComponent implements OnInit {
         const { email, name, role } = response;
         console.log('User profile loaded successfully:', name, email, role);
 
-        this.store.dispatch(AppUserActions.updateUserData({ email, name, role }));
+        this.store.dispatch(AppUserActions.updateUserData({ email, name, role: role as UserRole }));
     }
 
     private handleError(error: HttpErrorResponse): Observable<never> {

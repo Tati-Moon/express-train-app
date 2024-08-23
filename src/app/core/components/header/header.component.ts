@@ -10,14 +10,11 @@ import { MenuModule } from 'primeng/menu';
 
 import { AppAdminActions } from '../../../redux/actions/app-admin.actions';
 import { AppLanguageActions } from '../../../redux/actions/app-language.actions';
-import {
-    selectAdminMenuAvailable,
-    selectAdminMenuInit,
-    selectAdminMenuShow,
-} from '../../../redux/selectors/app-admin.selector';
+import { selectAdminMenuInit, selectAdminMenuShow } from '../../../redux/selectors/app-admin.selector';
 import { selectHeaderMenuInit } from '../../../redux/selectors/app-config.selector';
 import { selectLanguageMenuInit, selectLanguageMenuShow } from '../../../redux/selectors/app-language.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
+import { selectIsAdmin } from '../../../redux/selectors/app-user.selector';
 import { Schemes } from '../../models/enums/constants';
 import { LayoutService } from '../../services/layout.service';
 import { HeaderMenuComponent } from './ui/header-menu/header-menu.component';
@@ -57,7 +54,8 @@ export class HeaderComponent {
         const adminMenuShow$ = this.store.select(selectAdminMenuShow);
         this.adminMenuShow = toSignal(adminMenuShow$, { initialValue: false });
 
-        const adminMenuAvailable$ = this.store.select(selectAdminMenuAvailable);
+        const adminMenuAvailable$ = this.store.select(selectIsAdmin);
+
         this.adminMenuAvailable = toSignal(adminMenuAvailable$, { initialValue: false });
 
         const languageMenu$ = this.store.select(selectLanguageMenuInit);
