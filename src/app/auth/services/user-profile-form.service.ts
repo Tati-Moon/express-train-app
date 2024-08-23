@@ -1,6 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { map, tap } from 'rxjs';
 
+import { AppUserState } from '../../redux/models/app-user-state.model';
+import { AppUserFields } from '../../redux/models/state-fields';
+import { selectAppUser } from '../../redux/selectors/app-user.selector';
 import { AuthFormFields } from '../models/auth-form.model';
 import { ValidationService } from './validation.service';
 
@@ -8,10 +13,7 @@ import { ValidationService } from './validation.service';
     providedIn: 'root',
 })
 export class UserProfileService {
-    private testUserLogin = 'john.doe@example.com';
-    private testUserName = 'John Doe';
-    private testUserRole = 'Manager';
-    private testUserPassword = 'SomeTestPassword_123';
+    private store = inject(Store);
 
     private MIN_LENGTH = 2;
     private MAX_LENGTH = 30;
@@ -36,34 +38,23 @@ export class UserProfileService {
     });
 
     public getProfile(): void {
-        this.userProfileForm?.patchValue({
-            [AuthFormFields.NAME]: this.testUserName,
-            [AuthFormFields.LOGIN]: this.testUserLogin,
-            [AuthFormFields.PASSWORD]: this.testUserPassword,
-            [AuthFormFields.ROLE]: this.testUserRole,
-        });
-    }
-
-    updateUserName(name: string): void {
-        this.userProfileForm?.patchValue({
-            [AuthFormFields.NAME]: name,
-        });
-    }
-
-    updateUserEmail(email: string): void {
-        this.userProfileForm?.patchValue({
-            [AuthFormFields.LOGIN]: email,
-        });
-    }
-
-    updatePassword(newPassword: string): void {
-        this.userProfileForm?.patchValue({
-            [AuthFormFields.PASSWORD]: newPassword,
-        });
-    }
-
-    logout(): void {
-        console.log('User logged out');
+        this.store
+            .select(selectAppUser)
+            .pipe(
+                map((state: AppUserState) => ({
+                    name: state[AppUserFields.USER_NAME as keyof AppUserState] ?? '',
+                    email: state[AppUserFields.USER_EMAIL as keyof AppUserState] ?? '',
+                    role: state[AppUserFields.USER_ROLE as keyof AppUserState] ?? '',
+                })),
+                tap(({ name, email, role }) => {
+                    this.userProfileForm.patchValue({
+                        [AuthFormFields.NAME]: name,
+                        [AuthFormFields.LOGIN]: email,
+                        [AuthFormFields.ROLE]: role,
+                    });
+                })
+            )
+            .subscribe();
     }
 
     public markFormDirty(form: FormGroup): void {

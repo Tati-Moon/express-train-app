@@ -15,7 +15,7 @@ export class LoginFormService {
 
     public loginForm: FormGroup = this.fb.group<LoginForm>({
         [AuthFormFields.LOGIN]: ['', [Validators.required, this.validationService.emailValidator()]],
-        [AuthFormFields.PASSWORD]: ['', [Validators.required, this.validationService.strongPasswordValidator()]],
+        [AuthFormFields.PASSWORD]: ['', [Validators.required]],
         [AuthFormFields.REMEMBER_ME]: [false, []],
     });
 

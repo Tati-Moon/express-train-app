@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, ValidationErrors } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
@@ -11,8 +11,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
+import { environment } from '../../../environments/environment';
 import { Schemes } from '../../core/models/enums/constants';
 import { HttpService } from '../../core/services/http.service';
+import { AppUserActions } from '../../redux/actions/app-user.actions';
 import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 import { AuthFormFields } from '../models/auth-form.model';
 import { SignInErrorResponse, SignInSuccessResponse } from '../models/response.model';
@@ -43,7 +45,8 @@ export class LoginComponent {
     constructor(
         private loginFormService: LoginFormService,
         private errorMessageService: ErrorMessageService,
-        private httpService: HttpService
+        private httpService: HttpService,
+        private router: Router
     ) {
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
@@ -69,7 +72,7 @@ export class LoginComponent {
 
         this.httpService
             .post<SignInSuccessResponse | SignInErrorResponse>({
-                url: '/api/signin',
+                url: environment.apiSignIn,
                 body: {
                     email: login,
                     password,
@@ -79,6 +82,8 @@ export class LoginComponent {
                 next: (response) => {
                     if ('token' in response) {
                         console.log('Login successful:', response.token);
+                        this.store.dispatch(AppUserActions.logIn({ email: login, token: response.token }));
+                        this.router.navigate(['/']);
                     } else if ('error' in response) {
                         console.error('Login failed:', response.error.message);
                         // this.handleLoginError(response.error);

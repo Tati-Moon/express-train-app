@@ -19,6 +19,7 @@ import { routes } from './app.routes';
 import { AppCarriagesEffects } from './redux/effects/app-carriages.effects';
 import { AppConfigEffects } from './redux/effects/app-config.effects';
 import { AppLanguageEffects } from './redux/effects/app-language.effects';
+import { AppUserEffects } from './redux/effects/app-user.effects';
 import { metaReducers, reducers } from './redux/reducers';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -32,7 +33,7 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         provideHttpClient(withInterceptors([])),
         provideStore(reducers, { metaReducers }),
-        provideEffects(AppConfigEffects, AppLanguageEffects, AppCarriagesEffects),
+        provideEffects(AppConfigEffects, AppLanguageEffects, AppCarriagesEffects, AppUserEffects),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         importProvidersFrom(
             TranslateModule.forRoot({
