@@ -6,7 +6,8 @@
       "ERROR": "Error"
     },
     "CARRIAGES": {
-      "SAVE_SUCCESS": "The carriage saved!"
+      "SAVE_SUCCESS": "The carriage saved!",
+      "UPDATE_SUCCESS": "The carriage updated!"
     }
   },
   "ADMIN": {
@@ -16,6 +17,7 @@
     "RIGHT_SEATS": "Count right seats",
     "ROWS": "Count rows",
     "NO_CARRIAGE": "No carriages found.",
+    "PICTURE": "Picture",
     "CARRIAGE_CREATE_FORM": {
       "TITLE": "New carriage"
     }
@@ -25,6 +27,7 @@
     "REMEMBER_ME": "Remember me",
     "REGISTER": "Register",
     "SAVE": "Save",
+    "UPDATE": "Update",
     "LOGOUT": "Logout"
   },
   "FIELD": {

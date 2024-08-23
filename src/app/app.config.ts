@@ -17,7 +17,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MessageService } from 'primeng/api';
 
 import { routes } from './app.routes';
-import { messagesInterceptor } from './core/interceptors/messages-error.interceptor';
+import { messagesInterceptor } from './core/interceptors/messages.interceptor';
+import { tokenInterceptor } from './core/interceptors/token.interceptor';
 import { AppCarriagesEffects } from './redux/effects/app-carriages.effects';
 import { AppConfigEffects } from './redux/effects/app-config.effects';
 import { AppLanguageEffects } from './redux/effects/app-language.effects';
@@ -33,7 +34,7 @@ export const appConfig: ApplicationConfig = {
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideAnimationsAsync(),
         provideRouter(routes),
-        provideHttpClient(withInterceptors([messagesInterceptor])),
+        provideHttpClient(withInterceptors([messagesInterceptor, tokenInterceptor])),
         provideStore(reducers, { metaReducers }),
         provideEffects(AppConfigEffects, AppLanguageEffects, AppCarriagesEffects),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

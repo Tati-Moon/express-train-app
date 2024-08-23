@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
@@ -97,6 +98,14 @@ export class SignupComponent {
                         // this.handleSignUpError(response.error);
                     } else {
                         console.log('Sign-up successful');
+                    }
+
+                    if (response instanceof HttpErrorResponse) {
+                        return;
+                    }
+
+                    if ('token' in response) {
+                        console.log('Login successful:', response.token);
                     }
                 },
                 error: (error) => {

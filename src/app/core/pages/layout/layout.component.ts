@@ -3,7 +3,6 @@ import { Component, inject, OnDestroy, Renderer2, Signal, ViewChild } from '@ang
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ToastModule } from 'primeng/toast';
 import { filter, Subscription } from 'rxjs';
 
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
@@ -26,7 +25,6 @@ import { LayoutService } from '../../services/layout.service';
         CommonModule,
         RouterModule,
         LoaderComponent,
-        ToastModule,
     ],
     templateUrl: './layout.component.html',
     styleUrl: './layout.component.scss',

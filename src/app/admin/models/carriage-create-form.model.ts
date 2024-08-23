@@ -6,7 +6,11 @@ export enum CarriageCreateFormFields {
     LEFT_SEATS = 'leftSeats',
     RIGHT_SEATS = 'rightSeats',
     ROWS = 'rows',
+    MODE = 'mode',
 }
+
+export type CarriageFormMode = 'CREATE' | 'EDIT' | null;
+
 export interface CarriageCreateForm {
     [CarriageCreateFormFields.CODE]: ControlType<string>;
     [CarriageCreateFormFields.NAME]: ControlType<string>;

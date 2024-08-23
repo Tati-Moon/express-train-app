@@ -6,7 +6,8 @@
       "ERROR": "Ошибка"
     },
     "CARRIAGES": {
-      "SAVE_SUCCESS": "Вагон добавлен!"
+      "SAVE_SUCCESS": "Вагон добавлен!",
+      "UPDATE_SUCCESS": "Данные о вагоне обновлены!"
     }
   },
   "ADMIN": {
@@ -16,6 +17,7 @@
     "RIGHT_SEATS": "Количество мест справа",
     "ROWS": "Количество рядов",
     "NO_CARRIAGE": "Вагоны не найдены",
+    "PICTURE": "Изображение",
     "CARRIAGE_CREATE_FORM": {
       "TITLE": "Новый вагон"
     }
@@ -25,6 +27,7 @@
     "REMEMBER_ME": "Запомнить меня",
     "REGISTER": "Зарегистрироваться",
     "SAVE": "Сохранить",
+    "UPDATE": "Обновить",
     "LOGOUT": "Выйти"
   },
   "FIELD": {

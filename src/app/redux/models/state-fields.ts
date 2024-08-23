@@ -21,7 +21,9 @@ export enum AppAdminFields {
 }
 
 export enum AppCarriageFields {
-    CREATE_CARRIAGE = 'CREATE_CARRIAGE',
+    SHOW_CARRIAGE_FORM = 'SHOW_CARRIAGE_FORM',
+    CARRIAGE_FORM_MODE = 'CARRIAGE_FORM_MODE',
+    EDIT_CARRIAGE = 'EDIT_CARRIAGE',
     CARRIAGES = 'CARRIAGES',
 }
 

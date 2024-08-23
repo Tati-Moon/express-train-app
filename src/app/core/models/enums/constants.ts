@@ -16,3 +16,7 @@ export enum Themes {
 export enum Constants {
     TIME_LIFE_MESSAGE = 5000,
 }
+
+export enum LocalStorageFields {
+    TOKEN = 'token-express-train-app',
+}

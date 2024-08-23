@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { ToastModule } from 'primeng/toast';
 import { Subscription } from 'rxjs';
 
 import { Languages } from './core/models/enums/constants';
@@ -14,7 +15,7 @@ import { selectDefaultLanguage } from './redux/selectors/app-language.selector';
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, ButtonModule, CalendarModule],
+    imports: [RouterOutlet, ButtonModule, CalendarModule, ToastModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })

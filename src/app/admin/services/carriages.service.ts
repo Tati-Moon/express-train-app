@@ -20,6 +20,7 @@ export class CarriagesService {
     }
 
     public putCarriage(carriage: Carriage): Observable<Carriage> {
-        return this.http.put<Carriage>({ url: environment.apiUrlPostCarriage, body: carriage });
+        const url = environment.apiUrlPatchCarriage + carriage.code;
+        return this.http.put<Carriage>({ url, body: carriage });
     }
 }

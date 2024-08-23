@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, ValidationErrors } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
@@ -11,8 +11,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 
-import { Schemes } from '../../core/models/enums/constants';
+import { LocalStorageFields, Schemes } from '../../core/models/enums/constants';
+import { Routers } from '../../core/models/enums/routers';
 import { HttpService } from '../../core/services/http.service';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 import { selectColorScheme } from '../../redux/selectors/app-theme.selector';
 import { AuthFormFields } from '../models/auth-form.model';
 import { SignInErrorResponse, SignInSuccessResponse } from '../models/response.model';
@@ -43,7 +45,9 @@ export class LoginComponent {
     constructor(
         private loginFormService: LoginFormService,
         private errorMessageService: ErrorMessageService,
-        private httpService: HttpService
+        private httpService: HttpService,
+        private localStorageService: LocalStorageService,
+        private router: Router
     ) {
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
@@ -79,6 +83,8 @@ export class LoginComponent {
                 next: (response) => {
                     if ('token' in response) {
                         console.log('Login successful:', response.token);
+                        this.localStorageService.setItem(LocalStorageFields.TOKEN, response.token);
+                        this.router.navigate([Routers.ROOT]);
                     } else if ('error' in response) {
                         console.error('Login failed:', response.error.message);
                         // this.handleLoginError(response.error);

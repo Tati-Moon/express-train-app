@@ -10,7 +10,12 @@ export const selectCarriages = createSelector(
     (state: AppCarriagesState) => state[AppCarriageFields.CARRIAGES]
 );
 
-export const selectCreateCarriageState = createSelector(
+export const selectShowFormState = createSelector(
     selectAppCarriages,
-    (state: AppCarriagesState) => state[AppCarriageFields.CREATE_CARRIAGE]
+    (state: AppCarriagesState) => state[AppCarriageFields.SHOW_CARRIAGE_FORM]
+);
+
+export const selectFormMode = createSelector(
+    selectAppCarriages,
+    (state: AppCarriagesState) => state[AppCarriageFields.CARRIAGE_FORM_MODE]
 );
