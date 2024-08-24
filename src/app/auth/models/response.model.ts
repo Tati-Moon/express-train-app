@@ -15,3 +15,9 @@ export interface SignInErrorResponse {
         reason: 'invalidFields' | 'invalidEmail' | 'userNotFound' | 'alreadyLoggedIn';
     };
 }
+
+export interface UserProfileSuccessResponse {
+    name: string;
+    email: string;
+    role: 'manager' | 'user';
+}
