@@ -11,3 +11,7 @@ export const selectIsAdmin = createSelector(
     selectAppUser,
     (state: AppUserState) => state[AppUserFields.USER_ROLE] === UserRole.MANAGER
 );
+export const selectTokenAndIsAdmin = createSelector(selectToken, selectIsAdmin, (token, isAdmin) => ({
+    token,
+    isAdmin,
+}));

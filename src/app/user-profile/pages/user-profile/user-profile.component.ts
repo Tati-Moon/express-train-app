@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, ValidationErrors } from '@angular/forms';
@@ -139,7 +139,6 @@ export class UserProfileComponent implements OnInit {
         this.httpService
             .get<UserProfileResponse>({
                 url: environment.apiProfile,
-                headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
             })
             .subscribe({
                 next: (response) => {
@@ -175,11 +174,10 @@ export class UserProfileComponent implements OnInit {
     updateProfile(): void {
         const name = this.form.get(this.fields.NAME)?.value;
         const email = this.form.get(this.fields.LOGIN)?.value;
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
         const body = { name, email };
 
         this.httpService
-            .put<PutUserProfileResponse>({ url: environment.apiProfile, body, headers })
+            .put<PutUserProfileResponse>({ url: environment.apiProfile, body })
             .pipe(
                 tap((response) => this.handleSuccess(response)),
                 catchError((error) => this.handleError(error))
@@ -239,10 +237,9 @@ export class UserProfileComponent implements OnInit {
     }
     updatePassword(newPassword: string): void {
         const body = { password: newPassword };
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 
         this.httpService
-            .put<void>({ url: environment.apiProfilePassword, body, headers })
+            .put<void>({ url: environment.apiProfilePassword, body })
             .pipe(
                 tap(() => {
                     console.log('Password updated successfully.');
