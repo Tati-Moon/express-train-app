@@ -1,1 +1,81 @@
-<p>stations works!</p>
+<div class="stations-container">
+    <div class="text-center">
+        <div class="text-900 text-4xl font-medium mb-5">
+            {{ 'STATION_PAGE.TITLE' | translate }}
+
+            <p-button
+                severity="success"
+                (click)="onAddNewStation()"
+                icon="pi pi-plus"
+                [rounded]="true"
+                [text]="true"
+                [raised]="true"
+            />
+        </div>
+    </div>
+
+    @if (isCreateStation) {
+        <!-- Form with map -->
+        <app-edit-station
+            [stationForm]="stationForm"
+            (save)="onSaveStation()"
+            (cancel)="onCancelEdit()"
+        ></app-edit-station>
+    } @else {
+        <div class="stations-list">
+            <!-- List -->
+            @for (station of paginatedStations; track station?.id) {
+                <div class="station-item">
+                    @if (selectedStation?.id === station.id) {
+                        <!-- Form with map -->
+                        <app-edit-station
+                            [stationForm]="stationForm"
+                            (save)="onSaveStation()"
+                            (cancel)="onCancelEdit()"
+                        ></app-edit-station>
+                    }
+
+                    @if (selectedStation?.id !== station.id) {
+                        <!-- List item -->
+                        <div class="flex justify-content-between align-items-center mb-2">
+                            <h3>{{ station.city }}</h3>
+                            <div class="flex justify-content-end align-items-center mb-2">
+                                <p-button
+                                    icon="pi pi-pencil"
+                                    (click)="onSelectStation(station)"
+                                    [rounded]="true"
+                                    [text]="true"
+                                    [raised]="true"
+                                ></p-button>
+                                <p-button
+                                    icon="pi pi-trash"
+                                    severity="danger"
+                                    (click)="onDeleteStation(station.id)"
+                                    [rounded]="true"
+                                    [text]="true"
+                                    [raised]="true"
+                                ></p-button>
+                            </div>
+                        </div>
+
+                        <p>{{ station.latitude }}, {{ station.longitude }}</p>
+                        <p>
+                            <p-tag value="{{ 'STATION_PAGE.CONNECTED_TO' | translate }}" />
+                            <br />
+                            <span *ngFor="let connection of station.connectedTo; let i = index">
+                                {{ connection.city }}<span *ngIf="i < station.connectedTo.length - 1">, </span>
+                            </span>
+                        </p>
+                    }
+                </div>
+            }
+        </div>
+        <p-paginator
+            (onPageChange)="onPageChange($event)"
+            [first]="first"
+            [rows]="rows"
+            [totalRecords]="totalRecords"
+            [rowsPerPageOptions]="[3, 5, 10, 20, 30, 50]"
+        ></p-paginator>
+    }
+</div>
