@@ -23,4 +23,52 @@ export class ErrorMessageService {
 
         return errorMessages;
     }
+
+    public getCityNameErrorMessages(errors: ValidationErrors | null): string[] {
+        if (!errors) return [];
+
+        const errorMessages: string[] = [];
+
+        if (errors['required']) {
+            errorMessages.push('STATION_PAGE.FIELDS.CITY_NAME.ERRORS.REQUIRED');
+        }
+        if (errors['hasMinLength']) {
+            errorMessages.push('STATION_PAGE.FIELDS.CITY_NAME.ERRORS.MIN_LENGTH');
+        }
+        if (errors['hasMaxLength']) {
+            errorMessages.push('STATION_PAGE.FIELDS.CITY_NAME.ERRORS.MAX_LENGTH');
+        }
+
+        return errorMessages;
+    }
+
+    public getLatitudeErrorMessages(errors: ValidationErrors | null): string[] {
+        if (!errors) return [];
+
+        const errorMessages: string[] = [];
+
+        if (errors['required']) {
+            errorMessages.push('STATION_PAGE.FIELDS.LATITUDE.ERRORS.REQUIRED');
+        }
+        if (errors['hasMinLength'] || errors['hasMaxLength']) {
+            errorMessages.push('STATION_PAGE.FIELDS.LATITUDE.ERRORS.MIN_MAX');
+        }
+
+        return errorMessages;
+    }
+
+    public getLongitudeErrorMessages(errors: ValidationErrors | null): string[] {
+        if (!errors) return [];
+
+        const errorMessages: string[] = [];
+
+        if (errors['required']) {
+            errorMessages.push('STATION_PAGE.FIELDS.LONGITUDE.ERRORS.REQUIRED');
+        }
+        if (errors['hasMinLength'] || errors['hasMaxLength']) {
+            errorMessages.push('STATION_PAGE.FIELDS.LONGITUDE.ERRORS.MIN_MAX');
+        }
+
+        return errorMessages;
+    }
 }

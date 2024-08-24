@@ -29,7 +29,8 @@
     "REGISTER": "Register",
     "SAVE": "Save",
     "UPDATE": "Update",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "CANCEL": "Cancel"
   },
   "FIELD": {
     "EMAIL": {
@@ -72,6 +73,41 @@
   "PROFILE_PAGE": {
     "TITLE": "Profile",
     "CHANGE_PASSWORD": "Change Password"
+  },
+  "STATION_PAGE": {
+    "TITLE": "Stations",
+    "CONNECTED_TO": "Connected to:",
+    "FIELDS": {
+      "CITY_NAME": {
+        "NAME": "City Name",
+        "PLACEHOLDER": "Enter city name",
+        "ERRORS": {
+          "REQUIRED": "City Name is required.",
+          "MIN_LENGTH": "City Name must be at least 2 characters long.",
+          "MAX_LENGTH": "City Name cannot be more than 50 characters.",
+          "COMMON": "Please check the City Name field for errors."
+        }
+      },
+      "LATITUDE": {
+        "NAME": "Latitude",
+        "ERRORS": {
+          "REQUIRED": "Latitude is required.",
+          "MIN_MAX": "Latitude must be between -90 and 90.",
+          "COMMON": "Please check the Latitude field for errors."
+        }
+      },
+      "LONGITUDE": {
+        "NAME": "Longitude",
+        "ERRORS": {
+          "REQUIRED": "Longitude is required.",
+          "MIN_MAX": "Longitude must be between -180 and 180.",
+          "COMMON": "Please check the Longitude field for errors."
+        }
+      },
+      "CONNECTED": {
+        "NAME": "Connected"
+      }
+    }
   },
   "LOGIN_PAGE": {
     "WELCOME": "Welcome, to Express Train!",

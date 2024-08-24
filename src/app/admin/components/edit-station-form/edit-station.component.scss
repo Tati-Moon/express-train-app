@@ -1,0 +1,22 @@
+.edit-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.map-container,
+.form-container {
+    flex: 1;
+    min-width: 0;
+}
+
+.form-container {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+@media (max-width: 768px) {
+    .edit-container {
+        flex-direction: column;
+    }
+}
