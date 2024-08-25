@@ -11,6 +11,14 @@ import { TagModule } from 'primeng/tag';
 
 import { Schemes } from '../../../core/models/enums/constants';
 import { Station } from '../../../core/models/station/station.model';
+import { AppStationsActions } from '../../../redux/actions/app-station.actions';
+import {
+    selectCurrentPage,
+    selectPageSize,
+    selectPaginatedStations,
+    selectStations,
+    selectTotalRecords,
+} from '../../../redux/selectors/app-stations.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { EditStationComponent } from '../../components/edit-station-form/edit-station.component';
 import { StationCreateFormFields } from '../../models/station-create-form';
@@ -40,12 +48,12 @@ export class StationsComponent implements OnInit {
     public colorScheme!: Signal<string>;
     public isCreateStation = false;
     public isEditStation = false;
-    public stations!: Station[];
-    public paginatedStations!: Station[];
+    public stations!: Signal<Station[]>;
+    public allStations!: Signal<Station[]>;
     public selectedStation: Station | null = null;
-    public first = 0;
-    public rows = 10;
-    public totalRecords = 0;
+    public totalItems: Signal<number>;
+    public currentPage: Signal<number>;
+    public pageSize: Signal<number>;
 
     constructor(
         private stationService: StationsService,
@@ -53,6 +61,13 @@ export class StationsComponent implements OnInit {
     ) {
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
+        const allStations$ = this.store.select(selectStations);
+        this.allStations = toSignal(allStations$, { initialValue: [] });
+        const stations$ = this.store.select(selectPaginatedStations);
+        this.stations = toSignal(stations$, { initialValue: [] });
+        this.totalItems = toSignal(this.store.select(selectTotalRecords), { initialValue: 0 });
+        this.currentPage = toSignal(this.store.select(selectCurrentPage), { initialValue: 0 });
+        this.pageSize = toSignal(this.store.select(selectPageSize), { initialValue: 10 });
     }
 
     public get stationForm() {
@@ -60,27 +75,17 @@ export class StationsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getAllStations();
+        this.getAllItems();
     }
 
-    getAllStations(): void {
-        this.stationService.getStations().subscribe((stations) => {
-            this.stations = stations;
-            this.totalRecords = stations.length;
-            this.paginate();
-        });
+    getAllItems(): void {
+        this.store.dispatch(AppStationsActions.loadStations());
     }
 
     onPageChange(event: PaginatorState): void {
-        this.first = event.first ?? 0;
-        this.rows = event.rows ?? 10;
-        this.paginate();
-    }
-
-    paginate(): void {
-        const start = this.first;
-        const end = this.first + this.rows;
-        this.paginatedStations = this.stations.slice(start, end);
+        this.store.dispatch(
+            AppStationsActions.changePagination({ currentPage: event.page ?? 0, pageSize: event.rows ?? 10 })
+        );
     }
 
     onAddNewStation(): void {
@@ -119,7 +124,7 @@ export class StationsComponent implements OnInit {
     createStationsFormArray(): void {
         const stationsToArray = this.stationForm.get(StationCreateFormFields.STATIONS) as FormArray;
         stationsToArray.clear();
-        this.stations.forEach((item) => {
+        this.allStations().forEach((item) => {
             stationsToArray.push(
                 this.fb.group({
                     id: item.id,
@@ -147,7 +152,13 @@ export class StationsComponent implements OnInit {
         this.createConnectedFormArray(this.selectedStation);
     }
 
-    onSaveStation(): void {
+    onSaveStation(station: Station): void {
+        if (station?.id != null && station?.id > 0) {
+            this.store.dispatch(AppStationsActions.initUpdateStation({ station }));
+        } else {
+            this.store.dispatch(AppStationsActions.initSaveNewStation({ station }));
+        }
+
         this.onCancelEdit();
         this.isEditStation = false;
         this.isCreateStation = false;
@@ -161,8 +172,6 @@ export class StationsComponent implements OnInit {
     }
 
     onDeleteStation(id: number): void {
-        this.stationService.deleteStation(id).subscribe(() => {
-            this.getAllStations();
-        });
+        this.store.dispatch(AppStationsActions.initDeleteStation({ id }));
     }
 }

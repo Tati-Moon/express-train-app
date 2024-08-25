@@ -20,3 +20,12 @@ export enum Constants {
 export enum LocalStorageFields {
     TOKEN = 'token-express-train-app',
 }
+
+export enum PaginationSize {
+    THREE = 3,
+    FIVE = 5,
+    TEN = 10,
+    TWENTY = 20,
+    THIRTY = 30,
+    FIFTY = 50,
+}

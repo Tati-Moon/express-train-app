@@ -30,12 +30,10 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     private markers?: Leaflet.Marker[];
 
     ngOnInit(): void {
-        console.log('map_ngOnInit');
         this.initMap();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('map_ngOnChanges');
         if (changes['latitude'] || changes['longitude'] || changes['city'] || changes['connectedTo']) {
             this.updateMap();
         }
