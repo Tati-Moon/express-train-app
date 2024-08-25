@@ -22,6 +22,7 @@ import { tokenInterceptor } from './core/interceptors/token.interceptor';
 import { AppCarriagesEffects } from './redux/effects/app-carriages.effects';
 import { AppConfigEffects } from './redux/effects/app-config.effects';
 import { AppLanguageEffects } from './redux/effects/app-language.effects';
+import { AppStationsEffects } from './redux/effects/app-stations.effects';
 import { AppUserEffects } from './redux/effects/app-user.effects';
 import { metaReducers, reducers } from './redux/reducers';
 
@@ -37,7 +38,7 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         provideHttpClient(withInterceptors([messagesInterceptor, tokenInterceptor])),
         provideStore(reducers, { metaReducers }),
-        provideEffects(AppConfigEffects, AppLanguageEffects, AppCarriagesEffects, AppUserEffects),
+        provideEffects(AppConfigEffects, AppLanguageEffects, AppCarriagesEffects, AppUserEffects, AppStationsEffects),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         importProvidersFrom(
             TranslateModule.forRoot({

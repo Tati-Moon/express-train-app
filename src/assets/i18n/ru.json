@@ -8,6 +8,11 @@
     "CARRIAGES": {
       "SAVE_SUCCESS": "Вагон добавлен!",
       "UPDATE_SUCCESS": "Данные о вагоне обновлены!"
+    },
+    "STATIONS": {
+      "SAVE_SUCCESS": "Стация добавлен!",
+      "UPDATE_SUCCESS": "Данные о станции обновлены!",
+      "DELETE_SUCCESS": "Данные о станции удалены!"
     }
   },
   "ADMIN": {

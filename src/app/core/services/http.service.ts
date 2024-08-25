@@ -71,6 +71,7 @@ export class HttpService {
         params?: HttpParams;
         headers?: HttpHeaders;
     }): Observable<T> {
+        console.log('🚀 ~ HttpService ~ url:', url);
         return this.http.delete<T>(url, { params, headers });
     }
 
