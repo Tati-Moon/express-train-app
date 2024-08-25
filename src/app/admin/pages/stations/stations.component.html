@@ -18,19 +18,19 @@
         <!-- Form with map -->
         <app-edit-station
             [stationForm]="stationForm"
-            (save)="onSaveStation()"
+            (save)="onSaveStation($event)"
             (cancel)="onCancelEdit()"
         ></app-edit-station>
     } @else {
         <div class="stations-list">
             <!-- List -->
-            @for (station of paginatedStations; track station?.id) {
+            @for (station of stations(); track station?.id) {
                 <div class="station-item">
                     @if (selectedStation?.id === station.id) {
                         <!-- Form with map -->
                         <app-edit-station
                             [stationForm]="stationForm"
-                            (save)="onSaveStation()"
+                            (save)="onSaveStation($event)"
                             (cancel)="onCancelEdit()"
                         ></app-edit-station>
                     }
@@ -72,9 +72,9 @@
         </div>
         <p-paginator
             (onPageChange)="onPageChange($event)"
-            [first]="first"
-            [rows]="rows"
-            [totalRecords]="totalRecords"
+            [first]="currentPage() * pageSize()"
+            [rows]="pageSize()"
+            [totalRecords]="totalItems()"
             [rowsPerPageOptions]="[3, 5, 10, 20, 30, 50]"
         ></p-paginator>
     }

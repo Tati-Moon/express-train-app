@@ -17,6 +17,9 @@ export enum ConnectedStationCreateFormFields {
     LONGITUDE = 'longitude',
     DISTANCE = 'distance',
 }
+
+export type StationFormMode = 'CREATE' | 'EDIT' | 'DELETE' | null;
+
 export interface StationCreateForm {
     [StationCreateFormFields.ID]: ControlType<number>;
     [StationCreateFormFields.CITY]: ControlType<string>;

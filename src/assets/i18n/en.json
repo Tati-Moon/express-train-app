@@ -8,6 +8,11 @@
     "CARRIAGES": {
       "SAVE_SUCCESS": "The carriage saved!",
       "UPDATE_SUCCESS": "The carriage updated!"
+    },
+    "STATIONS": {
+      "SAVE_SUCCESS": "The station saved!",
+      "UPDATE_SUCCESS": "The station updated!",
+      "DELETE_SUCCESS": "The station updated!"
     }
   },
   "ADMIN": {

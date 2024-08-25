@@ -6,6 +6,7 @@ export enum StateFields {
     APP_CONFIG_THEME = 'APP_CONFIG_THEME',
     APP_CONFIG_ADMIN = 'APP_CONFIG_ADMIN',
     APP_CARRIAGES = 'APP_CARRIAGES',
+    APP_STATIONS = 'APP_STATIONS',
     APP_USER = 'APP_USER',
 }
 
@@ -26,6 +27,15 @@ export enum AppCarriageFields {
     CARRIAGE_FORM_MODE = 'CARRIAGE_FORM_MODE',
     EDIT_CARRIAGE = 'EDIT_CARRIAGE',
     CARRIAGES = 'CARRIAGES',
+}
+
+export enum AppStationFields {
+    SHOW_STATION_FORM = 'SHOW_STATION_FORM',
+    STATION_FORM_MODE = 'STATION_FORM_MODE',
+    EDIT_STATION = 'EDIT_STATION',
+    STATIONS = 'STATIONS',
+    CURRENT_PAGE = 'CURRENT_PAGE',
+    PAGE_SIZE = 'PAGE_SIZE',
 }
 
 export enum AppLanguageFields {

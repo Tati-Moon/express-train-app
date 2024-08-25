@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Station } from '../../core/models/station/station.model';
@@ -83,7 +83,6 @@ export class StationsService {
     }
 
     public deleteStation(id: number): Observable<void> {
-        this.http.delete<void>({ url: `${environment.apiUrlStation}/${id}` });
-        return of();
+        return this.http.delete<void>({ url: `${environment.apiUrlStation}/${id}` });
     }
 }

@@ -6,9 +6,9 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
-import { StationCreateFormFields } from '../../models/station-create-form';
+import { Connected, Station } from '../../../core/models/station/station.model';
+import { StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
 import { ErrorMessageService } from '../../services/error-message.service';
-import { StationsService } from '../../services/stations.service';
 import { MapComponent } from '../map.component/map.component';
 
 @Component({
@@ -27,8 +27,9 @@ import { MapComponent } from '../map.component/map.component';
     styleUrls: ['./edit-station.component.scss'],
 })
 export class EditStationComponent {
+    @Input() public mode: StationFormMode = null;
     @Input() stationForm!: FormGroup;
-    @Output() save = new EventEmitter<void>();
+    @Output() save = new EventEmitter<Station>();
     @Output() cancel = new EventEmitter<void>();
 
     get connectedTo(): FormArray {
@@ -40,7 +41,6 @@ export class EditStationComponent {
     }
 
     constructor(
-        private stationService: StationsService,
         private errorMessageService: ErrorMessageService,
         private fb: FormBuilder
     ) {}
@@ -61,13 +61,6 @@ export class EditStationComponent {
         return StationCreateFormFields;
     }
 
-    //  getAllStations(): void {
-    //   this.stationService.getStations().subscribe((stations) => {
-    //    this.stations = stations;
-    //    console.log('!!!!getAllStations_this.stations', this.stations);
-    // });
-    //   }
-
     addConnectedTo(): void {
         this.connectedTo.push(
             this.fb.group({
@@ -82,8 +75,14 @@ export class EditStationComponent {
 
     onSaveStation(): void {
         if (this.stationForm.valid) {
-            console.log('onSaveStation_this.stationForm', this.stationForm);
-            // this.stationService.postStation(this.stationForm);
+            const id = this.stationForm.get([this.fields.ID])?.value;
+            const city = this.stationForm.get([this.fields.CITY])?.value;
+            const latitude = this.stationForm.get([this.fields.LATITUDE])?.value;
+            const longitude = this.stationForm.get([this.fields.LONGITUDE])?.value;
+            const connectedTo: Connected[] = this.stationForm.get([this.fields.CONNECTED_TO])?.value;
+            const relations = connectedTo.map((connection: Connected) => connection.id);
+
+            this.save.emit({ id, city, latitude, longitude, connectedTo, relations });
         }
     }
 
