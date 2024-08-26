@@ -48,6 +48,13 @@ export class CarriagesComponent implements OnInit {
         return null;
     }
 
+    public get countSeats(): number {
+        if (this.formValue) {
+            return (this.formValue.leftSeats + this.formValue.rightSeats) * this.formValue.rows;
+        }
+        return 0;
+    }
+
     constructor() {
         const showForm$ = this.store.select(selectShowFormState);
         this.showForm = toSignal(showForm$, { initialValue: false });
