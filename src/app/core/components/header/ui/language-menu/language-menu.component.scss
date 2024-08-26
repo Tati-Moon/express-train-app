@@ -1,0 +1,21 @@
+.active-route {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.header-menu {
+    .flag {
+        width: 35px;
+        background: url(https://primefaces.org/cdn/primeng/images/flag/flags_responsive.png) no-repeat;
+        background-size: 100%;
+        vertical-align: middle;
+    }
+
+    .flag-ru {
+        background-position: 0 75.206612%;
+    }
+
+    .flag-en {
+        background-position: 0 92.561983%;
+    }
+}

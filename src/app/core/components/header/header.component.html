@@ -24,15 +24,16 @@
             }
         }
     </div>
-    <div class="layout-topbar-custom-menu flex gap-2">
-        <app-header-menu
-            icon="pi pi-language"
+    <div class="layout-topbar-custom-menu flex justify-content-between align-items-center gap-2">
+        <app-language-menu
+            [lang]="lang()"
+            [colorScheme]="colorScheme()"
             [modelMenu]="languageMenu()"
             [show]="languageMenuShow()"
             (openMenu)="handleOpenLanguageMenu()"
             (closeMenu)="handleCloseLanguageMenu()"
             (selectedItem)="handleSelectLanguage($event)"
-        ></app-header-menu>
+        ></app-language-menu>
 
         @if (adminMenuAvailable()) {
             <app-header-menu

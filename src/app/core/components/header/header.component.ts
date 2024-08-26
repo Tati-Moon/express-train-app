@@ -7,22 +7,37 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import { TagModule } from 'primeng/tag';
 
 import { AppAdminActions } from '../../../redux/actions/app-admin.actions';
 import { AppLanguageActions } from '../../../redux/actions/app-language.actions';
 import { selectAdminMenuInit, selectAdminMenuShow } from '../../../redux/selectors/app-admin.selector';
 import { selectHeaderMenuInit } from '../../../redux/selectors/app-config.selector';
-import { selectLanguageMenuInit, selectLanguageMenuShow } from '../../../redux/selectors/app-language.selector';
+import {
+    selectDefaultLanguage,
+    selectLanguageMenuInit,
+    selectLanguageMenuShow,
+} from '../../../redux/selectors/app-language.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { selectIsAdmin } from '../../../redux/selectors/app-user.selector';
 import { Schemes } from '../../models/enums/constants';
 import { LayoutService } from '../../services/layout.service';
 import { HeaderMenuComponent } from './ui/header-menu/header-menu.component';
+import { LanguageMenuComponent } from './ui/language-menu/language-menu.component';
 
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [CommonModule, RouterModule, TranslateModule, MenuModule, HeaderMenuComponent, ButtonModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        MenuModule,
+        HeaderMenuComponent,
+        ButtonModule,
+        TagModule,
+        LanguageMenuComponent,
+    ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
 })
@@ -39,6 +54,8 @@ export class HeaderComponent {
     public headerMenu!: Signal<MenuItem[]>;
 
     public colorScheme!: Signal<string>;
+
+    public lang!: Signal<string>;
 
     items!: MenuItem[];
 
@@ -69,6 +86,9 @@ export class HeaderComponent {
 
         const headerMenu$ = this.store.select(selectHeaderMenuInit);
         this.headerMenu = toSignal(headerMenu$, { initialValue: [] });
+
+        const lang$ = this.store.select(selectDefaultLanguage);
+        this.lang = toSignal(lang$, { initialValue: this.translateService.currentLang });
     }
 
     public handleOpenAdminMenu(): void {
