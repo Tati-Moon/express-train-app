@@ -32,7 +32,7 @@ export const appCarriagesReducer = createReducer(
         AppCarriagesActions.newCarriageSavedSuccess,
         (state, { carriage }): AppCarriagesState => ({
             ...state,
-            [AppCarriageFields.CARRIAGES]: [...state[AppCarriageFields.CARRIAGES], carriage],
+            [AppCarriageFields.CARRIAGES]: [carriage, ...state[AppCarriageFields.CARRIAGES]],
             [AppCarriageFields.SHOW_CARRIAGE_FORM]: false,
             [AppCarriageFields.CARRIAGE_FORM_MODE]: null,
         })

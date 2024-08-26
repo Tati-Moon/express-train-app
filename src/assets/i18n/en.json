@@ -15,6 +15,7 @@
     "NAME": "Name",
     "LEFT_SEATS": "Count left seats",
     "RIGHT_SEATS": "Count right seats",
+    "COUNT_SEATS": "Count seats",
     "ROWS": "Count rows",
     "NO_CARRIAGE": "No carriages found.",
     "PICTURE": "Picture",

@@ -46,10 +46,12 @@ export class AppCarriagesEffects {
             ofType(AppCarriagesActions.initSaveNewCarriage),
             exhaustMap((action) => {
                 return this.carriagesService.postCarriage(action.carriage).pipe(
-                    map(() => {
+                    map((response) => {
                         this.form.reset();
                         this.messagesService.sendSuccess('MESSAGES.CARRIAGES.SAVE_SUCCESS');
-                        return AppCarriagesActions.newCarriageSavedSuccess({ carriage: action.carriage });
+                        return AppCarriagesActions.newCarriageSavedSuccess({
+                            carriage: { ...action.carriage, code: response.code },
+                        });
                     }),
                     catchError((error) => {
                         return of(AppCarriagesActions.newCarriageSavedFailure({ error }));
@@ -67,6 +69,7 @@ export class AppCarriagesEffects {
             exhaustMap((action) => {
                 return this.carriagesService.putCarriage(action.carriage).pipe(
                     map(() => {
+                        this.form.reset();
                         this.messagesService.sendSuccess('MESSAGES.CARRIAGES.UPDATE_SUCCESS');
                         return AppCarriagesActions.updateCarriageSuccess({ carriage: action.carriage });
                     }),

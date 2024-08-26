@@ -16,7 +16,14 @@
                 (updateCarriage)="handleUpdateCarriage($event)"
                 [mode]="formMode()"
             ></app-carriage-create-form>
-            <app-carriage-view [carriage]="formValue"></app-carriage-view>
+            <div class="card">
+                <p>{{ 'ADMIN.NAME' | translate }}: {{ formValue?.name }}</p>
+                <p>
+                    {{ 'ADMIN.COUNT_SEATS' | translate }}:
+                    {{ countSeats }}
+                </p>
+                <app-carriage-view [carriage]="formValue"></app-carriage-view>
+            </div>
         </div>
     }
     <div class="carriages__bottom col-12">
