@@ -1,0 +1,22 @@
+<div class="header-menu">
+    <button class="p-link" appCloseAllOverlay (click)="handleOpenMenu()" (clickOutside)="handleCloseMenu()">
+        <img alt="Country" src="assets/images/flags/flag-{{ lang }}.svg" width="40" />
+    </button>
+
+    @if (show) {
+        <ul class="header-menu__content">
+            @for (item of modelMenu; track $index) {
+                @if (item.label) {
+                    <a
+                        class="gap-2 p-link header-menu__btn"
+                        [routerLink]="item.routerLink"
+                        (click)="handleSelectItem(item)"
+                    >
+                        <img alt="Country" src="assets/images/flags/flag-{{ item.id }}.svg" width="30" />
+                        <span class="{{ item.id === lang ? 'active-route' : '' }}">{{ item.label | translate }}</span>
+                    </a>
+                }
+            }
+        </ul>
+    }
+</div>
