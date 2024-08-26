@@ -21,7 +21,7 @@ import {
 } from '../../../redux/selectors/app-stations.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { EditStationComponent } from '../../components/edit-station-form/edit-station.component';
-import { StationCreateFormFields } from '../../models/station-create-form';
+import { IStation, StationCreateFormFields } from '../../models/station-create-form';
 import { StationsService } from '../../services/stations.service';
 
 const INITIAL_LATITUDE = 51.505;
@@ -122,18 +122,11 @@ export class StationsComponent implements OnInit {
     }
 
     createStationsFormArray(): void {
-        const stationsToArray = this.stationForm.get(StationCreateFormFields.STATIONS) as FormArray;
-        stationsToArray.clear();
-        this.allStations().forEach((item) => {
-            stationsToArray.push(
-                this.fb.group({
-                    id: item.id,
-                    city: item.city,
-                    latitude: item.latitude,
-                    longitude: item.longitude,
-                })
-            );
+        const stations = this.stationForm.get(StationCreateFormFields.STATIONS);
+        const stationsArray: IStation[] = this.allStations().map((item) => {
+            return { id: item.id, city: item.city, latitude: item.latitude, longitude: item.longitude };
         });
+        stations?.setValue(stationsArray);
     }
 
     onSelectStation(station: Station): void {
