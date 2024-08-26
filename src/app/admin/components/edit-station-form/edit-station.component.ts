@@ -7,7 +7,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { Connected, Station } from '../../../core/models/station/station.model';
-import { StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
+import { IStation, StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
 import { ErrorMessageService } from '../../services/error-message.service';
 import { MapComponent } from '../map.component/map.component';
 
@@ -33,11 +33,11 @@ export class EditStationComponent {
     @Output() cancel = new EventEmitter<void>();
 
     get connectedTo(): FormArray {
-        return this.stationForm.get(StationCreateFormFields.CONNECTED_TO) as FormArray;
+        return this.stationForm.controls[StationCreateFormFields.CONNECTED_TO] as FormArray;
     }
 
-    get stations(): FormArray {
-        return this.stationForm.get(StationCreateFormFields.STATIONS) as FormArray;
+    get stations(): IStation[] {
+        return this.stationForm.controls[StationCreateFormFields.STATIONS]?.value;
     }
 
     constructor(

@@ -77,30 +77,21 @@
                     />
                 </div>
 
-                <!-- @for (value of connectedTo.controls; track $index) {
-                    {{ value.value.city }}
-                    <p-dropdown
-                        [showClear]="true"
-                        formControlName="city"
-                        [options]="stations.value"
-                        optionLabel="city"
-                        formControlName="value.value.city"
-                    />
-                }-->
-
                 <div formArrayName="connectedTo">
                     <div
                         *ngFor="let control of connectedTo.controls; let i = index"
                         [formGroupName]="i"
-                        class="flex align-items-center mb-2"
+                        class="flex align-items-center mb-2 gap-2"
                     >
-                        <select formControlName="city" class="mr-2">
-                            @for (value of stations.controls; track $index) {
-                                <option [value]="value.value.city">
-                                    {{ value.value.city }}
-                                </option>
-                            }
-                        </select>
+                        <p-dropdown
+                            formControlName="city"
+                            optionLabel="city"
+                            optionValue="city"
+                            [options]="stations"
+                            placeholder="Select a City"
+                            class="w-full"
+                            styleClass="w-full"
+                        />
 
                         <p-button
                             severity="danger"

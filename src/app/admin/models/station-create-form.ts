@@ -20,13 +20,20 @@ export enum ConnectedStationCreateFormFields {
 
 export type StationFormMode = 'CREATE' | 'EDIT' | 'DELETE' | null;
 
+export interface IStation {
+    id: number;
+    city: string;
+    latitude: number;
+    longitude: number;
+}
+
 export interface StationCreateForm {
     [StationCreateFormFields.ID]: ControlType<number>;
     [StationCreateFormFields.CITY]: ControlType<string>;
     [StationCreateFormFields.LATITUDE]: ControlType<number>;
     [StationCreateFormFields.LONGITUDE]: ControlType<number>;
     [StationCreateFormFields.CONNECTED_TO]: FormArray;
-    [StationCreateFormFields.STATIONS]: FormArray;
+    [StationCreateFormFields.STATIONS]: ControlType<IStation[]>;
 }
 export interface ConnectedStationCreateForm {
     [ConnectedStationCreateFormFields.ID]: ControlType<number>;
