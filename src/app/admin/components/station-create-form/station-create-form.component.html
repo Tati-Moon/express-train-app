@@ -4,7 +4,8 @@
             [latitude]="stationForm.get(fields.LATITUDE)?.value"
             [longitude]="stationForm.get(fields.LONGITUDE)?.value"
             [city]="stationForm.get(fields.CITY)?.value"
-            [connectedTo]="connectedTo.value"
+            [connectedTo]="stationForm.get(fields.CONNECTED_TO)?.value"
+            [stations]="stations"
         >
         </app-map>
     </div>
@@ -91,6 +92,7 @@
                             placeholder="Select a City"
                             class="w-full"
                             styleClass="w-full"
+                            [showClear]="true"
                         />
 
                         <p-button

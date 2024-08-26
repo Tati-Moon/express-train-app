@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
@@ -12,7 +12,7 @@ import { ErrorMessageService } from '../../services/error-message.service';
 import { MapComponent } from '../map.component/map.component';
 
 @Component({
-    selector: 'app-edit-station',
+    selector: 'app-create-station',
     standalone: true,
     imports: [
         ReactiveFormsModule,
@@ -23,14 +23,18 @@ import { MapComponent } from '../map.component/map.component';
         MapComponent,
         DropdownModule,
     ],
-    templateUrl: './edit-station.component.html',
-    styleUrls: ['./edit-station.component.scss'],
+    templateUrl: './station-create-form.component.html',
+    styleUrls: ['./station-create-form.component.scss'],
 })
-export class EditStationComponent {
+export class CreateStationComponent implements OnInit {
     @Input() public mode: StationFormMode = null;
     @Input() stationForm!: FormGroup;
     @Output() save = new EventEmitter<Station>();
     @Output() cancel = new EventEmitter<void>();
+
+    ngOnInit(): void {
+        this.stationForm.enable();
+    }
 
     get connectedTo(): FormArray {
         return this.stationForm.controls[StationCreateFormFields.CONNECTED_TO] as FormArray;
@@ -65,6 +69,7 @@ export class EditStationComponent {
         this.connectedTo.push(
             this.fb.group({
                 city: [''],
+                id: 0,
             })
         );
     }
@@ -80,7 +85,12 @@ export class EditStationComponent {
             const latitude = this.stationForm.get([this.fields.LATITUDE])?.value;
             const longitude = this.stationForm.get([this.fields.LONGITUDE])?.value;
             const connectedTo: Connected[] = this.stationForm.get([this.fields.CONNECTED_TO])?.value;
-            const relations = connectedTo.map((connection: Connected) => connection.id);
+            const relations = connectedTo
+                .map((connection: Connected) => {
+                    const matchingStation = this.stations.find((station) => station.city === connection.city);
+                    return matchingStation ? matchingStation.id : null;
+                })
+                .filter((id_): id_ is number => id !== null);
 
             this.save.emit({ id, city, latitude, longitude, connectedTo, relations });
         }

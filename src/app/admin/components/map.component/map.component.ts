@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as Leaflet from 'leaflet';
 
+import { IStation } from '../../models/station-create-form';
+
 const ICON_SIZE: [number, number] = [30, 30];
 const ICON_ANCHOR: [number, number] = [12, 24];
 const POPUP_ANCHOR: [number, number] = [0, -24];
@@ -23,7 +25,8 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     @Input() latitude: number = INITIAL_LATITUDE;
     @Input() longitude: number = INITIAL_LONGITUDE;
     @Input() city: string = '';
-    @Input() connectedTo: { latitude: number; longitude: number; city: string }[] = [];
+    @Input() connectedTo: { latitude: number; longitude: number; city: string; id: number }[] = [];
+    @Input() stations: IStation[] = [];
 
     private map!: Leaflet.Map;
     private mainMarker?: Leaflet.Marker;
@@ -95,19 +98,39 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
 
         this.markers = [];
         const grayIcon = this.createIcon(CONNECTED_MARKER_COLOR);
-        this.connectedTo?.forEach((location) => {
-            if (
-                location &&
-                typeof location === 'object' &&
-                typeof location?.latitude === 'number' &&
-                typeof location?.longitude === 'number'
-            ) {
-                const marker = Leaflet.marker([location?.latitude, location?.longitude], { icon: grayIcon }).addTo(
-                    this.map
+
+        if (this.connectedTo.length > 0) {
+            const relations = this.connectedTo
+                .map((connection) => {
+                    const matchingStation = this.stations.find((station) => station.city === connection.city);
+                    return matchingStation
+                        ? {
+                              latitude: matchingStation?.latitude,
+                              longitude: matchingStation?.longitude,
+                              city: matchingStation?.city,
+                              id: matchingStation?.id,
+                          }
+                        : null;
+                })
+                .filter(
+                    (relation): relation is { latitude: number; longitude: number; city: string; id: number } =>
+                        relation !== null
                 );
-                marker.bindPopup(location.city).openPopup();
-                this.markers?.push(marker);
-            }
-        });
+
+            relations?.forEach((location) => {
+                if (
+                    location &&
+                    typeof location === 'object' &&
+                    typeof location?.latitude === 'number' &&
+                    typeof location?.longitude === 'number'
+                ) {
+                    const marker = Leaflet.marker([location?.latitude, location?.longitude], { icon: grayIcon }).addTo(
+                        this.map
+                    );
+                    marker.bindPopup(location.city).openPopup();
+                    this.markers?.push(marker);
+                }
+            });
+        }
     }
 }

@@ -20,7 +20,8 @@ import {
     selectTotalRecords,
 } from '../../../redux/selectors/app-stations.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
-import { EditStationComponent } from '../../components/edit-station-form/edit-station.component';
+import { CreateStationComponent } from '../../components/station-create-form/station-create-form.component';
+import { ViewStationComponent } from '../../components/station-view-form/station-view-form.component';
 import { IStation, StationCreateFormFields } from '../../models/station-create-form';
 import { StationsService } from '../../services/stations.service';
 
@@ -36,7 +37,8 @@ const INITIAL_LONGITUDE = -0.09;
         InputTextModule,
         ButtonModule,
         TranslateModule,
-        EditStationComponent,
+        CreateStationComponent,
+        ViewStationComponent,
         TagModule,
         PaginatorModule,
     ],
