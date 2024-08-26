@@ -29,7 +29,16 @@ export class SearchComponent {
         [this.fields.CALENDER]: [new Date(), [Validators.required]],
     });
 
-    onSearch() {
+    public reverseInputs() {
+        const formValue = this.searchForm.value;
+        [formValue.from, formValue.to] = [formValue.to, formValue.from];
+        this.searchForm.patchValue({
+            [this.fields.FROM_INPUT]: [formValue.from],
+            [this.fields.TO_INPUT]: [formValue.to],
+        });
+    }
+
+    public onSearch() {
         console.log('Search...');
     }
 }
