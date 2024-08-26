@@ -8,4 +8,5 @@ export const environment = {
     apiSignUp: '/api/signup',
     apiProfile: '/api/profile',
     apiProfilePassword: '/api/profile/password',
+    apiUrlStation: '/api/station',
 };
