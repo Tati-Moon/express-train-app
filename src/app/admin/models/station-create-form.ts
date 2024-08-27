@@ -1,6 +1,7 @@
 import { FormArray } from '@angular/forms';
 
 import { ControlType } from '../../core/models/enums/control-type';
+import { IStation } from './station.interface';
 
 export enum StationCreateFormFields {
     ID = 'id',
@@ -19,13 +20,6 @@ export enum ConnectedStationCreateFormFields {
 }
 
 export type StationFormMode = 'CREATE' | 'EDIT' | 'DELETE' | null;
-
-export interface IStation {
-    id: number;
-    city: string;
-    latitude: number;
-    longitude: number;
-}
 
 export interface StationCreateForm {
     [StationCreateFormFields.ID]: ControlType<number>;

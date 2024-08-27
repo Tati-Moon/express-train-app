@@ -13,6 +13,11 @@
       "SAVE_SUCCESS": "Стация добавлен!",
       "UPDATE_SUCCESS": "Данные о станции обновлены!",
       "DELETE_SUCCESS": "Данные о станции удалены!"
+    },
+    "ROUTES": {
+      "SAVE_SUCCESS": "Путь успешно добавлен!",
+      "UPDATE_SUCCESS": "Путь успешно обновлен!",
+      "DELETE_SUCCESS": "Путь успешно удален!"
     }
   },
   "ADMIN": {
@@ -33,9 +38,10 @@
     "REMEMBER_ME": "Запомнить меня",
     "REGISTER": "Зарегистрироваться",
     "SAVE": "Сохранить",
+    "CANCEL": "Отменить",
     "UPDATE": "Обновить",
     "LOGOUT": "Выйти",
-    "CANCEL": "Отменить"
+    "CONFIRM": "Подвердить"
   },
   "FIELD": {
     "EMAIL": {
@@ -82,6 +88,8 @@
   "STATION_PAGE": {
     "TITLE": "Станции",
     "CONNECTED_TO": "Соединенные станции:",
+    "DELETE_CONFIRMATION": "Подтверждение удаления станции",
+    "DELETE_CONFIRMATION_MESSAGE": "Вы уверены, что хотите удалить эту станцию? Это действие необратимо.",
     "FIELDS": {
       "CITY_NAME": {
         "NAME": "Город",
@@ -110,7 +118,26 @@
         }
       },
       "CONNECTED": {
-        "NAME": "Соединенные станции"
+        "NAME": "Соединенные станции",
+        "PLACEHOLDER": "Выбере город"
+      }
+    }
+  },
+  "ROUTE_PAGE": {
+    "TITLE": "Пути",
+    "CITIES": "Города",
+    "CARRIAGE_TYPES": "Типы вагонов",
+    "SUB_TITLE": "Путь",
+    "DELETE_CONFIRMATION": "Подтверждение удаления маршрута",
+    "DELETE_CONFIRMATION_MESSAGE": "Вы уверены, что хотите удалить этот маршрут? Это действие необратимо.",
+    "FIELDS": {
+      "STATIONS": {
+        "NAME": "Станции",
+        "PLACEHOLDER": "Выберете станцию"
+      },
+      "CARRIAGES": {
+        "NAME": "Вагоны",
+        "PLACEHOLDER": "Выберете вагон"
       }
     }
   },

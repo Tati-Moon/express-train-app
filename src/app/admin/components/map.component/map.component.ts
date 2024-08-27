@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import * as Leaflet from 'leaflet';
 
-import { IStation } from '../../models/station-create-form';
+import { IStation } from '../../models/station.interface';
 
 const ICON_SIZE: [number, number] = [30, 30];
 const ICON_ANCHOR: [number, number] = [12, 24];

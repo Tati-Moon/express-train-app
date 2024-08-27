@@ -7,7 +7,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { Connected, Station } from '../../../core/models/station/station.model';
-import { IStation, StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
+import { IStation } from '../../models/station.interface';
+import { StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
 import { ErrorMessageService } from '../../services/error-message.service';
 import { MapComponent } from '../map.component/map.component';
 
@@ -92,7 +93,7 @@ export class CreateStationComponent implements OnInit {
                 })
                 .filter((id_): id_ is number => id !== null);
 
-            this.save.emit({ id, city, latitude, longitude, connectedTo, relations });
+            this.save.emit({ id, city, latitude, longitude, connectedTo, relations, cities: [] });
         }
     }
 

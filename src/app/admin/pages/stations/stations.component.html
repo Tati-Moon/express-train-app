@@ -55,13 +55,9 @@
                         </div>
 
                         <p>{{ station.latitude }}, {{ station.longitude }}</p>
-                        <p>
-                            <p-tag value="{{ 'STATION_PAGE.CONNECTED_TO' | translate }}" />
-                            <br />
-                            <span *ngFor="let connection of station.connectedTo; let i = index">
-                                {{ connection.city }}<span *ngIf="i < station.connectedTo.length - 1">, </span>
-                            </span>
-                        </p>
+
+                        <app-page-info-list [title]="'STATION_PAGE.CONNECTED_TO' | translate" [items]="station.cities">
+                        </app-page-info-list>
                     }
                 </div>
             }
@@ -75,3 +71,12 @@
         ></p-paginator>
     }
 </div>
+<app-delete-confirmation
+    [visible]="deleteModalVisible"
+    [routeId]="stationToDelete"
+    [header]="'STATION_PAGE.DELETE_CONFIRMATION' | translate"
+    [message]="'STATION_PAGE.DELETE_CONFIRMATION_MESSAGE' | translate"
+    (confirm)="onConfirmDelete($event)"
+    (cancel)="onCancelDelete()"
+>
+</app-delete-confirmation>

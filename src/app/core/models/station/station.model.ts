@@ -4,6 +4,7 @@ export interface Station {
     latitude: number;
     longitude: number;
     connectedTo: Connected[];
+    cities: string[];
     relations: number[];
 }
 

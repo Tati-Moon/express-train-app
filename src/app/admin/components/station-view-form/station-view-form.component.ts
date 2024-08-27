@@ -6,7 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
-import { IStation, StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
+import { IStation } from '../../models/station.interface';
+import { StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
 import { ErrorMessageService } from '../../services/error-message.service';
 import { MapComponent } from '../map.component/map.component';
 

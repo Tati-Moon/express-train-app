@@ -53,22 +53,28 @@ export class StationsService {
     public getStations(): Observable<Station[]> {
         return this.http.get<Station[]>({ url: environment.apiUrlStation }).pipe(
             map((stations: Station[]) => {
-                stations.forEach((station) => {
-                    station.connectedTo.forEach((connected) => {
+                return stations.map((station) => {
+                    const updatedConnectedTo = station.connectedTo.map((connected) => {
                         const connectedStation = stations.find((s) => s.id === connected.id);
-
-                        if (connectedStation) {
-                            // eslint-disable-next-line no-param-reassign
-                            connected.city = connectedStation?.city;
-                            // eslint-disable-next-line no-param-reassign
-                            connected.latitude = connectedStation?.latitude;
-                            // eslint-disable-next-line no-param-reassign
-                            connected.longitude = connectedStation?.longitude;
-                        }
+                        return {
+                            ...connected,
+                            city: connectedStation?.city || connected.city,
+                            latitude: connectedStation?.latitude || connected.latitude,
+                            longitude: connectedStation?.longitude || connected.longitude,
+                        };
                     });
-                });
 
-                return stations;
+                    const cities = updatedConnectedTo.map((item) => {
+                        const foundCity = stations.find((s) => s.id === item.id)?.city;
+                        return foundCity || 'Unknown';
+                    });
+
+                    return {
+                        ...station,
+                        connectedTo: updatedConnectedTo,
+                        cities,
+                    };
+                });
             })
         );
     }

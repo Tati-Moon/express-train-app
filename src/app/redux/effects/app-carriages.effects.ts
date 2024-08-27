@@ -9,6 +9,7 @@ import { Carriage } from '../../core/models';
 import { MessagesService } from '../../core/services/messages.service';
 import { AppCarriagesActions } from '../actions/app-carriages.actions';
 import { AppConfigActions } from '../actions/app-config.actions';
+import { AppRoutesActions } from '../actions/app-routes.actions';
 
 @Injectable()
 export class AppCarriagesEffects {
@@ -26,7 +27,7 @@ export class AppCarriagesEffects {
 
     loadCarriages$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(AppCarriagesActions.loadCarriages),
+            ofType(AppCarriagesActions.loadCarriages, AppRoutesActions.loadRoutesSuccess),
             exhaustMap(() => {
                 return this.carriagesService.getCarriages().pipe(
                     map((carriages: Carriage[]) => {
