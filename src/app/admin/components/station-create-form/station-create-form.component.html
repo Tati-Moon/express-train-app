@@ -79,31 +79,29 @@
                 </div>
 
                 <div formArrayName="connectedTo">
-                    <div
-                        *ngFor="let control of connectedTo.controls; let i = index"
-                        [formGroupName]="i"
-                        class="flex align-items-center mb-2 gap-2"
-                    >
-                        <p-dropdown
-                            formControlName="city"
-                            optionLabel="city"
-                            optionValue="city"
-                            [options]="stations"
-                            placeholder="Select a City"
-                            class="w-full"
-                            styleClass="w-full"
-                            [showClear]="true"
-                        />
+                    @for (control of connectedTo.controls; track $index) {
+                        <div [formGroupName]="$index" class="flex align-items-center mb-2 gap-2">
+                            <p-dropdown
+                                formControlName="city"
+                                optionLabel="city"
+                                optionValue="city"
+                                [options]="stations"
+                                placeholder="{{ 'STATION_PAGE.FIELDS.CONNECTED.PLACEHOLDER' | translate }}"
+                                class="w-full"
+                                styleClass="w-full"
+                                [showClear]="true"
+                            />
 
-                        <p-button
-                            severity="danger"
-                            (click)="removeConnectedTo(i)"
-                            icon="pi pi-trash"
-                            [rounded]="true"
-                            [text]="true"
-                            [raised]="true"
-                        ></p-button>
-                    </div>
+                            <p-button
+                                severity="danger"
+                                (click)="removeConnectedTo($index)"
+                                icon="pi pi-trash"
+                                [rounded]="true"
+                                [text]="true"
+                                [raised]="true"
+                            ></p-button>
+                        </div>
+                    }
                 </div>
             </div>
 

@@ -20,9 +20,12 @@ import {
     selectTotalRecords,
 } from '../../../redux/selectors/app-stations.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
+import { DeleteConfirmationComponent } from '../../components/delete-confirmation/delete-confirmation.component';
+import { PageInfoListComponent } from '../../components/page-info-list/page-info-list.component';
 import { CreateStationComponent } from '../../components/station-create-form/station-create-form.component';
 import { ViewStationComponent } from '../../components/station-view-form/station-view-form.component';
-import { IStation, StationCreateFormFields } from '../../models/station-create-form';
+import { IStation } from '../../models/station.interface';
+import { StationCreateFormFields } from '../../models/station-create-form';
 import { StationsService } from '../../services/stations.service';
 
 const INITIAL_LATITUDE = 51.505;
@@ -41,6 +44,8 @@ const INITIAL_LONGITUDE = -0.09;
         ViewStationComponent,
         TagModule,
         PaginatorModule,
+        PageInfoListComponent,
+        DeleteConfirmationComponent,
     ],
     templateUrl: './stations.component.html',
     styleUrls: ['./stations.component.scss'],
@@ -56,6 +61,8 @@ export class StationsComponent implements OnInit {
     public totalItems: Signal<number>;
     public currentPage: Signal<number>;
     public pageSize: Signal<number>;
+    public deleteModalVisible: boolean = false;
+    public stationToDelete!: number;
 
     constructor(
         private stationService: StationsService,
@@ -167,6 +174,17 @@ export class StationsComponent implements OnInit {
     }
 
     onDeleteStation(id: number): void {
+        this.stationToDelete = id;
+        this.deleteModalVisible = true;
+    }
+
+    onConfirmDelete(id: number): void {
         this.store.dispatch(AppStationsActions.initDeleteStation({ id }));
+        this.deleteModalVisible = false;
+    }
+
+    onCancelDelete(): void {
+        this.deleteModalVisible = false;
+        this.stationToDelete = null!;
     }
 }

@@ -1,0 +1,10 @@
+<p>
+    <p-tag [value]="title"></p-tag>
+    <br />
+    @for (item of items; track $index) {
+        <span> {{ item }}</span>
+        @if ($index < items.length - 1) {
+            <span>,</span>
+        }
+    }
+</p>
