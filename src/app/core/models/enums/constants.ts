@@ -29,3 +29,9 @@ export enum PaginationSize {
     THIRTY = 30,
     FIFTY = 50,
 }
+
+export enum SeatStatus {
+    RESERVED = 'reserved',
+    AVAILABLE = 'available',
+    SELECTED = 'selected',
+}

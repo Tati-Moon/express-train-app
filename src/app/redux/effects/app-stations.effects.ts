@@ -10,6 +10,7 @@ import { MessagesService } from '../../core/services/messages.service';
 import { AppConfigActions } from '../actions/app-config.actions';
 import { AppRoutesActions } from '../actions/app-routes.actions';
 import { AppStationsActions } from '../actions/app-station.actions';
+import { AppTripActions } from '../actions/app-trip.actions';
 import { selectStations } from '../selectors/app-stations.selector';
 
 @Injectable()
@@ -27,7 +28,12 @@ export class AppStationsEffects {
 
     loadStations$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(AppStationsActions.loadStations, AppStationsActions.deleteStationSuccess),
+            ofType(
+                AppStationsActions.loadStations,
+                AppStationsActions.deleteStationSuccess,
+                AppRoutesActions.loadRoutesSuccess,
+                AppTripActions.loadTripInfoSuccess
+            ),
             exhaustMap(() => {
                 console.log('\x1b[31m%s\x1b[0m', 'liflud');
                 return this.stationsService.getStations().pipe(

@@ -1,0 +1,35 @@
+@if (tripCarriages) {
+    <div class="card flex flex-wrap justify-content-between">
+        <p-tabView styleClass="tabview-custom">
+            @for (carriage of carriages; track $index) {
+                <p-tabPanel>
+                    <ng-template pTemplate="header">
+                        <div class="flex align-items-center gap-2">
+                            <span class="font-bold white-space-nowrap m-0"> {{ carriage }} </span>
+                        </div>
+                    </ng-template>
+                    <!-- <p>{{ tripCarriages[carriage].count }}</p> -->
+                    <!-- <p>{{ tripCarriages[carriage].indexCar }}</p> -->
+                    <!-- <p>{{ tripCarriages[carriage].rangeSeats }}</p> -->
+                    <!-- <p>{{ seatsInTrain }}</p> -->
+
+                    @for (item of getCarriagesCount(tripCarriages[carriage].count); track $index) {
+                        <div class="mb-4">
+                            <p>{{ 'ADMIN.NAME' | translate }}: {{ tripCarriages[carriage].indexCar[$index] + 1 }}</p>
+                            <p>
+                                {{ 'ADMIN.COUNT_SEATS' | translate }}:
+                                {{ getCountSeats(carriage) }}
+                            </p>
+                            <app-carriage-view
+                                [numberOfCarriage]="tripCarriages[carriage].indexCar[$index] + 1"
+                                [carriage]="getCarriage(carriage)"
+                                [startIndexSeats]="startIndexSeats($index, carriage)"
+                                [busySeats]="busySeats()"
+                            ></app-carriage-view>
+                        </div>
+                    }
+                </p-tabPanel>
+            }
+        </p-tabView>
+    </div>
+}

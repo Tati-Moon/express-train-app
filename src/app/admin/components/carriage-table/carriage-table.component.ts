@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 
 import { Carriage } from '../../../core/models';
-import { CarriageViewComponent } from '../carriage-view/carriage-view.component';
+import { CarriageViewComponent } from '../../../shared/components/carriage-view/carriage-view.component';
 
 @Component({
     selector: 'app-carriage-table',
