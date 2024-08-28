@@ -7,6 +7,7 @@ export const AppStationsActions = createActionGroup({
     source: 'APP STATIONS',
     events: {
         'Load Stations': emptyProps(),
+        'Lazy Load Stations': emptyProps(),
         'Load Stations Success': props<{ stations: Station[] }>(),
         'Load Stations Failure': props<{ error: string }>(),
 

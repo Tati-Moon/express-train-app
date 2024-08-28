@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, endWith, exhaustMap, map, of, startWith } from 'rxjs';
+import { catchError, EMPTY, endWith, exhaustMap, map, of, startWith } from 'rxjs';
 
 import { StationsService } from '../../admin/services/stations.service';
 import { Station } from '../../core/models/station/station.model';
@@ -9,6 +10,7 @@ import { MessagesService } from '../../core/services/messages.service';
 import { AppConfigActions } from '../actions/app-config.actions';
 import { AppRoutesActions } from '../actions/app-routes.actions';
 import { AppStationsActions } from '../actions/app-station.actions';
+import { selectStations } from '../selectors/app-stations.selector';
 
 @Injectable()
 export class AppStationsEffects {
@@ -25,13 +27,29 @@ export class AppStationsEffects {
 
     loadStations$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(
-                AppStationsActions.loadStations,
-                AppStationsActions.deleteStationSuccess,
-                AppRoutesActions.loadRoutesSuccess
-            ),
+            ofType(AppStationsActions.loadStations, AppStationsActions.deleteStationSuccess),
             exhaustMap(() => {
                 console.log('\x1b[31m%s\x1b[0m', 'liflud');
+                return this.stationsService.getStations().pipe(
+                    map((stations: Station[]) => {
+                        this.form.reset();
+                        return AppStationsActions.loadStationsSuccess({ stations });
+                    }),
+                    catchError((error) => of(AppStationsActions.loadStationsFailure({ error }))),
+                    startWith(AppConfigActions.setVisibleLoader()),
+                    endWith(AppConfigActions.setInvisibleLoader())
+                );
+            })
+        )
+    );
+    lazyLoadStations$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AppStationsActions.lazyLoadStations, AppRoutesActions.loadRoutesSuccess),
+            concatLatestFrom(() => this.store.select(selectStations)),
+            exhaustMap(([, stationsOld]) => {
+                if (stationsOld && stationsOld.length > 0) {
+                    return EMPTY;
+                }
                 return this.stationsService.getStations().pipe(
                     map((stations: Station[]) => {
                         this.form.reset();
