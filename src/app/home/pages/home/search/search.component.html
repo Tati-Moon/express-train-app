@@ -1,4 +1,8 @@
-<form class="flex md:justify-content-evenly search-form" [formGroup]="searchForm" (onSearch)="onSearch()">
+<form
+    class="flex md:justify-content-evenly flex-wrap gap-2 search-form"
+    [formGroup]="searchForm"
+    (onSearch)="onSearch()"
+>
     <div class="flex gap-2 search-inputs">
         <input class="search-input" type="text" pInputText [formControlName]="fields.FROM_INPUT" placeholder="from" />
         <p-button
@@ -7,6 +11,7 @@
             [outlined]="true"
             size="small"
             (click)="reverseInputs()"
+            class="flex align-self-center"
         ></p-button>
         <input class="search-input" type="text" pInputText [formControlName]="fields.TO_INPUT" placeholder="to" />
     </div>
@@ -27,5 +32,5 @@
         </ng-template>
     </p-calendar>
 
-    <p-button class="search-btn" (click)="onSearch()"> Search </p-button>
+    <p-button class="search-btn" (click)="onSearch()"> <div class="div-search">Search</div></p-button>
 </form>

@@ -1,6 +1,5 @@
 @media screen and (max-width: 1024px) {
     .search-form {
-        display: flex;
         flex-wrap: wrap;
         flex-direction: column;
         align-items: center;
@@ -16,7 +15,25 @@
         .calendar-input {
             width: 100%;
             display: grid;
-            align-items: stretch;
+            align-items: center;
+        }
+
+        .div-search {
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .search-form {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        .search-inputs {
+            display: flex;
+            flex-direction: column;
         }
     }
 }
