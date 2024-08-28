@@ -5,12 +5,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessagesModule } from 'primeng/messages';
 
 import { Connected, Station } from '../../../core/models/station/station.model';
 import { IStation } from '../../models/station.interface';
 import { StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
 import { ErrorMessageService } from '../../services/error-message.service';
-import { MapComponent } from '../map.component/map.component';
+import { MapViewComponent } from '../map-view/map-view.component';
 
 @Component({
     selector: 'app-create-station',
@@ -21,8 +22,9 @@ import { MapComponent } from '../map.component/map.component';
         InputTextModule,
         ButtonModule,
         TranslateModule,
-        MapComponent,
+        MapViewComponent,
         DropdownModule,
+        MessagesModule,
     ],
     templateUrl: './station-create-form.component.html',
     styleUrls: ['./station-create-form.component.scss'],
@@ -69,8 +71,7 @@ export class CreateStationComponent implements OnInit {
     addConnectedTo(): void {
         this.connectedTo.push(
             this.fb.group({
-                city: [''],
-                id: 0,
+                [StationCreateFormFields.CITY]: [''],
             })
         );
     }

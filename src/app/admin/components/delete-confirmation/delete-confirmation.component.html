@@ -3,7 +3,12 @@
 
     <p-footer>
         <div class="flex justify-content-between">
-            <p-button label="{{ 'BUTTONS.CANCEL' | translate }}" icon="pi pi-times" (click)="onCancel()"></p-button>
+            <p-button
+                label="{{ 'BUTTONS.CANCEL' | translate }}"
+                icon="pi pi-times"
+                severity="secondary"
+                (click)="onCancel()"
+            ></p-button>
             <p-button
                 label="{{ 'BUTTONS.CONFIRM' | translate }}"
                 icon="pi pi-trash"

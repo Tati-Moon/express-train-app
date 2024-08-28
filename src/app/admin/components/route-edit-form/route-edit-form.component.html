@@ -1,7 +1,9 @@
 <div class="edit-container">
-    <form [formGroup]="routeForm" (ngSubmit)="onSaveRoute()">
+    <form class="card mb-2" [formGroup]="routeForm" (ngSubmit)="onSaveRoute()">
         @if (routeForm.get(fields.ID)?.value !== null && routeForm.get(fields.ID)?.value > 0) {
             <p-tag value="{{ 'ROUTE_PAGE.SUB_TITLE' | translate }}{{ routeForm.get(fields.ID)?.value }}" />
+        } @else {
+            <p-tag severity="warning" value="{{ 'ROUTE_PAGE.SUB_TITLE_NEW' | translate }}" />
         }
         <div class="form-stations">
             <div class="text-center">
@@ -17,6 +19,15 @@
                     />
                 </div>
                 <div formArrayName="path">
+                    @if (path.controls.length === 0) {
+                        <p-messages severity="error" [closable]="false">
+                            <ng-template pTemplate>
+                                <span class="pi pi-exclamation-circle"></span>
+                                <div class="ml-2">{{ 'ROUTE_PAGE.FIELDS.STATIONS.ERRORS.REQUIRED' | translate }}</div>
+                            </ng-template>
+                        </p-messages>
+                    }
+
                     @for (control of path.controls; track $index) {
                         <div [formGroupName]="$index" class="flex align-items-center mb-2 gap-2">
                             <p-dropdown
@@ -25,11 +36,13 @@
                                 optionValue="city"
                                 [options]="stations"
                                 placeholder="{{ 'ROUTE_PAGE.FIELDS.STATIONS.PLACEHOLDER' | translate }}"
-                                class="w-full"
+                                class="ng-dirty w-full"
                                 styleClass="w-full"
                                 [showClear]="true"
+                                [filter]="true"
+                                filterBy="city"
+                                [required]="true"
                             />
-
                             <p-button
                                 severity="danger"
                                 icon="pi pi-trash"
@@ -58,6 +71,14 @@
                 </div>
 
                 <div formArrayName="carriages">
+                    @if (carriages.controls.length === 0) {
+                        <p-messages severity="error" [closable]="false">
+                            <ng-template pTemplate>
+                                <span class="pi pi-exclamation-circle"></span>
+                                <div class="ml-2">{{ 'ROUTE_PAGE.FIELDS.CARRIAGES.ERRORS.REQUIRED' | translate }}</div>
+                            </ng-template>
+                        </p-messages>
+                    }
                     @for (control of carriages.controls; track $index) {
                         <div [formGroupName]="$index" class="flex align-items-center mb-2 gap-2">
                             <p-dropdown
@@ -66,9 +87,12 @@
                                 optionValue="name"
                                 [options]="carriageList"
                                 placeholder="{{ 'ROUTE_PAGE.FIELDS.CARRIAGES.PLACEHOLDER' | translate }}"
-                                class="w-full"
+                                class="ng-dirty w-full"
                                 styleClass="w-full"
                                 [showClear]="true"
+                                [filter]="true"
+                                filterBy="name"
+                                [required]="true"
                             />
 
                             <p-button
@@ -91,8 +115,14 @@
                 (click)="onSaveRoute()"
                 label="{{ 'BUTTONS.SAVE' | translate }}"
                 severity="primary"
+                icon="pi pi-save"
             />
-            <p-button (click)="onCancelEdit()" label="{{ 'BUTTONS.CANCEL' | translate }}" severity="secondary" />
+            <p-button
+                (click)="onCancelEdit()"
+                label="{{ 'BUTTONS.CANCEL' | translate }}"
+                severity="secondary"
+                icon="pi pi-times"
+            />
         </div>
     </form>
 </div>

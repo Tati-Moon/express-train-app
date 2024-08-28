@@ -1,16 +1,16 @@
-<div class="edit-container">
-    <div class="map-container">
-        <app-map
-            [latitude]="stationForm.get(fields.LATITUDE)?.value"
-            [longitude]="stationForm.get(fields.LONGITUDE)?.value"
-            [city]="stationForm.get(fields.CITY)?.value"
-            [connectedTo]="stationForm.get(fields.CONNECTED_TO)?.value"
-            [stations]="stations"
-        >
-        </app-map>
-    </div>
-    <div class="form-container">
-        <form [formGroup]="stationForm">
+<div>
+    <form class="card edit-container" [formGroup]="stationForm">
+        <div class="map-container">
+            <app-map-view
+                [latitude]="stationForm.get(fields.LATITUDE)?.value"
+                [longitude]="stationForm.get(fields.LONGITUDE)?.value"
+                [city]="stationForm.get(fields.CITY)?.value"
+                [connectedTo]="stationForm.get(fields.CONNECTED_TO)?.value"
+                [stations]="stations"
+            >
+            </app-map-view>
+        </div>
+        <div class="form-container">
             <div class="form-group mb-2">
                 <label for="city" class="block text-900 text-xl font-medium mb-2">{{
                     'STATION_PAGE.FIELDS.CITY_NAME.NAME' | translate
@@ -20,6 +20,8 @@
                     [formControlName]="fields.CITY"
                     placeholder="{{ 'STATION_PAGE.FIELDS.CITY_NAME.PLACEHOLDER' | translate }}"
                     type="text"
+                    class="ng-dirty w-full"
+                    styleClass="w-full"
                     pInputText
                 />
 
@@ -36,7 +38,14 @@
                 <label for="latitude" class="block text-900 text-xl font-medium mb-2">
                     {{ 'STATION_PAGE.FIELDS.LATITUDE.NAME' | translate }}
                 </label>
-                <input id="latitude" type="number" formControlName="latitude" pInputText />
+                <input
+                    id="latitude"
+                    type="number"
+                    formControlName="latitude"
+                    class="ng-dirty w-full"
+                    styleClass="w-full"
+                    pInputText
+                />
 
                 @if (stationForm.get(fields.LATITUDE); as rows) {
                     @if (!rows.pristine) {
@@ -51,7 +60,14 @@
                 <label for="longitude" class="block text-900 text-xl font-medium mb-2">
                     {{ 'STATION_PAGE.FIELDS.LONGITUDE.NAME' | translate }}</label
                 >
-                <input id="longitude" type="number" formControlName="longitude" pInputText />
+                <input
+                    id="longitude"
+                    type="number"
+                    formControlName="longitude"
+                    class="ng-dirty w-full"
+                    styleClass="w-full"
+                    pInputText
+                />
 
                 @if (stationForm.get(fields.LONGITUDE); as rows) {
                     @if (!rows.pristine) {
@@ -88,8 +104,13 @@
             </div>
 
             <div class="flex gap-2">
-                <p-button (click)="onCancelEdit()" label="{{ 'BUTTONS.CANCEL' | translate }}" severity="secondary" />
+                <p-button
+                    (click)="onCancelEdit()"
+                    label="{{ 'BUTTONS.CANCEL' | translate }}"
+                    severity="secondary"
+                    icon="pi pi-times"
+                />
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
