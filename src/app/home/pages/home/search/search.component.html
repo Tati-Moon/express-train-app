@@ -1,6 +1,6 @@
-<form class="flex md:justify-content-evenly" [formGroup]="searchForm" (onSearch)="onSearch()">
-    <div class="flex gap-2">
-        <input type="text" pInputText [formControlName]="fields.FROM_INPUT" placeholder="from" />
+<form class="flex md:justify-content-evenly search-form" [formGroup]="searchForm" (onSearch)="onSearch()">
+    <div class="flex gap-2 search-inputs">
+        <input class="search-input" type="text" pInputText [formControlName]="fields.FROM_INPUT" placeholder="from" />
         <p-button
             icon="pi pi-sync"
             [rounded]="true"
@@ -8,16 +8,24 @@
             size="small"
             (click)="reverseInputs()"
         ></p-button>
-        <input type="text" pInputText [formControlName]="fields.TO_INPUT" placeholder="to" />
+        <input class="search-input" type="text" pInputText [formControlName]="fields.TO_INPUT" placeholder="to" />
     </div>
 
     <p-calendar
+        class="calendar-input"
         [formControlName]="fields.CALENDER"
         [iconDisplay]="'input'"
         [showIcon]="true"
         dateFormat="D M d"
         inputId="icondisplay"
-    />
+        [minDate]="minDate"
+    >
+        <ng-template pTemplate="date" let-date>
+            <span [ngStyle]="{ color: 'blue' }">
+                {{ date.day }}
+            </span>
+        </ng-template>
+    </p-calendar>
 
-    <p-button (click)="onSearch()">Submit</p-button>
+    <p-button class="search-btn" (click)="onSearch()"> Search </p-button>
 </form>

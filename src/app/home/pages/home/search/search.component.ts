@@ -1,3 +1,4 @@
+import { NgStyle } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -10,12 +11,14 @@ import { SearchForm, SearchFormFields } from './models/search-form.models';
 @Component({
     selector: 'app-search',
     standalone: true,
-    imports: [InputTextModule, ReactiveFormsModule, ButtonModule, CalendarModule],
+    imports: [InputTextModule, ReactiveFormsModule, NgStyle, ButtonModule, CalendarModule],
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
 })
 export class SearchComponent {
     private store = inject(Store); //
+
+    public minDate = new Date();
 
     constructor(private fb: FormBuilder) {}
 

@@ -1,0 +1,22 @@
+@media screen and (max-width: 1024px) {
+    .search-form {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        .search-inputs {
+            width: 100%;
+            .search-input {
+                width: 100%;
+            }
+        }
+
+        .search-btn,
+        .calendar-input {
+            width: 100%;
+            display: grid;
+            align-items: stretch;
+        }
+    }
+}
