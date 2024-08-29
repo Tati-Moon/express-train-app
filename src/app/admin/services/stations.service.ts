@@ -5,12 +5,8 @@ import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Station } from '../../core/models/station/station.model';
 import { HttpService } from '../../core/services/http.service';
-import {
-    ConnectedStationCreateForm,
-    ConnectedStationCreateFormFields,
-    StationCreateForm,
-    StationCreateFormFields,
-} from '../models/station-create-form';
+import { StationCreateForm, StationCreateFormFields } from '../models/station-create-form';
+import { notEmptyArrayValidator } from './array-validator';
 
 @Injectable({
     providedIn: 'root',
@@ -27,27 +23,7 @@ export class StationsService {
         [StationCreateFormFields.LATITUDE]: [0, [Validators.required, Validators.min(-90), Validators.max(90)]],
         [StationCreateFormFields.LONGITUDE]: [0, [Validators.required, Validators.min(-180), Validators.max(180)]],
         [StationCreateFormFields.STATIONS]: [[], []],
-        [StationCreateFormFields.CONNECTED_TO]: this.fb.array([
-            this.fb.group<ConnectedStationCreateForm>({
-                [ConnectedStationCreateFormFields.ID]: [0, [Validators.required]],
-                [ConnectedStationCreateFormFields.CITY]: [
-                    '',
-                    [Validators.required, Validators.minLength(2), Validators.maxLength(50)],
-                ],
-                [ConnectedStationCreateFormFields.LATITUDE]: [
-                    0,
-                    [Validators.required, Validators.min(-90), Validators.max(90)],
-                ],
-                [ConnectedStationCreateFormFields.LONGITUDE]: [
-                    0,
-                    [Validators.required, Validators.min(-180), Validators.max(180)],
-                ],
-                [ConnectedStationCreateFormFields.DISTANCE]: [
-                    1,
-                    [Validators.required, Validators.min(1), Validators.max(10000)],
-                ],
-            }),
-        ]),
+        [StationCreateFormFields.CONNECTED_TO]: this.fb.array([], notEmptyArrayValidator),
     });
 
     public getStations(): Observable<Station[]> {

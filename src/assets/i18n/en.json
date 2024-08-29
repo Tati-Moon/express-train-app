@@ -119,25 +119,35 @@
       },
       "CONNECTED": {
         "NAME": "Connected",
-        "PLACEHOLDER": "Select a City"
+        "PLACEHOLDER": "Select a City",
+        "ERRORS": {
+          "REQUIRED": "No cities has been selected on the station."
+        }
       }
     }
   },
   "ROUTE_PAGE": {
     "TITLE": "Routes",
-    "CITIES": "Cities",
-    "CARRIAGE_TYPES": "Carriage types",
+    "CITIES": "Cities:",
+    "CARRIAGE_TYPES": "Carriage types:",
     "SUB_TITLE": "Route",
+    "SUB_TITLE_NEW": "NEW Route",
     "DELETE_CONFIRMATION": "Delete Confirmation",
     "DELETE_CONFIRMATION_MESSAGE": "Are you sure you want to delete this route? This action cannot be undone.",
     "FIELDS": {
       "STATIONS": {
         "NAME": "Stations",
-        "PLACEHOLDER": "Select a City"
+        "PLACEHOLDER": "Select a City",
+        "ERRORS": {
+          "REQUIRED": "No stations has been selected on the route."
+        }
       },
       "CARRIAGES": {
         "NAME": "Carriages",
-        "PLACEHOLDER": "Select a Carriage"
+        "PLACEHOLDER": "Select a Carriage",
+        "ERRORS": {
+          "REQUIRED": "No carriages has been selected on the route."
+        }
       }
     }
   },

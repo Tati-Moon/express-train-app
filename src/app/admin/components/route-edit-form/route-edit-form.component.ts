@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessagesModule } from 'primeng/messages';
 import { TagModule } from 'primeng/tag';
 
 import { Route } from '../../../core/models/route/route.model';
@@ -22,6 +23,7 @@ import { ICarriage, IStation } from '../../models/station.interface';
         TranslateModule,
         DropdownModule,
         TagModule,
+        MessagesModule,
     ],
     templateUrl: './route-edit-form.component.html',
     styleUrls: ['./route-edit-form.component.scss'],
@@ -82,8 +84,7 @@ export class EditRouteComponent {
     addCarriage(): void {
         this.carriages.push(
             this.fb.group({
-                name: [''],
-                code: [''],
+                name: '',
             })
         );
     }
@@ -95,8 +96,7 @@ export class EditRouteComponent {
     addStation(): void {
         this.path.push(
             this.fb.group({
-                city: [''],
-                id: [0],
+                city: '',
             })
         );
     }

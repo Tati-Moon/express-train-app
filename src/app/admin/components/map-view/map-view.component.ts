@@ -16,12 +16,12 @@ const INITIAL_LATITUDE = 51.505;
 const INITIAL_LONGITUDE = -0.09;
 
 @Component({
-    selector: 'app-map',
+    selector: 'app-map-view',
     standalone: true,
-    templateUrl: './map.component.html',
-    styleUrls: ['./map.component.scss'],
+    templateUrl: './map-view.component.html',
+    styleUrls: ['./map-view.component.scss'],
 })
-export class MapComponent implements OnInit, OnChanges, OnDestroy {
+export class MapViewComponent implements OnInit, OnChanges, OnDestroy {
     @Input() latitude: number = INITIAL_LATITUDE;
     @Input() longitude: number = INITIAL_LONGITUDE;
     @Input() city: string = '';

@@ -119,25 +119,35 @@
       },
       "CONNECTED": {
         "NAME": "Соединенные станции",
-        "PLACEHOLDER": "Выбере город"
+        "PLACEHOLDER": "Выбере город",
+        "ERRORS": {
+          "REQUIRED": "На станции не было выбрано ни одного города."
+        }
       }
     }
   },
   "ROUTE_PAGE": {
     "TITLE": "Пути",
-    "CITIES": "Города",
-    "CARRIAGE_TYPES": "Типы вагонов",
+    "CITIES": "Города:",
+    "CARRIAGE_TYPES": "Типы вагонов:",
     "SUB_TITLE": "Путь",
+    "SUB_TITLE_NEW": "НОВЫЙ Путь",
     "DELETE_CONFIRMATION": "Подтверждение удаления маршрута",
     "DELETE_CONFIRMATION_MESSAGE": "Вы уверены, что хотите удалить этот маршрут? Это действие необратимо.",
     "FIELDS": {
       "STATIONS": {
         "NAME": "Станции",
-        "PLACEHOLDER": "Выберете станцию"
+        "PLACEHOLDER": "Выберете станцию",
+        "ERRORS": {
+          "REQUIRED": "Ни одна станция не была выбрана на пути."
+        }
       },
       "CARRIAGES": {
         "NAME": "Вагоны",
-        "PLACEHOLDER": "Выберете вагон"
+        "PLACEHOLDER": "Выберете вагон",
+        "ERRORS": {
+          "REQUIRED": "Ни один вагон не был выбран на пути."
+        }
       }
     }
   },

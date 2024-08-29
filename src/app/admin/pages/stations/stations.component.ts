@@ -120,11 +120,7 @@ export class StationsComponent implements OnInit {
         selectedStation?.connectedTo?.forEach((item) => {
             connectedToArray.push(
                 this.fb.group({
-                    id: item.id,
                     city: item.city,
-                    latitude: item.latitude,
-                    longitude: item.longitude,
-                    distance: item.distance,
                 })
             );
         });

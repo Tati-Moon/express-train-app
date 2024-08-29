@@ -9,7 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { IStation } from '../../models/station.interface';
 import { StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
 import { ErrorMessageService } from '../../services/error-message.service';
-import { MapComponent } from '../map.component/map.component';
+import { MapViewComponent } from '../map-view/map-view.component';
 
 @Component({
     selector: 'app-view-station',
@@ -20,7 +20,7 @@ import { MapComponent } from '../map.component/map.component';
         InputTextModule,
         ButtonModule,
         TranslateModule,
-        MapComponent,
+        MapViewComponent,
         DropdownModule,
     ],
     templateUrl: './station-view-form.component.html',
