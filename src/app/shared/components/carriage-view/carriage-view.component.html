@@ -1,5 +1,5 @@
-{{ startIndexSeats }}
 @if (show) {
+    <!-- {{ countSeatsInCarriage }} -->
     <div #card class="card flex overflow-auto carriage-view" [ngClass]="{ 'carriage-view-hidden': mode === 'picture' }">
         @if (carriage) {
             @for (row of getRowsArray(carriage.rows); track $index; let rowIndex = $index) {

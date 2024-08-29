@@ -1,16 +1,32 @@
 @if (tripInfo) {
     <div class="card trip-info p-4">
-        <div class="trip-info__top flex mb-2">
-            <span class="font-bold align-self-center">{{ tripInfo.from }}</span>
-            <span class="pi pi-angle-right align-self-center"></span>
-            <span class="font-bold align-self-center">{{ tripInfo.to }}</span>
-            <span class="font-bold align-self-center">&nbsp; {{ tripInfo.date | date: 'MMMM dd, hh:mm' }}</span>
+        <div class="flex justify-content-between">
+            <div class="flex flex-column gap-1">
+                <span class="font-bold align-self-center">{{ 'TRIP.DEPARTURE' | translate }}</span>
+                <span class="font-bold align-self-center">{{ tripInfo.departureTime | date: 'MMMM dd, hh:mm' }}</span>
+            </div>
+            <div class="flex flex-column gap-1">
+                <span class="font-bold align-self-center">{{ 'TRIP.ARRIVAL' | translate }}</span>
+                <span class="font-bold align-self-center">{{ tripInfo.arrivalTime | date: 'MMMM dd, hh:mm' }}</span>
+            </div>
+        </div>
+        <div class="mb-4">
+            @if (stations) {
+                <p-timeline class="timeline" [value]="stations" layout="horizontal">
+                    <ng-template pTemplate="marker" let-station>
+                        <i class="pi pi-circle-on"></i>
+                    </ng-template>
+                    <ng-template pTemplate="content" let-station>
+                        {{ station }}
+                    </ng-template>
+                </p-timeline>
+            }
         </div>
         <div class="trip-info__bottom flex justify-content-between">
-            <p class="font-bold align-self-center m-0">Ride {{ tripInfo.rideId }}</p>
+            <p class="font-bold align-self-center m-0">{{ 'TRIP.RIDE' | translate }} {{ tripInfo.rideId }}</p>
             <p-button
                 [text]="true"
-                label="Route"
+                label="{{ 'TRIP.ROUTE' | translate }}"
                 [iconPos]="'right'"
                 icon="pi pi-angle-down"
                 (onClick)="handleOpenModal()"

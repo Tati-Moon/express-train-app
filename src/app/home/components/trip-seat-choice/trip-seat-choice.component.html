@@ -1,35 +1,42 @@
-@if (tripCarriages) {
-    <div class="card flex flex-wrap justify-content-between">
-        <p-tabView styleClass="tabview-custom">
-            @for (carriage of carriages; track $index) {
-                <p-tabPanel>
-                    <ng-template pTemplate="header">
-                        <div class="flex align-items-center gap-2">
-                            <span class="font-bold white-space-nowrap m-0"> {{ carriage }} </span>
-                        </div>
-                    </ng-template>
-                    <!-- <p>{{ tripCarriages[carriage].count }}</p> -->
-                    <!-- <p>{{ tripCarriages[carriage].indexCar }}</p> -->
-                    <!-- <p>{{ tripCarriages[carriage].rangeSeats }}</p> -->
-                    <!-- <p>{{ seatsInTrain }}</p> -->
+<div class="card flex flex-wrap justify-content-between">
+    <p-tabView styleClass="tabview-custom">
+        @for (currentCarriage of uniqueCarriagesInTrain()?.carriages; track currentCarriage) {
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <div class="flex flex-column align-items-center gap-2">
+                        <p class="font-bold white-space-nowrap m-0">
+                            {{ 'TRIP.TYPE_CARRIAGE' | translate }}: {{ currentCarriage }}
+                        </p>
+                        <p class="font-bold white-space-nowrap m-0">
+                            {{ 'TRIP.AVAILABLE_SEATS' | translate }}:
+                            {{ carriagesInfo() | getAvailableSeats: currentCarriage }}
+                        </p>
+                        <p class="font-bold white-space-nowrap m-0">
+                            {{ 'TRIP.PRICE' | translate }}:
+                            {{ carriagesInfo() | getCarriagePrice: currentCarriage | currency }}
+                        </p>
+                    </div>
+                </ng-template>
 
-                    @for (item of getCarriagesCount(tripCarriages[carriage].count); track $index) {
-                        <div class="mb-4">
-                            <p>{{ 'ADMIN.NAME' | translate }}: {{ tripCarriages[carriage].indexCar[$index] + 1 }}</p>
-                            <p>
-                                {{ 'ADMIN.COUNT_SEATS' | translate }}:
-                                {{ getCountSeats(carriage) }}
-                            </p>
-                            <app-carriage-view
-                                [numberOfCarriage]="tripCarriages[carriage].indexCar[$index] + 1"
-                                [carriage]="getCarriage(carriage)"
-                                [startIndexSeats]="startIndexSeats($index, carriage)"
-                                [busySeats]="busySeats()"
-                            ></app-carriage-view>
-                        </div>
-                    }
-                </p-tabPanel>
-            }
-        </p-tabView>
-    </div>
-}
+                @for (carriage of carriagesInfo() | getCarriage: currentCarriage; track $index) {
+                    <!-- <pre>
+                      {{ carriage | json }}
+                    </pre> -->
+                    <div class="mb-4">
+                        <p>{{ 'TRIP.CARRIAGE' | translate }} #{{ carriage.indexCarriage + 1 }}</p>
+                        <p>
+                            {{ 'TRIP.AVAILABLE_SEATS' | translate }}:
+                            {{ carriage.availableSeats }}
+                        </p>
+                        <app-carriage-view
+                            [numberOfCarriage]="carriage.indexCarriage + 1"
+                            [startIndexSeats]="carriage.startIndexSeats"
+                            [carriage]="carriage.carriage"
+                            [price]="carriage.price"
+                        ></app-carriage-view>
+                    </div>
+                }
+            </p-tabPanel>
+        }
+    </p-tabView>
+</div>

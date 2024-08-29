@@ -1,28 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 
-import { Carriage } from '../../../core/models';
-import { Station } from '../../../core/models/station/station.model';
+import { Routers } from '../../../core/models/enums/routers';
 import { AppTripActions } from '../../../redux/actions/app-trip.actions';
-import { selectCarriages } from '../../../redux/selectors/app-carriages.selector';
-import { selectStations } from '../../../redux/selectors/app-stations.selector';
-import {
-    selectSelectedSeat,
-    selectTrip,
-    selectTripCarriages,
-    selectTripInfo,
-    selectTripSchedule,
-} from '../../../redux/selectors/app-trip.selector';
+import { selectSelectedSeat, selectTripInfo, selectTripSchedule } from '../../../redux/selectors/app-trip.selector';
 import { TripInfoComponent, TripRoutePopupComponent, TripSeatChoiceComponent } from '../../components';
-import { SeatBooking, Trip, TripInfo } from '../../models';
-import { TripCarriagesInfo } from '../../models/trip-carriage.model';
+import { SeatBooking, TripInfo } from '../../models';
+import { CarriagesInTrain } from '../../models/trip-carriage.model';
 import { TripSchedule } from '../../models/trip-schedule.model';
-import { TripService } from '../../services/trip.service';
 
 @Component({
     selector: 'app-trip',
@@ -34,6 +25,8 @@ import { TripService } from '../../services/trip.service';
         TripRoutePopupComponent,
         CommonModule,
         TripSeatChoiceComponent,
+        RouterLink,
+        TranslateModule,
     ],
     templateUrl: './trip.component.html',
     styleUrl: './trip.component.scss',
@@ -41,12 +34,13 @@ import { TripService } from '../../services/trip.service';
 export class TripComponent implements OnInit {
     private store = inject(Store);
 
-    public trip!: Signal<Trip | null>;
-    public carriages!: Signal<Carriage[]>;
-    public stations!: Signal<Station[]>;
+    public get routers() {
+        return Routers;
+    }
+
     public tripInfo!: Signal<TripInfo | null>;
     public tripSchedule!: Signal<TripSchedule | null>;
-    public tripCarriagesInfo!: Signal<TripCarriagesInfo | null>;
+    public tripCarriagesInfo!: Signal<CarriagesInTrain | null>;
     public selectedSeat!: Signal<SeatBooking | null>;
 
     public showRouteModal: boolean = false;
@@ -58,27 +52,12 @@ export class TripComponent implements OnInit {
     public occupiedSeatsStartAdded: boolean = false;
     public occupiedSeatsEndAdded: boolean = false;
 
-    constructor(
-        private tripService: TripService,
-        private route: ActivatedRoute
-    ) {
-        const trip$ = this.store.select(selectTrip);
-        this.trip = toSignal(trip$, { initialValue: null });
-
-        const carriages$ = this.store.select(selectCarriages);
-        this.carriages = toSignal(carriages$, { initialValue: [] });
-
-        const stations$ = this.store.select(selectStations);
-        this.stations = toSignal(stations$, { initialValue: [] });
-
+    constructor(private route: ActivatedRoute) {
         const tripInfo$ = this.store.select(selectTripInfo);
         this.tripInfo = toSignal(tripInfo$, { initialValue: null });
 
         const tripSchedule$ = this.store.select(selectTripSchedule);
         this.tripSchedule = toSignal(tripSchedule$, { initialValue: null });
-
-        const tripCarriagesInfo$ = this.store.select(selectTripCarriages);
-        this.tripCarriagesInfo = toSignal(tripCarriagesInfo$, { initialValue: null });
 
         const selectedSeat$ = this.store.select(selectSelectedSeat);
         this.selectedSeat = toSignal(selectedSeat$, { initialValue: null });
@@ -104,7 +83,7 @@ export class TripComponent implements OnInit {
         this.showRouteModal = false;
     }
 
-    public handleTestOrder(): void {
+    public handleOrdering(): void {
         const seat = this.selectedSeat()?.seatInTrain;
         if (seat) {
             this.store.dispatch(
@@ -116,5 +95,8 @@ export class TripComponent implements OnInit {
                 })
             );
         }
+    }
+    public handleClearSelectedSeat(): void {
+        this.store.dispatch(AppTripActions.clearSelectedSeat());
     }
 }

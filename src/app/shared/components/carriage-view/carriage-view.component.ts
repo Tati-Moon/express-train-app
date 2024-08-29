@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, inject, Input, Signal, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    inject,
+    Input,
+    Signal,
+    ViewChild,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import html2canvas from 'html2canvas';
@@ -9,7 +18,7 @@ import { Carriage } from '../../../core/models';
 import { SeatStatus } from '../../../core/models/enums/constants';
 import { SeatBooking } from '../../../home/models';
 import { AppTripActions } from '../../../redux/actions/app-trip.actions';
-import { selectSelectedSeat } from '../../../redux/selectors/app-trip.selector';
+import { selectBusySeats, selectSelectedSeat } from '../../../redux/selectors/app-trip.selector';
 import { CarriageSeatComponent } from '../carriage-seat/carriage-seat.component';
 import { CarriageViewSkeletonComponent } from '../carriage-view-skeleton/carriage-view-skeleton.component';
 
@@ -27,14 +36,18 @@ export class CarriageViewComponent implements AfterViewInit {
     @Input() public carriage!: Carriage | null;
     @Input() public mode: 'picture' | null = null;
     @Input() public startIndexSeats: number = 0;
-    @Input() public busySeats: number[] | null = null;
+    @Input() public price: number = 0;
     @ViewChild('card') content!: ElementRef;
 
     public selectedSeat!: Signal<SeatBooking | null>;
+    public busySeats!: Signal<number[]>;
 
-    constructor() {
+    constructor(private cdr: ChangeDetectorRef) {
         const selectedSeat$ = this.store.select(selectSelectedSeat);
         this.selectedSeat = toSignal(selectedSeat$, { initialValue: null });
+
+        const busySeats$ = this.store.select(selectBusySeats);
+        this.busySeats = toSignal(busySeats$, { initialValue: [] });
     }
 
     public show: boolean = true;
@@ -72,14 +85,20 @@ export class CarriageViewComponent implements AfterViewInit {
                 this.imageSrc = canvas.toDataURL('image/png');
                 this.show = false;
             });
+        this.cdr.markForCheck();
     }
 
     public handleSelectSeat(seatInCarriage: number): void {
-        console.log(seatInCarriage);
         const seatInTrain = seatInCarriage + this.startIndexSeats;
+        console.log(seatInTrain);
         if (this.numberOfCarriage) {
             this.store.dispatch(
-                AppTripActions.selectSeat({ numberOfCarriage: this.numberOfCarriage, seatInTrain, seatInCarriage })
+                AppTripActions.selectSeat({
+                    numberOfCarriage: this.numberOfCarriage,
+                    seatInTrain,
+                    seatInCarriage,
+                    price: this.price,
+                })
             );
         }
     }
@@ -90,9 +109,11 @@ export class CarriageViewComponent implements AfterViewInit {
         if (this.selectedSeat()?.seatInTrain === indexSeatInTrain) {
             return SeatStatus.SELECTED;
         }
-        if (this.busySeats?.includes(indexSeatInTrain)) {
+
+        if (this.busySeats()?.includes(indexSeatInTrain)) {
             return SeatStatus.RESERVED;
         }
+
         return SeatStatus.AVAILABLE;
     }
 }
