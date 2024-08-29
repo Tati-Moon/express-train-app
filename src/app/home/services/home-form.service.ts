@@ -12,7 +12,7 @@ export class HomeFormService {
     public searchForm: FormGroup = this.fb.group<SearchForm>({
         [SearchFormFields.FROM_CITY]: ['', [Validators.required]],
         [SearchFormFields.TO_CITY]: ['', [Validators.required]],
-        [SearchFormFields.DATE]: ['', []],
+        [SearchFormFields.DATE]: [new Date(), []],
     });
 
     public markFormDirty(form: FormGroup): void {

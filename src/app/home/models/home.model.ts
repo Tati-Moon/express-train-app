@@ -9,5 +9,5 @@ export enum SearchFormFields {
 export interface SearchForm {
     [SearchFormFields.FROM_CITY]: ControlType<string>;
     [SearchFormFields.TO_CITY]: ControlType<string>;
-    [SearchFormFields.DATE]: ControlType<string>;
+    [SearchFormFields.DATE]: ControlType<Date>;
 }

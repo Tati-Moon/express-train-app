@@ -20,9 +20,14 @@ export class SearchService {
             .set('toLatitude', filter.toLatitude.toString())
             .set('toLongitude', filter.toLongitude.toString());
 
-        if (filter.time) {
-            params = params.set('time', filter.time.toString());
+        if (filter.date) {
+            // const dateObject = new Date(filter.date);
+            // console.log('dateObject', dateObject);
+            // const unixTimestamp = Math.floor(dateObject.getTime() / 1000);
+            params = params.set('time', filter.date);
         }
+        console.log('filter', filter);
+        console.log('params', params);
 
         return this.http.get<SearchResult>({ url: environment.apiUrlSearch, params }).pipe(
             map((response: SearchResult) => {

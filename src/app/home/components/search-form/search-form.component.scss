@@ -1,0 +1,83 @@
+.search-container {
+    .search-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .search-inputs {
+        display: flex;
+        gap: 10px;
+        width: 50%;
+    }
+
+    .search-calendar {
+        display: flex;
+        align-items: center;
+        width: 25%;
+    }
+
+    .search-button {
+        display: flex;
+        align-items: center;
+        width: 20%;
+    }
+
+    .search-input {
+        flex: 1;
+    }
+
+    .calendar-input {
+        width: 100%;
+    }
+
+    .search-btn {
+        width: 100%;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .search-form {
+            flex-direction: column;
+        }
+
+        .search-inputs {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .search-calendar,
+        .search-button {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .search-form {
+            flex-direction: column;
+        }
+
+        .search-inputs {
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 100%;
+        }
+
+        .search-calendar,
+        .search-button {
+            width: 100%;
+        }
+
+        .search-btn {
+            width: 100%;
+        }
+
+        .revers-button {
+            align-self: center;
+        }
+    }
+}

@@ -51,7 +51,8 @@
     "CANCEL": "Cancel",
     "UPDATE": "Update",
     "LOGOUT": "Logout",
-    "CONFIRM": "Confirm"
+    "CONFIRM": "Confirm",
+    "SEARCH": "Search"
   },
   "FIELD": {
     "EMAIL": {
@@ -90,6 +91,19 @@
     "NAME_MAX_LENGTH": "The name must not exceed 30 characters.",
     "MIN": "Specify a larger number",
     "MAX": "Specify a smaller number"
+  },
+  "SEARCH_PAGE": {
+    "FIELDS": {
+      "FROM": {
+        "PLACEHOLDER": "from"
+      },
+      "TO": {
+        "PLACEHOLDER": "to"
+      },
+      "CALENDAR": {
+        "PLACEHOLDER": "Select a date"
+      }
+    }
   },
   "PROFILE_PAGE": {
     "TITLE": "Profile",
