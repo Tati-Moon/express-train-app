@@ -1,4 +1,7 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
+import localeEn from '@angular/common/locales/en';
+import localeRu from '@angular/common/locales/ru';
 import {
     ApplicationConfig,
     DEFAULT_CURRENCY_CODE,
@@ -31,6 +34,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
 
+registerLocaleData(localeRu, 'ru');
+registerLocaleData(localeEn, 'en');
+
 export const appConfig: ApplicationConfig = {
     providers: [
         MessageService,
@@ -53,7 +59,7 @@ export const appConfig: ApplicationConfig = {
                 loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] },
             })
         ),
-        { provide: LOCALE_ID, useValue: 'ru-RU' },
-        { provide: DEFAULT_CURRENCY_CODE, useValue: 'RUB' },
+        { provide: LOCALE_ID, useValue: 'en-US' },
+        { provide: DEFAULT_CURRENCY_CODE, useValue: 'USD' },
     ],
 };
