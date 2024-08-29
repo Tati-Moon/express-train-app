@@ -1,3 +1,4 @@
+{{ startIndexSeats }}
 @if (show) {
     <div #card class="card flex overflow-auto carriage-view" [ngClass]="{ 'carriage-view-hidden': mode === 'picture' }">
         @if (carriage) {
@@ -7,13 +8,19 @@
                         @for (seatIndex of getSeatsArray(carriage.rightSeats); track $index) {
                             <app-carriage-seat
                                 [index]="getSeatNumber(rowIndex, seatIndex, 'right')"
+                                (selectSeat)="handleSelectSeat($event)"
+                                [status]="handleIsBusySeat(getSeatNumber(rowIndex, seatIndex, 'right'))"
                             ></app-carriage-seat>
                         }
                     </div>
                     <p>-</p>
                     <div class="flex flex-column-reverse">
                         @for (seatIndex of getSeatsArray(carriage.leftSeats); track $index) {
-                            <app-carriage-seat [index]="getSeatNumber(rowIndex, seatIndex, 'left')"></app-carriage-seat>
+                            <app-carriage-seat
+                                [index]="getSeatNumber(rowIndex, seatIndex, 'left')"
+                                (selectSeat)="handleSelectSeat($event)"
+                                [status]="handleIsBusySeat(getSeatNumber(rowIndex, seatIndex, 'left'))"
+                            ></app-carriage-seat>
                         }
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import { AppLanguageState } from '../models/app-language-state.model';
 import { AppRoutesState } from '../models/app-routes-state.model';
 import { AppStationsState } from '../models/app-stations-state';
 import { AppThemeState } from '../models/app-theme-state.model';
+import { AppTripState } from '../models/app-trip-state.model';
 import { AppUserState } from '../models/app-user-state.model';
 import { StateFields } from '../models/state-fields';
 import { appAdminReducer } from './app-admin.reducer';
@@ -17,6 +18,7 @@ import { appLanguageReducer } from './app-language.reducer';
 import { appRoutesReducer } from './app-routes.reducer';
 import { appStationsReducer } from './app-stations.reducer';
 import { appThemeReducer } from './app-theme.reducer';
+import { appTripReducer } from './app-trip.reducer';
 import { appUserReducer } from './app-user.reducer';
 
 export interface State {
@@ -28,6 +30,7 @@ export interface State {
     [StateFields.APP_USER]: AppUserState;
     [StateFields.APP_STATIONS]: AppStationsState;
     [StateFields.APP_ROUTES]: AppRoutesState;
+    [StateFields.APP_TRIP]: AppTripState;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -39,6 +42,7 @@ export const reducers: ActionReducerMap<State> = {
     [StateFields.APP_USER]: appUserReducer,
     [StateFields.APP_STATIONS]: appStationsReducer,
     [StateFields.APP_ROUTES]: appRoutesReducer,
+    [StateFields.APP_TRIP]: appTripReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];

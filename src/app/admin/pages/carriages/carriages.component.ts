@@ -9,9 +9,9 @@ import { TableModule } from 'primeng/table';
 import { Carriage } from '../../../core/models';
 import { AppCarriagesActions } from '../../../redux/actions/app-carriages.actions';
 import { selectCarriages, selectFormMode, selectShowFormState } from '../../../redux/selectors/app-carriages.selector';
+import { CarriageViewComponent } from '../../../shared/components';
 import { CarriageCreateFormComponent } from '../../components/carriage-create-form/carriage-create-form.component';
 import { CarriageTableComponent } from '../../components/carriage-table/carriage-table.component';
-import { CarriageViewComponent } from '../../components/carriage-view/carriage-view.component';
 import { CarriageFormMode } from '../../models/carriage-create-form.model';
 import { CarriageCreateFormService } from '../../services/carriage-create-form.service';
 

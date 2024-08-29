@@ -1,1 +1,27 @@
-<p>trip works!</p>
+<app-trip-route-popup
+    [tripSchedule]="tripSchedule()"
+    (closeModal)="handleCloseModal()"
+    [showModal]="showRouteModal"
+></app-trip-route-popup>
+<div class="sticky-block mb-4">
+    <p-toolbar>
+        <div class="p-toolbar-group-start">
+            <p-button icon="pi pi-angle-left" class="mr-2" />
+            <app-trip-info [tripInfo]="tripInfo()" (openModal)="handleOpenModal()"></app-trip-info>
+        </div>
+        <div class="p-toolbar-group-end">
+            @if (selectedSeat(); as selectedSeat) {
+                <div class="card p-4">
+                    <p>{{ selectedSeat.numberOfCarriage }}</p>
+                    <p>{{ selectedSeat.seatInCarriage }}</p>
+                    <p-button (onClick)="handleTestOrder()">Book seat</p-button>
+                </div>
+            }
+        </div>
+    </p-toolbar>
+</div>
+
+<app-trip-seat-choice
+    [tripCarriages]="tripCarriagesInfo()?.carriagesInTrain ?? null"
+    [seatsInTrain]="tripCarriagesInfo()?.seatsInTrain ?? null"
+></app-trip-seat-choice>

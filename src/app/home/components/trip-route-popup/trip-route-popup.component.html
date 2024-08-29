@@ -1,0 +1,31 @@
+<p-dialog
+    header="Route {{ tripSchedule?.rideId }}"
+    [modal]="true"
+    [(visible)]="showModal"
+    [draggable]="false"
+    styleClass="p-0 col-11 md:col-6"
+    (onHide)="handleCloseModal()"
+>
+    @if (tripSchedule?.stationTripInfo) {
+        <p-timeline [value]="tripSchedule?.stationTripInfo">
+            <ng-template pTemplate="content" let-trip>
+                <div class="flex justify-content-between flex-wrap">
+                    <p class="p-text-secondary m-0 font-bold">
+                        {{ trip.city }}
+                    </p>
+                    <p class="p-text-secondary">{{ trip.timeStop }}</p>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="opposite" let-trip>
+                <div class="flex flex-column">
+                    <p class="m-0">
+                        {{ trip.timeTo | date: 'hh:mm' }}
+                    </p>
+                    <p class="m-0">
+                        {{ trip.timeFrom | date: 'hh:mm' }}
+                    </p>
+                </div>
+            </ng-template>
+        </p-timeline>
+    }
+</p-dialog>

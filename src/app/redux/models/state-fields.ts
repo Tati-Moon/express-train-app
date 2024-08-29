@@ -9,6 +9,7 @@ export enum StateFields {
     APP_STATIONS = 'APP_STATIONS',
     APP_ROUTES = 'APP_ROUTES',
     APP_USER = 'APP_USER',
+    APP_TRIP = 'APP_TRIP',
 }
 
 export enum AppConfigFields {
@@ -66,4 +67,13 @@ export enum AppUserFields {
     USER_NAME = 'USER_NAME',
     USER_TOKEN = 'USER_TOKEN',
     USER_ROLE = 'USER_ROLE',
+}
+
+export enum AppTripFields {
+    TRIP = 'TRIP',
+    FROM = 'FROM',
+    TO = 'TO',
+    SELECTED_SEAT_IN_TRAIN = 'SELECTED_SEAT_IN_TRAIN',
+    SELECTED_SEAT_IN_CARRIAGE = 'SELECTED_SEAT_IN_CARRIAGE',
+    NUMBER_OF_CARRIAGE = 'NUMBER_OF_CARRIAGE',
 }

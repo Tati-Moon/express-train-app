@@ -1,0 +1,20 @@
+@if (tripInfo) {
+    <div class="card trip-info p-4">
+        <div class="trip-info__top flex mb-2">
+            <span class="font-bold align-self-center">{{ tripInfo.from }}</span>
+            <span class="pi pi-angle-right align-self-center"></span>
+            <span class="font-bold align-self-center">{{ tripInfo.to }}</span>
+            <span class="font-bold align-self-center">&nbsp; {{ tripInfo.date | date: 'MMMM dd, hh:mm' }}</span>
+        </div>
+        <div class="trip-info__bottom flex justify-content-between">
+            <p class="font-bold align-self-center m-0">Ride {{ tripInfo.rideId }}</p>
+            <p-button
+                [text]="true"
+                label="Route"
+                [iconPos]="'right'"
+                icon="pi pi-angle-down"
+                (onClick)="handleOpenModal()"
+            ></p-button>
+        </div>
+    </div>
+}

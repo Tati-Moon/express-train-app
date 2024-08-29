@@ -1,0 +1,8 @@
+<div class="seat m-2">
+    <p-button
+        [label]="index.toString()"
+        (onClick)="handleSelectSeat(index)"
+        [disabled]="status === seatStatus.RESERVED"
+        [severity]="handleSetColor(status)"
+    ></p-button>
+</div>
