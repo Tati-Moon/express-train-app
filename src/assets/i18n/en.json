@@ -33,6 +33,16 @@
       "TITLE": "New carriage"
     }
   },
+  "ORDER": {
+    "FROM": "FROM",
+    "TO": "TO",
+    "DURATION": "Duration",
+    "CARRIAGE": "CARRIAGE",
+    "CAR_NUMBER": "Car number",
+    "SEAT_NUMBER": "Seat number",
+    "PRICE": "Price",
+    "NO_ORDER": "No orders found."
+  },
   "BUTTONS": {
     "SIGN_IN": "Sign In",
     "REMEMBER_ME": "Remember me",

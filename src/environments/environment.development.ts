@@ -13,4 +13,7 @@ export const environment = {
     apiUrlStation: '/api/station',
     apiUrlRoute: '/api/route',
     apiUrlSearch: '/api/search',
+    apiOrder: '/api/order',
+    apiUsers: '/api/users',
+    apiDeleteOrder: '/api/order/{orderId}',
 };
