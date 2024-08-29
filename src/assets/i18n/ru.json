@@ -51,7 +51,8 @@
     "CANCEL": "Отменить",
     "UPDATE": "Обновить",
     "LOGOUT": "Выйти",
-    "CONFIRM": "Подвердить"
+    "CONFIRM": "Подвердить",
+    "SEARCH": "Поиск"
   },
   "FIELD": {
     "EMAIL": {
@@ -90,6 +91,19 @@
     "NAME_MAX_LENGTH": "Имя должено быть не больше 30 символов.",
     "MIN": "Укажите большее число",
     "MAX": "Укажите меньшее число"
+  },
+  "SEARCH_PAGE": {
+    "FIELDS": {
+      "FROM": {
+        "PLACEHOLDER": "от"
+      },
+      "TO": {
+        "PLACEHOLDER": "до"
+      },
+      "CALENDAR": {
+        "PLACEHOLDER": "Выберите дату"
+      }
+    }
   },
   "PROFILE_PAGE": {
     "TITLE": "Профиль",

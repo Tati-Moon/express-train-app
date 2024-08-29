@@ -1,0 +1,96 @@
+<div class="search-container">
+    <form [formGroup]="form" class="card search-form" (ngSubmit)="onSearch()">
+        <div class="search-inputs">
+            <div class="search-input">
+                <p-dropdown
+                    [options]="getStationCities()"
+                    [formControlName]="fields.FROM_CITY"
+                    optionLabel="name"
+                    placeholder="{{ 'SEARCH_PAGE.FIELDS.FROM.PLACEHOLDER' | translate }}"
+                    class="ng-dirty w-full"
+                    styleClass="w-full"
+                    [showClear]="true"
+                    [filter]="true"
+                    filterBy="name"
+                    [required]="true"
+                >
+                    <ng-template pTemplate="city" let-city>
+                        <div>{{ city.city }}</div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+
+            <div class="revers-button">
+                <p-button
+                    icon="pi pi-sync"
+                    [rounded]="true"
+                    [outlined]="true"
+                    size="small"
+                    (click)="reverseInputs()"
+                    [disabled]="form.get([this.fields.FROM_CITY])?.invalid || form.get([this.fields.TO_CITY])?.invalid"
+                ></p-button>
+            </div>
+            <div class="search-input">
+                <p-dropdown
+                    [options]="getStationCities()"
+                    [formControlName]="fields.TO_CITY"
+                    optionLabel="name"
+                    autoWidth="false"
+                    placeholder="{{ 'SEARCH_PAGE.FIELDS.TO.PLACEHOLDER' | translate }}"
+                    class="ng-dirty w-full"
+                    styleClass="w-full"
+                    [showClear]="true"
+                    [filter]="true"
+                    filterBy="name"
+                    [required]="true"
+                >
+                    <ng-template pTemplate="city" let-city>
+                        <div>{{ city.city }}</div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="search-calendar">
+            <p-calendar
+                id="date"
+                type="date"
+                class="calendar-input"
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                dateFormat="yy-mm-dd"
+                timeFormat="hh:mm"
+                [showTime]="true"
+                inputId="date"
+                [minDate]="minDate"
+                [formControlName]="fields.DATE"
+                name="date"
+                styleClass="w-full"
+                placeholder="{{ 'SEARCH_PAGE.FIELDS.CALENDAR.PLACEHOLDER' | translate }}"
+            >
+                <ng-template pTemplate="date" let-date>
+                    <span [ngStyle]="{ color: 'blue' }">
+                        {{ date.day }}
+                    </span>
+                </ng-template>
+            </p-calendar>
+        </div>
+        <div class="search-button">
+            <p-button
+                [disabled]="form.invalid"
+                styleClass="w-full"
+                class="search-btn"
+                (onClick)="onSearch()"
+                label="{{ 'BUTTONS.SEARCH' | translate }}"
+            >
+            </p-button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+</div>
+
+<div *ngIf="!errorMessage && searchResults">
+    <pre>{{ searchResults | json }}</pre>
+</div>
