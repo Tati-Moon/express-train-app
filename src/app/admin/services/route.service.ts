@@ -7,7 +7,7 @@ import { Route } from '../../core/models/route/route.model';
 import { Station } from '../../core/models/station/station.model';
 import { HttpService } from '../../core/services/http.service';
 import { RouteCreateForm, RouteCreateFormFields } from '../models/route-create-form.model';
-import { notEmptyArrayValidator } from './array-validator';
+import { minThreeElementsValidator } from './array-validator';
 
 @Injectable({
     providedIn: 'root',
@@ -20,8 +20,8 @@ export class RoutesService {
 
     public routeCreateForm = this.fb.group<RouteCreateForm>({
         [RouteCreateFormFields.ID]: [0, [Validators.required]],
-        [RouteCreateFormFields.PATH]: this.fb.array([], notEmptyArrayValidator),
-        [RouteCreateFormFields.CARRIAGES]: this.fb.array([], notEmptyArrayValidator),
+        [RouteCreateFormFields.PATH]: this.fb.array([], minThreeElementsValidator),
+        [RouteCreateFormFields.CARRIAGES]: this.fb.array([], minThreeElementsValidator),
         [RouteCreateFormFields.STATIONS_LIST]: [[], []],
         [RouteCreateFormFields.CARRIAGES_LIST]: [[], []],
         [RouteCreateFormFields.CITIES]: this.fb.array([]),

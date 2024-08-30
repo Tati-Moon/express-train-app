@@ -7,3 +7,12 @@ export function notEmptyArrayValidator(control: AbstractControl): ValidationErro
     }
     return null;
 }
+
+export function minThreeElementsValidator(control: AbstractControl): ValidationErrors | null {
+    const { value } = control;
+
+    if (Array.isArray(value) && value.length < 3) {
+        return { minThreeElements: true };
+    }
+    return null;
+}
