@@ -9,13 +9,15 @@ import { MessagesService } from '../services/messages.service';
 export const messagesInterceptor: HttpInterceptorFn = (req, next) => {
     const injector = inject(Injector);
     return next(req).pipe(
-        catchError((error) => {
+        catchError((response) => {
             const store = injector.get(Store);
             const messagesService = injector.get(MessagesService);
 
+            const { message } = response.error;
+
             store.dispatch(AppConfigActions.setInvisibleLoader());
-            messagesService.sendError(error.message);
-            return throwError(() => error);
+            messagesService.sendError(message);
+            return throwError(() => response.error);
         })
     );
 };
