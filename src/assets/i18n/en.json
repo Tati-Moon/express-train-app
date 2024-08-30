@@ -1,4 +1,15 @@
 {
+  "TRIP": {
+    "DEPARTURE": "Departure",
+    "ARRIVAL": "Arrival",
+    "RIDE": "Ride",
+    "ROUTE": "Route",
+    "CARRIAGE": "Carriage",
+    "AVAILABLE_SEATS": "Available seats",
+    "TYPE_CARRIAGE": "Carriage type",
+    "PRICE": "Price",
+    "SEAT": "Seat"
+  },
   "MESSAGES": {
     "TITLE": {
       "WARNING": "Warning",

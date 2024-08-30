@@ -8,4 +8,5 @@ export interface AppTripState {
     [AppTripFields.SELECTED_SEAT_IN_TRAIN]: number | null;
     [AppTripFields.SELECTED_SEAT_IN_CARRIAGE]: number | null;
     [AppTripFields.NUMBER_OF_CARRIAGE]: number | null;
+    [AppTripFields.PRICE]: number;
 }

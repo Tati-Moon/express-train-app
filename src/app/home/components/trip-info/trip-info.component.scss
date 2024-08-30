@@ -1,0 +1,14 @@
+:host ::ng-deep .timeline {
+    .p-timeline-event-separator i {
+        transform: translateX(320%);
+    }
+
+    .p-timeline-event-connector {
+        transform: translateX(52%);
+    }
+    .p-timeline-event-content {
+        text-align: center;
+        padding: 0;
+        padding-top: 10px;
+    }
+}

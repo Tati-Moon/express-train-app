@@ -8,4 +8,6 @@ export interface StationTripInfo {
     timeFrom: string;
     timeTo: string;
     timeStop: string;
+    cityFrom: boolean;
+    cityTo: boolean;
 }

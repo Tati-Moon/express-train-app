@@ -1,6 +1,7 @@
 export interface TripInfo {
     from: string;
     to: string;
-    date: string;
     rideId: number;
+    departureTime: string;
+    arrivalTime: string;
 }

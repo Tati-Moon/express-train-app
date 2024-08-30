@@ -8,6 +8,17 @@
 >
     @if (tripSchedule?.stationTripInfo) {
         <p-timeline [value]="tripSchedule?.stationTripInfo">
+            <ng-template pTemplate="marker" let-trip>
+                @if (trip.cityFrom && !trip.cityTo) {
+                    <i class="pi pi-circle-on"></i>
+                } @else {
+                    @if (!trip.cityFrom && trip.cityTo) {
+                        <i class="pi pi-circle-on"></i>
+                    } @else {
+                        <i class="pi pi-circle-off"></i>
+                    }
+                }
+            </ng-template>
             <ng-template pTemplate="content" let-trip>
                 <div class="flex justify-content-between flex-wrap">
                     <p class="p-text-secondary m-0 font-bold">

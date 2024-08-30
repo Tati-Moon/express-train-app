@@ -6,22 +6,44 @@
 <div class="sticky-block mb-4">
     <p-toolbar>
         <div class="p-toolbar-group-start">
-            <p-button icon="pi pi-angle-left" class="mr-2" />
+            <p-button icon="pi pi-angle-left" class="mr-2" [routerLink]="[routers.ROOT]" />
+        </div>
+    </p-toolbar>
+    <p-toolbar styleClass="p-2 lg:p-3">
+        <div class="p-toolbar-group-start">
             <app-trip-info [tripInfo]="tripInfo()" (openModal)="handleOpenModal()"></app-trip-info>
         </div>
         <div class="p-toolbar-group-end">
             @if (selectedSeat(); as selectedSeat) {
                 <div class="card p-4">
-                    <p>{{ selectedSeat.numberOfCarriage }}</p>
-                    <p>{{ selectedSeat.seatInCarriage }}</p>
-                    <p-button (onClick)="handleTestOrder()">Book seat</p-button>
+                    <div class="flex flex-column">
+                        <p>
+                            <span class="font-bold"> {{ 'TRIP.CARRIAGE' | translate }}: </span>
+                            {{ selectedSeat.numberOfCarriage }}
+                        </p>
+                        <p>
+                            <span class="font-bold"> {{ 'TRIP.SEAT' | translate }}: </span
+                            >{{ selectedSeat.seatInCarriage }}
+                        </p>
+                        <p>
+                            <span class="font-bold"> {{ 'TRIP.PRICE' | translate }}: </span>
+                            {{ selectedSeat.price | currency }}
+                        </p>
+                    </div>
+                    <div class="flex flex-column gap-2">
+                        <p-button
+                            [text]="true"
+                            icon="pi pi-times"
+                            styleClass="w-full"
+                            (onClick)="handleClearSelectedSeat()"
+                            >Clear</p-button
+                        >
+                        <p-button (onClick)="handleOrdering()">Book seat</p-button>
+                    </div>
                 </div>
             }
         </div>
     </p-toolbar>
 </div>
 
-<app-trip-seat-choice
-    [tripCarriages]="tripCarriagesInfo()?.carriagesInTrain ?? null"
-    [seatsInTrain]="tripCarriagesInfo()?.seatsInTrain ?? null"
-></app-trip-seat-choice>
+<app-trip-seat-choice></app-trip-seat-choice>

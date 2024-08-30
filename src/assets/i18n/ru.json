@@ -1,4 +1,15 @@
 {
+  "TRIP": {
+    "DEPARTURE": "Отправление",
+    "ARRIVAL": "Прибытие",
+    "RIDE": "Поездка",
+    "ROUTE": "Маршрут",
+    "CARRIAGE": "Вагон",
+    "AVAILABLE_SEATS": "Доступно мест",
+    "TYPE_CARRIAGE": "Тип вагона",
+    "PRICE": "Цена",
+    "SEAT": "Место"
+  },
   "MESSAGES": {
     "TITLE": {
       "WARNING": "Внимание",
