@@ -8,6 +8,7 @@ export enum StateFields {
     APP_CARRIAGES = 'APP_CARRIAGES',
     APP_STATIONS = 'APP_STATIONS',
     APP_ROUTES = 'APP_ROUTES',
+    APP_SCHEDULES = 'APP_SCHEDULES',
     APP_USER = 'APP_USER',
     APP_TRIP = 'APP_TRIP',
 }
@@ -49,6 +50,14 @@ export enum AppRouteFields {
     CARRIAGES = 'CARRIAGES',
     CURRENT_PAGE = 'CURRENT_PAGE',
     PAGE_SIZE = 'PAGE_SIZE',
+}
+
+export enum AppScheduleFields {
+    SHOW_SCHEDULE_FORM = 'SHOW_SCHEDULE_FORM',
+    SCHEDULE_FORM_MODE = 'SCHEDULE_FORM_MODE',
+    EDIT_SCHEDULE = 'EDIT_SCHEDULE',
+    SCHEDULES = 'SCHEDULES',
+    SCHEDULES_RIDE = 'SCHEDULES_RIDE',
 }
 
 export enum AppLanguageFields {

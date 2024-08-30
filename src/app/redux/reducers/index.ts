@@ -6,6 +6,7 @@ import { AppCarriagesState } from '../models/app-carriages-state.model';
 import { AppConfigState } from '../models/app-config-state.model';
 import { AppLanguageState } from '../models/app-language-state.model';
 import { AppRoutesState } from '../models/app-routes-state.model';
+import { AppSchedulesState } from '../models/app-schedule-state.model';
 import { AppStationsState } from '../models/app-stations-state';
 import { AppThemeState } from '../models/app-theme-state.model';
 import { AppTripState } from '../models/app-trip-state.model';
@@ -16,6 +17,7 @@ import { appCarriagesReducer } from './app-carriages.reducer';
 import { appConfigReducer } from './app-config.reducer';
 import { appLanguageReducer } from './app-language.reducer';
 import { appRoutesReducer } from './app-routes.reducer';
+import { appSchedulesReducer } from './app-schedules.reducer';
 import { appStationsReducer } from './app-stations.reducer';
 import { appThemeReducer } from './app-theme.reducer';
 import { appTripReducer } from './app-trip.reducer';
@@ -27,6 +29,7 @@ export interface State {
     [StateFields.APP_CONFIG_THEME]: AppThemeState;
     [StateFields.APP_CONFIG_ADMIN]: AppAdminState;
     [StateFields.APP_CARRIAGES]: AppCarriagesState;
+    [StateFields.APP_SCHEDULES]: AppSchedulesState;
     [StateFields.APP_USER]: AppUserState;
     [StateFields.APP_STATIONS]: AppStationsState;
     [StateFields.APP_ROUTES]: AppRoutesState;
@@ -39,6 +42,7 @@ export const reducers: ActionReducerMap<State> = {
     [StateFields.APP_CONFIG_THEME]: appThemeReducer,
     [StateFields.APP_CONFIG_ADMIN]: appAdminReducer,
     [StateFields.APP_CARRIAGES]: appCarriagesReducer,
+    [StateFields.APP_SCHEDULES]: appSchedulesReducer,
     [StateFields.APP_USER]: appUserReducer,
     [StateFields.APP_STATIONS]: appStationsReducer,
     [StateFields.APP_ROUTES]: appRoutesReducer,

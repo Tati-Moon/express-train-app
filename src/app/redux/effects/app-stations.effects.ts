@@ -9,6 +9,7 @@ import { Station } from '../../core/models/station/station.model';
 import { MessagesService } from '../../core/services/messages.service';
 import { AppConfigActions } from '../actions/app-config.actions';
 import { AppRoutesActions } from '../actions/app-routes.actions';
+import { AppSchedulesActions } from '../actions/app-schedule.actions';
 import { AppStationsActions } from '../actions/app-station.actions';
 import { AppTripActions } from '../actions/app-trip.actions';
 import { selectStations } from '../selectors/app-stations.selector';
@@ -50,7 +51,11 @@ export class AppStationsEffects {
     );
     lazyLoadStations$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(AppStationsActions.lazyLoadStations, AppRoutesActions.loadRoutesSuccess),
+            ofType(
+                AppStationsActions.lazyLoadStations,
+                AppRoutesActions.loadRoutesSuccess,
+                AppSchedulesActions.loadSchedulesSuccess
+            ),
             concatLatestFrom(() => this.store.select(selectStations)),
             exhaustMap(([, stationsOld]) => {
                 if (stationsOld && stationsOld.length > 0) {
