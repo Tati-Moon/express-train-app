@@ -1,1 +1,25 @@
-<p>route-info works!</p>
+<div *ngIf="scheduleRide">
+    <h1>Route {{ scheduleRide.id }} Schedule</h1>
+</div>
+<div class="grid">
+    <div class="col-12">
+        <p-button
+            class="text-center"
+            styleClass="col-12 md:col-2"
+            label="{{ 'ADMIN.CREATE_BTN' | translate }}"
+            [disabled]="showForm()"
+            (onClick)="handleCreateRoute()"
+        ></p-button>
+    </div>
+    @if (showForm()) {
+        <div class="col-12">create-form</div>
+    }
+    <div class="col-12">
+        <app-ride-table
+            [carriages]="carriages()"
+            [rides]="rides()"
+            [routeId]="routeId"
+            (editCarriage)="handleEditRoute($event)"
+        ></app-ride-table>
+    </div>
+</div>

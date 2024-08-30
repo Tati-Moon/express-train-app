@@ -1,0 +1,86 @@
+<td>
+    <div [formGroup]="form">
+        @if (index === 0) {
+            <p-tag
+                severity="secondary"
+                styleClass="ml-2"
+                [rounded]="true"
+                value="{{ 'RIDE_PAGE.FIELDS.DEPARTURE.NAME' | translate }}:"
+            />
+            @if (editTimeIndex === index && selectedRideId === schedule.rideId) {
+                <p-calendar
+                    inputId="departure"
+                    dataType="string"
+                    dateFormat="yy-mm-dd"
+                    timeFormat="hh:mm"
+                    [showTime]="true"
+                    [formControlName]="fields.DEPARTURE"
+                    required
+                />
+            } @else {
+                <span>
+                    {{ schedule.segments[index].time[0] | date: 'yyyy-MM-dd h:mm a' }}
+                </span>
+            }
+        } @else if (index > 0 && index < schedule.segments.length) {
+            <p-tag severity="info" [rounded]="true" value="{{ 'RIDE_PAGE.FIELDS.ARRIVAL.NAME' | translate }}:" />
+            @if (editTimeIndex === index && selectedRideId === schedule.rideId) {
+                <p-calendar
+                    inputId="arrival"
+                    dataType="string"
+                    dateFormat="yy-mm-dd"
+                    timeFormat="hh:mm"
+                    [showTime]="true"
+                    [formControlName]="fields.ARRIVAL"
+                    required
+                />
+            } @else {
+                <span>
+                    {{ schedule.segments[index - 1].time[1] | date: 'yyyy-MM-dd h:mm a' }}
+                </span>
+            }
+
+            <br />
+            <p-tag severity="secondary" [rounded]="true" value="{{ 'RIDE_PAGE.FIELDS.DEPARTURE.NAME' | translate }}:" />
+            @if (editTimeIndex === index && selectedRideId === schedule.rideId) {
+                <p-calendar
+                    inputId="departure"
+                    dataType="string"
+                    dateFormat="yy-mm-dd"
+                    timeFormat="hh:mm"
+                    [showTime]="true"
+                    [formControlName]="fields.DEPARTURE"
+                    required
+                />
+            } @else {
+                <span>
+                    {{ schedule.segments[index].time[0] | date: 'yyyy-MM-dd h:mm a' }}
+                </span>
+            }
+        } @else if (index === schedule.segments.length) {
+            <p-tag severity="info" [rounded]="true" value="{{ 'RIDE_PAGE.FIELDS.ARRIVAL.NAME' | translate }}:" />
+
+            @if (editTimeIndex === index && selectedRideId === schedule.rideId) {
+                <p-calendar
+                    inputId="arrival"
+                    dataType="string"
+                    dateFormat="yy-mm-dd"
+                    timeFormat="hh:mm"
+                    [showTime]="true"
+                    [formControlName]="fields.ARRIVAL"
+                    required
+                ></p-calendar>
+            } @else {
+                <span> {{ schedule.segments[index - 1].time[1] | date: 'yyyy-MM-dd h:mm a' }}</span>
+            }
+        }
+    </div>
+</td>
+<td>
+    @if (editTimeIndex !== index || selectedRideId !== schedule.rideId) {
+        <p-button icon="pi pi-pencil" (click)="onEditTimes()" [rounded]="true" [text]="true" [raised]="true"></p-button>
+    }
+    @if (editTimeIndex === index && selectedRideId === schedule.rideId) {
+        <p-button icon="pi pi-save" (click)="onSaveTimes()" [rounded]="true"></p-button>
+    }
+</td>

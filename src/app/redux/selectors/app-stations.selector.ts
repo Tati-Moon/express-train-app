@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
+import { Station } from '../../core/models/station/station.model';
 import { AppStationsState } from '../models/app-stations-state';
 import { AppStationFields, StateFields } from '../models/state-fields';
 
@@ -39,3 +40,6 @@ export const selectPageSize = createSelector(
 );
 
 export const selectTotalRecords = createSelector(selectStations, (stations) => stations.length);
+
+export const selectStationById = (id: number) =>
+    createSelector(selectStations, (stations: Station[]) => stations.find((station) => station.id === id) || null);

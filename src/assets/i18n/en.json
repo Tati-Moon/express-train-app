@@ -29,6 +29,11 @@
       "SAVE_SUCCESS": "The route saved!",
       "UPDATE_SUCCESS": "The route updated!",
       "DELETE_SUCCESS": "The route deleted!"
+    },
+    "SCHEDULES": {
+      "SAVE_SUCCESS": "The schedule saved!",
+      "UPDATE_SUCCESS": "The schedule updated!",
+      "DELETE_SUCCESS": "The schedule deleted!"
     }
   },
   "ADMIN": {
@@ -39,6 +44,7 @@
     "COUNT_SEATS": "Count seats",
     "ROWS": "Count rows",
     "NO_CARRIAGE": "No carriages found.",
+    "NO_RIDE": "No ride found.",
     "PICTURE": "Picture",
     "CARRIAGE_CREATE_FORM": {
       "TITLE": "New carriage"
@@ -186,6 +192,21 @@
           "REQUIRED": "No carriages has been selected on the route.",
           "LESS_THEN_THREE": "There must be a minimum of three carriages."
         }
+      }
+    }
+  },
+  "RIDE_PAGE": {
+    "TITLE": "Route",
+    "FIELDS": {
+      "ARRIVAL": {
+        "NAME": "Arrival"
+      },
+      "DEPARTURE": {
+        "NAME": "Departure"
+      },
+      "PRICE": {
+        "NAME": "Price",
+        "PLACEHOLDER": "Input a price"
       }
     }
   },
