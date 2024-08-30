@@ -2,7 +2,6 @@
     <div class="text-center">
         <div class="text-900 text-4xl font-medium mb-5">
             {{ 'ROUTE_PAGE.TITLE' | translate }}
-
             <p-button
                 severity="success"
                 (click)="onAddNewRoute()"
@@ -15,21 +14,23 @@
     </div>
 
     @if (isCreateRoute) {
-        <app-edit-route [routeForm]="routeForm" (save)="onSaveRoute($event)" (cancel)="onCancelEdit()"></app-edit-route>
+        <app-edit-route
+            [selectedRoute]="selectedRoute"
+            (save)="onSaveRoute($event)"
+            (cancel)="onCancelEdit()"
+        ></app-edit-route>
     }
     <div class="route-list">
         <!-- List -->
         @for (route of routes(); track route?.id) {
             <div class="route-item">
-                @if (selectedRoute?.id === route.id) {
+                @if (selectedRoute?.id === route.id && isEditRoute === true) {
                     <app-edit-route
-                        [routeForm]="routeForm"
+                        [selectedRoute]="selectedRoute"
                         (save)="onSaveRoute($event)"
                         (cancel)="onCancelEdit()"
                     ></app-edit-route>
-                }
-
-                @if (selectedRoute?.id !== route.id) {
+                } @else {
                     <!-- List item -->
                     <div class="flex justify-content-between align-items-center mb-2">
                         <h3>{{ 'ROUTE_PAGE.SUB_TITLE' | translate }}{{ route.id }}</h3>

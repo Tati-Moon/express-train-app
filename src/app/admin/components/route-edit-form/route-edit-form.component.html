@@ -1,8 +1,8 @@
 <div class="edit-container">
     <form class="card mb-2" [formGroup]="routeForm" (ngSubmit)="onSaveRoute()">
         <div class="w-full">
-            @if (routeForm.get(fields.ID)?.value !== null && routeForm.get(fields.ID)?.value > 0) {
-                <p-tag value="{{ 'ROUTE_PAGE.SUB_TITLE' | translate }}{{ routeForm.get(fields.ID)?.value }}" />
+            @if (id !== null && id > 0) {
+                <p-tag value="{{ 'ROUTE_PAGE.SUB_TITLE' | translate }}{{ id }}" />
             } @else {
                 <p-tag severity="warning" value="{{ 'ROUTE_PAGE.SUB_TITLE_NEW' | translate }}" />
             }
@@ -27,7 +27,7 @@
                                 formControlName="city"
                                 optionLabel="city"
                                 optionValue="city"
-                                [options]="stations"
+                                [options]="getStations($index)"
                                 placeholder="{{ 'ROUTE_PAGE.FIELDS.STATIONS.PLACEHOLDER' | translate }}"
                                 class="ng-dirty w-full"
                                 styleClass="w-full"
@@ -36,7 +36,9 @@
                                 filterBy="city"
                                 [required]="true"
                             />
+
                             <p-button
+                                [disabled]="$index !== path.length - 1"
                                 severity="danger"
                                 icon="pi pi-trash"
                                 [rounded]="true"
@@ -108,7 +110,7 @@
                                 formControlName="name"
                                 optionLabel="name"
                                 optionValue="name"
-                                [options]="carriageList"
+                                [options]="getCarriages()"
                                 placeholder="{{ 'ROUTE_PAGE.FIELDS.CARRIAGES.PLACEHOLDER' | translate }}"
                                 class="ng-dirty w-full"
                                 styleClass="w-full"
