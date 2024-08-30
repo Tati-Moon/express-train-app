@@ -1,10 +1,12 @@
 <div class="edit-container">
     <form class="card mb-2" [formGroup]="routeForm" (ngSubmit)="onSaveRoute()">
-        @if (routeForm.get(fields.ID)?.value !== null && routeForm.get(fields.ID)?.value > 0) {
-            <p-tag value="{{ 'ROUTE_PAGE.SUB_TITLE' | translate }}{{ routeForm.get(fields.ID)?.value }}" />
-        } @else {
-            <p-tag severity="warning" value="{{ 'ROUTE_PAGE.SUB_TITLE_NEW' | translate }}" />
-        }
+        <div class="w-full">
+            @if (routeForm.get(fields.ID)?.value !== null && routeForm.get(fields.ID)?.value > 0) {
+                <p-tag value="{{ 'ROUTE_PAGE.SUB_TITLE' | translate }}{{ routeForm.get(fields.ID)?.value }}" />
+            } @else {
+                <p-tag severity="warning" value="{{ 'ROUTE_PAGE.SUB_TITLE_NEW' | translate }}" />
+            }
+        </div>
         <div class="form-stations">
             <div class="text-center">
                 <div class="text-900 text-4xl font-medium mb-5">
@@ -19,15 +21,6 @@
                     />
                 </div>
                 <div formArrayName="path">
-                    @if (path.controls.length === 0) {
-                        <p-messages severity="error" [closable]="false">
-                            <ng-template pTemplate>
-                                <span class="pi pi-exclamation-circle"></span>
-                                <div class="ml-2">{{ 'ROUTE_PAGE.FIELDS.STATIONS.ERRORS.REQUIRED' | translate }}</div>
-                            </ng-template>
-                        </p-messages>
-                    }
-
                     @for (control of path.controls; track $index) {
                         <div [formGroupName]="$index" class="flex align-items-center mb-2 gap-2">
                             <p-dropdown
@@ -53,6 +46,44 @@
                             ></p-button>
                         </div>
                     }
+                    @if (path.controls.length === 0) {
+                        <p-messages severity="error" [closable]="false">
+                            <ng-template pTemplate>
+                                <span class="pi pi-exclamation-circle"></span>
+                                <div class="ml-2 align-items-center">
+                                    {{ 'ROUTE_PAGE.FIELDS.STATIONS.ERRORS.REQUIRED' | translate }}
+                                    <p-button
+                                        class="ml-2"
+                                        label="{{ 'BUTTONS.ADD' | translate }}"
+                                        icon="pi pi-plus"
+                                        [outlined]="true"
+                                        severity="success"
+                                        size="small"
+                                        (click)="addStation()"
+                                    />
+                                </div>
+                            </ng-template>
+                        </p-messages>
+                    }
+                    @if (path.controls.length > 0 && path.controls.length < 3) {
+                        <p-messages severity="warn" [closable]="false">
+                            <ng-template pTemplate>
+                                <span class="pi pi-exclamation-circle"></span>
+                                <div class="ml-2 align-items-center">
+                                    {{ 'ROUTE_PAGE.FIELDS.STATIONS.ERRORS.LESS_THEN_THREE' | translate }}
+                                    <p-button
+                                        class="ml-2"
+                                        label="{{ 'BUTTONS.ADD' | translate }}"
+                                        icon="pi pi-plus"
+                                        [outlined]="true"
+                                        severity="success"
+                                        size="small"
+                                        (click)="addStation()"
+                                    />
+                                </div>
+                            </ng-template>
+                        </p-messages>
+                    }
                 </div>
             </div>
         </div>
@@ -71,14 +102,6 @@
                 </div>
 
                 <div formArrayName="carriages">
-                    @if (carriages.controls.length === 0) {
-                        <p-messages severity="error" [closable]="false">
-                            <ng-template pTemplate>
-                                <span class="pi pi-exclamation-circle"></span>
-                                <div class="ml-2">{{ 'ROUTE_PAGE.FIELDS.CARRIAGES.ERRORS.REQUIRED' | translate }}</div>
-                            </ng-template>
-                        </p-messages>
-                    }
                     @for (control of carriages.controls; track $index) {
                         <div [formGroupName]="$index" class="flex align-items-center mb-2 gap-2">
                             <p-dropdown
@@ -104,6 +127,45 @@
                                 (click)="removeCarriage($index)"
                             ></p-button>
                         </div>
+                    }
+                    @if (carriages.controls.length === 0) {
+                        <p-messages severity="error" [closable]="false">
+                            <ng-template pTemplate>
+                                <span class="pi pi-exclamation-circle"></span>
+                                <div class="ml-2 align-items-center">
+                                    {{ 'ROUTE_PAGE.FIELDS.CARRIAGES.ERRORS.REQUIRED' | translate }}
+
+                                    <p-button
+                                        class="ml-2"
+                                        label="{{ 'BUTTONS.ADD' | translate }}"
+                                        icon="pi pi-plus"
+                                        [outlined]="true"
+                                        severity="success"
+                                        size="small"
+                                        (click)="addCarriage()"
+                                    />
+                                </div>
+                            </ng-template>
+                        </p-messages>
+                    }
+                    @if (carriages.controls.length > 0 && carriages.controls.length < 3) {
+                        <p-messages severity="warn" [closable]="false">
+                            <ng-template pTemplate>
+                                <span class="pi pi-exclamation-circle"></span>
+                                <div class="ml-2 align-items-center">
+                                    {{ 'ROUTE_PAGE.FIELDS.CARRIAGES.ERRORS.LESS_THEN_THREE' | translate }}
+                                    <p-button
+                                        class="ml-2"
+                                        label="{{ 'BUTTONS.ADD' | translate }}"
+                                        icon="pi pi-plus"
+                                        [outlined]="true"
+                                        severity="success"
+                                        size="small"
+                                        (click)="addCarriage()"
+                                    />
+                                </div>
+                            </ng-template>
+                        </p-messages>
                     }
                 </div>
             </div>

@@ -63,7 +63,8 @@
     "UPDATE": "Update",
     "LOGOUT": "Logout",
     "CONFIRM": "Confirm",
-    "SEARCH": "Search"
+    "SEARCH": "Search",
+    "ADD": "Add"
   },
   "FIELD": {
     "EMAIL": {
@@ -174,14 +175,16 @@
         "NAME": "Stations",
         "PLACEHOLDER": "Select a City",
         "ERRORS": {
-          "REQUIRED": "No stations has been selected on the route."
+          "REQUIRED": "No stations has been selected on the route.",
+          "LESS_THEN_THREE": "There must be a minimum of three station."
         }
       },
       "CARRIAGES": {
         "NAME": "Carriages",
         "PLACEHOLDER": "Select a Carriage",
         "ERRORS": {
-          "REQUIRED": "No carriages has been selected on the route."
+          "REQUIRED": "No carriages has been selected on the route.",
+          "LESS_THEN_THREE": "There must be a minimum of three carriages."
         }
       }
     }
