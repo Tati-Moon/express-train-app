@@ -40,21 +40,6 @@ export class RoutesService {
         }).pipe(
             map(({ routes, stations }) => {
                 return routes.map((route) => {
-                    const routeStations = route.path.map((stationId) => {
-                        const station = stations.find((s) => s.id === stationId);
-                        return (
-                            station || {
-                                id: stationId,
-                                city: 'Unknown',
-                                connectedTo: [],
-                                latitude: 0,
-                                longitude: 0,
-                                relations: [],
-                                cities: [],
-                            }
-                        );
-                    });
-
                     const routeCities = route.path.map((stationId) => {
                         const station = stations.find((s) => s.id === stationId);
                         return station?.city || 'Unknown';
@@ -62,7 +47,6 @@ export class RoutesService {
 
                     return {
                         ...route,
-                        stations: routeStations,
                         cities: routeCities,
                     };
                 });
