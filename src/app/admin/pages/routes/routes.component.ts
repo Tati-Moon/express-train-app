@@ -72,6 +72,7 @@ export class RoutesComponent implements OnInit {
     onAddNewRoute(): void {
         this.isCreateRoute = true;
         this.isEditRoute = false;
+        this.selectedRoute = null;
     }
 
     onSelectRoute(route: Route): void {
@@ -80,13 +81,7 @@ export class RoutesComponent implements OnInit {
         this.selectedRoute = { ...route };
     }
 
-    onSaveRoute(route: Route): void {
-        if (route?.id != null && route?.id > 0) {
-            this.store.dispatch(AppRoutesActions.initUpdateRoute({ id: route.id, route }));
-        } else {
-            this.store.dispatch(AppRoutesActions.initSaveNewRoute({ route }));
-        }
-
+    onSaveRoute(): void {
         this.onCancelEdit();
         this.isEditRoute = false;
         this.isCreateRoute = false;

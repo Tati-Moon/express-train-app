@@ -16,7 +16,7 @@
     @if (isCreateRoute) {
         <app-edit-route
             [selectedRoute]="selectedRoute"
-            (save)="onSaveRoute($event)"
+            (save)="onSaveRoute()"
             (cancel)="onCancelEdit()"
         ></app-edit-route>
     }
@@ -27,7 +27,7 @@
                 @if (selectedRoute?.id === route.id && isEditRoute === true) {
                     <app-edit-route
                         [selectedRoute]="selectedRoute"
-                        (save)="onSaveRoute($event)"
+                        (save)="onSaveRoute()"
                         (cancel)="onCancelEdit()"
                     ></app-edit-route>
                 } @else {
@@ -37,6 +37,7 @@
                         <div class="flex justify-content-end align-items-center mb-2">
                             <p-button
                                 icon="pi pi-pencil"
+                                [iconPos]="'right'"
                                 severity="info"
                                 (click)="onSelectRoute(route)"
                                 [rounded]="true"
@@ -44,15 +45,20 @@
                                 [raised]="true"
                             ></p-button>
                             <p-button
-                                icon="pi pi-car"
                                 severity="help"
+                                icon="pi pi-car"
+                                [iconPos]="'right'"
+                                label="{{ 'BUTTONS.ASSIGN_RIDE' | translate }}"
                                 (click)="onAssignRide(route.id)"
                                 [rounded]="true"
                                 [text]="true"
                                 [raised]="true"
-                            ></p-button>
+                            >
+                            </p-button>
+
                             <p-button
                                 icon="pi pi-trash"
+                                [iconPos]="'right'"
                                 severity="danger"
                                 (click)="onDeleteRoute(route.id)"
                                 [rounded]="true"

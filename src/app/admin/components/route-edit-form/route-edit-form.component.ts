@@ -13,6 +13,7 @@ import { TagModule } from 'primeng/tag';
 import { Carriage } from '../../../core/models';
 import { Route } from '../../../core/models/route/route.model';
 import { Station } from '../../../core/models/station/station.model';
+import { AppRoutesActions } from '../../../redux/actions/app-routes.actions';
 import { selectCarriages } from '../../../redux/selectors/app-carriages.selector';
 import { selectStations } from '../../../redux/selectors/app-stations.selector';
 import { RouteCreateFormFields, RouteFormMode } from '../../models/route-create-form.model';
@@ -165,10 +166,20 @@ export class EditRouteComponent implements OnInit {
                 const matchingStation = this.allStations().find((station) => station.city === item.city);
                 return matchingStation ? matchingStation.id : null;
             });
-
+            const cities = paths.map((item: IStation) => {
+                const matchingStation = this.allStations().find((station) => station.city === item.city);
+                return matchingStation ? matchingStation.city : null;
+            });
             const carriages: string[] = carriagesList.map((carriage: { code: string; name: string }) => carriage.name);
+            const route = { id: this.id ?? 0, path, carriages, stations: [], cities };
 
-            this.save.emit({ id: this.id ?? 0, path, carriages, stations: [], cities: [] });
+            if (route?.id != null && route?.id > 0) {
+                this.store.dispatch(AppRoutesActions.initUpdateRoute({ id: route.id, route }));
+            } else {
+                this.store.dispatch(AppRoutesActions.initSaveNewRoute({ route }));
+            }
+
+            this.save.emit();
         }
     }
 
