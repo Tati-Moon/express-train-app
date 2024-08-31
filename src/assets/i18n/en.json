@@ -70,7 +70,8 @@
     "LOGOUT": "Logout",
     "CONFIRM": "Confirm",
     "SEARCH": "Search",
-    "ADD": "Add"
+    "ADD": "Add",
+    "ASSIGN_RIDE": "Assign ride"
   },
   "FIELD": {
     "EMAIL": {
