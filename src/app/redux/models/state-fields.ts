@@ -11,6 +11,8 @@ export enum StateFields {
     APP_SCHEDULES = 'APP_SCHEDULES',
     APP_USER = 'APP_USER',
     APP_TRIP = 'APP_TRIP',
+    APP_ORDERS = 'APP_ORDERS',
+    APP_ALL_USERS = 'APP_ALL_USERS',
 }
 
 export enum AppConfigFields {
@@ -58,6 +60,14 @@ export enum AppScheduleFields {
     EDIT_SCHEDULE = 'EDIT_SCHEDULE',
     SCHEDULES = 'SCHEDULES',
     SCHEDULES_RIDE = 'SCHEDULES_RIDE',
+}
+
+export enum AppOrdersFields {
+    ORDERS = 'ORDERS',
+}
+
+export enum AppAllUsersFields {
+    ALL_USERS = 'ALL_USERS',
 }
 
 export enum AppLanguageFields {

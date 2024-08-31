@@ -8,6 +8,7 @@ import { StationsService } from '../../admin/services/stations.service';
 import { Station } from '../../core/models/station/station.model';
 import { MessagesService } from '../../core/services/messages.service';
 import { AppConfigActions } from '../actions/app-config.actions';
+import { AppOrdersActions } from '../actions/app-orders.actions';
 import { AppRoutesActions } from '../actions/app-routes.actions';
 import { AppSchedulesActions } from '../actions/app-schedule.actions';
 import { AppStationsActions } from '../actions/app-station.actions';
@@ -54,7 +55,8 @@ export class AppStationsEffects {
             ofType(
                 AppStationsActions.lazyLoadStations,
                 AppRoutesActions.loadRoutesSuccess,
-                AppSchedulesActions.loadSchedulesSuccess
+                AppSchedulesActions.loadSchedulesSuccess,
+                AppOrdersActions.loadOrdersSuccess
             ),
             concatLatestFrom(() => this.store.select(selectStations)),
             exhaustMap(([, stationsOld]) => {

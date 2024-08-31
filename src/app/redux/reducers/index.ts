@@ -2,9 +2,11 @@ import { isDevMode } from '@angular/core';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
 import { AppAdminState } from '../models/app-admin-state.model';
+import { AppAllUsersState } from '../models/app-all-users-state.model';
 import { AppCarriagesState } from '../models/app-carriages-state.model';
 import { AppConfigState } from '../models/app-config-state.model';
 import { AppLanguageState } from '../models/app-language-state.model';
+import { AppOrdersState } from '../models/app-orders-state.model';
 import { AppRoutesState } from '../models/app-routes-state.model';
 import { AppSchedulesState } from '../models/app-schedule-state.model';
 import { AppStationsState } from '../models/app-stations-state';
@@ -13,9 +15,11 @@ import { AppTripState } from '../models/app-trip-state.model';
 import { AppUserState } from '../models/app-user-state.model';
 import { StateFields } from '../models/state-fields';
 import { appAdminReducer } from './app-admin.reducer';
+import { appAllUsersReducer } from './app-all-users.reducer';
 import { appCarriagesReducer } from './app-carriages.reducer';
 import { appConfigReducer } from './app-config.reducer';
 import { appLanguageReducer } from './app-language.reducer';
+import { appOrdersReducer } from './app-orders.reducer';
 import { appRoutesReducer } from './app-routes.reducer';
 import { appSchedulesReducer } from './app-schedules.reducer';
 import { appStationsReducer } from './app-stations.reducer';
@@ -34,6 +38,8 @@ export interface State {
     [StateFields.APP_STATIONS]: AppStationsState;
     [StateFields.APP_ROUTES]: AppRoutesState;
     [StateFields.APP_TRIP]: AppTripState;
+    [StateFields.APP_ORDERS]: AppOrdersState;
+    [StateFields.APP_ALL_USERS]: AppAllUsersState;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -47,6 +53,8 @@ export const reducers: ActionReducerMap<State> = {
     [StateFields.APP_STATIONS]: appStationsReducer,
     [StateFields.APP_ROUTES]: appRoutesReducer,
     [StateFields.APP_TRIP]: appTripReducer,
+    [StateFields.APP_ORDERS]: appOrdersReducer,
+    [StateFields.APP_ALL_USERS]: appAllUsersReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];

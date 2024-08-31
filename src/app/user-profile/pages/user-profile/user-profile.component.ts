@@ -18,9 +18,9 @@ import { AuthFormFields } from '../../../auth/models/auth-form.model';
 import { ErrorMessageService } from '../../../auth/services/error-message.service';
 import { UserProfileService } from '../../../auth/services/user-profile-form.service';
 import { Schemes } from '../../../core/models/enums/constants';
+import { UserRole } from '../../../core/models/user/user.model';
 import { HttpService } from '../../../core/services/http.service';
 import { AppUserActions } from '../../../redux/actions/app-user.actions';
-import { UserRole } from '../../../redux/models/app-user-state.model';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { selectToken } from '../../../redux/selectors/app-user.selector';
 

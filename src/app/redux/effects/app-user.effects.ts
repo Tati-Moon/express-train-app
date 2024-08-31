@@ -7,9 +7,9 @@ import { endWith, exhaustMap, map, startWith, tap } from 'rxjs';
 
 import { AuthService } from '../../auth/services/auth-service.service';
 import { Routers } from '../../core/models/enums/routers';
+import { UserRole } from '../../core/models/user/user.model';
 import { AppConfigActions } from '../actions/app-config.actions';
 import { AppUserActions } from '../actions/app-user.actions';
-import { UserRole } from '../models/app-user-state.model';
 import { selectToken } from '../selectors/app-user.selector';
 
 @Injectable()

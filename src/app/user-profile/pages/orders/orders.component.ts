@@ -1,46 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
 
-import { Order } from '../../../core/models/orders/orders.model';
+import { ConvertedOrder } from '../../../core/models/orders/orders.model';
+import { AppOrdersActions } from '../../../redux/actions/app-orders.actions';
+import { selectMappedOrders } from '../../../redux/selectors/app-orders.selector';
 import { OrdersTableComponent } from '../../components/orders-table/orders-table.component';
-import { OrdersService, User } from '../../services/orders.service';
+import { OrdersService } from '../../services/orders.service';
 
 @Component({
     selector: 'app-orders',
     standalone: true,
-    imports: [OrdersTableComponent],
+    imports: [OrdersTableComponent, CommonModule],
     templateUrl: './orders.component.html',
     styleUrl: './orders.component.scss',
 })
 export class OrdersComponent implements OnInit {
-    public orders: Order[] = [];
+    private store = inject(Store);
 
-    constructor(private ordersService: OrdersService) {}
+    public orders!: Signal<ConvertedOrder[]>;
+
+    constructor(private ordersService: OrdersService) {
+        const orders$ = this.store.select(selectMappedOrders);
+        this.orders = toSignal(orders$, { initialValue: [] });
+    }
 
     ngOnInit(): void {
-        this.ordersService.getOrders(true).subscribe({
-            next: (response: Order[]) => {
-                this.orders = response;
-                console.log('Orders loaded successfully:', response);
-            },
-            error: (errorResponse) => {
-                if (errorResponse.error && errorResponse.error.message && errorResponse.error.reason) {
-                    console.error('Profile loading failed:', errorResponse.error.message);
-                } else {
-                    console.error('Unexpected error:', errorResponse);
-                }
-            },
-        });
-        this.ordersService.getUsers().subscribe({
-            next: (response: User[]) => {
-                console.log('Users loaded successfully:', response);
-            },
-            error: (errorResponse) => {
-                if (errorResponse.error && errorResponse.error.message) {
-                    console.error('Users loading failed:', errorResponse.error.message);
-                } else {
-                    console.error('Unexpected error:', errorResponse);
-                }
-            },
-        });
+        this.store.dispatch(AppOrdersActions.loadOrders({ all: true }));
     }
 }

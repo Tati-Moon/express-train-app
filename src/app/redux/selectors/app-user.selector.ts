@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { AppUserState, UserRole } from '../models/app-user-state.model';
+import { UserRole } from '../../core/models/user/user.model';
+import { AppUserState } from '../models/app-user-state.model';
 import { AppUserFields, StateFields } from '../models/state-fields';
 
 export const selectAppUser = createFeatureSelector<AppUserState>(StateFields.APP_USER);

@@ -1,9 +1,6 @@
+import { UserRole } from '../../core/models/user/user.model';
 import { AppUserFields } from './state-fields';
 
-export enum UserRole {
-    USER = 'user',
-    MANAGER = 'manager',
-}
 export interface AppUserState {
     [AppUserFields.USER_EMAIL]: string | null;
     [AppUserFields.USER_NAME]: string | null;

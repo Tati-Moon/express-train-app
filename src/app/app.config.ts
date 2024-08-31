@@ -22,9 +22,11 @@ import { MessageService } from 'primeng/api';
 import { routes } from './app.routes';
 import { messagesInterceptor } from './core/interceptors/messages.interceptor';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
+import { AppAllUsersEffects } from './redux/effects/app-all-users.effects';
 import { AppCarriagesEffects } from './redux/effects/app-carriages.effects';
 import { AppConfigEffects } from './redux/effects/app-config.effects';
 import { AppLanguageEffects } from './redux/effects/app-language.effects';
+import { AppOrdersEffects } from './redux/effects/app-orders.effects';
 import { AppRoutesEffects } from './redux/effects/app-routes.effects';
 import { AppSchedulesEffects } from './redux/effects/app-schedules.effects';
 import { AppStationsEffects } from './redux/effects/app-stations.effects';
@@ -55,7 +57,9 @@ export const appConfig: ApplicationConfig = {
             AppStationsEffects,
             AppRoutesEffects,
             AppTripEffects,
-            AppSchedulesEffects
+            AppSchedulesEffects,
+            AppOrdersEffects,
+            AppAllUsersEffects
         ),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         importProvidersFrom(

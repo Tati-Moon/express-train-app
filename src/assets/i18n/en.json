@@ -34,6 +34,9 @@
       "SAVE_SUCCESS": "The schedule saved!",
       "UPDATE_SUCCESS": "The schedule updated!",
       "DELETE_SUCCESS": "The schedule deleted!"
+    },
+    "ORDERS": {
+      "CANCEL_SUCCESS": "The order canceled!"
     }
   },
   "ADMIN": {
@@ -54,11 +57,15 @@
     "FROM": "FROM",
     "TO": "TO",
     "DURATION": "Duration",
-    "CARRIAGE": "CARRIAGE",
+    "CARRIAGE_TYPE": "Carriage type",
     "CAR_NUMBER": "Car number",
     "SEAT_NUMBER": "Seat number",
     "PRICE": "Price",
-    "NO_ORDER": "No orders found."
+    "NO_ORDER": "No orders found.",
+    "STATUS": "Status",
+    "USER_EMAIL": "Email",
+    "DELETE_CONFIRMATION": "Cancel order",
+    "DELETE_CONFIRMATION_MESSAGE": "Are you sure you want to cancel order? This action cannot be undone."
   },
   "BUTTONS": {
     "SIGN_IN": "Sign In",
