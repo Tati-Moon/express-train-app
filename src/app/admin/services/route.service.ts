@@ -4,10 +4,10 @@ import { forkJoin, map, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Route } from '../../core/models/route/route.model';
-import { Station } from '../../core/models/station/station.model';
 import { HttpService } from '../../core/services/http.service';
 import { RouteCreateForm, RouteCreateFormFields } from '../models/route-create-form.model';
 import { minThreeElementsValidator } from './array-validator';
+import { StationsService } from './stations.service';
 
 @Injectable({
     providedIn: 'root',
@@ -15,6 +15,7 @@ import { minThreeElementsValidator } from './array-validator';
 export class RoutesService {
     constructor(
         private http: HttpService,
+        private stationsService: StationsService,
         private fb: FormBuilder
     ) {}
 
@@ -27,16 +28,11 @@ export class RoutesService {
         [RouteCreateFormFields.CITIES]: this.fb.array([]),
     });
 
-    public getStations(): Observable<Station[]> {
-        return this.http
-            .get<Station[]>({ url: `${environment.apiUrlStation}` })
-            .pipe(map((response: Station[]) => response));
-    }
-
     public getRoutes(): Observable<Route[]> {
         return forkJoin({
+            // TODO need refactoring, move logic to component
             routes: this.http.get<Route[]>({ url: `${environment.apiUrlRoute}` }),
-            stations: this.getStations(),
+            stations: this.stationsService.getStations(),
         }).pipe(
             map(({ routes, stations }) => {
                 return routes.map((route) => {

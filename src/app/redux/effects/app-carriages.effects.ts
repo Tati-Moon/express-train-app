@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, endWith, exhaustMap, map, of, startWith } from 'rxjs';
 
@@ -12,6 +13,7 @@ import { AppConfigActions } from '../actions/app-config.actions';
 import { AppOrdersActions } from '../actions/app-orders.actions';
 import { AppRoutesActions } from '../actions/app-routes.actions';
 import { AppTripActions } from '../actions/app-trip.actions';
+import { selectCarriages } from '../selectors/app-carriages.selector';
 
 @Injectable()
 export class AppCarriagesEffects {
@@ -29,13 +31,33 @@ export class AppCarriagesEffects {
 
     loadCarriages$ = createEffect(() =>
         this.actions$.pipe(
+            ofType(AppCarriagesActions.loadCarriages),
+            exhaustMap(() => {
+                return this.carriagesService.getCarriages().pipe(
+                    map((carriages: Carriage[]) => {
+                        this.form.reset();
+                        return AppCarriagesActions.loadCarriagesSuccess({ carriages });
+                    }),
+                    catchError((error) => of(AppCarriagesActions.loadCarriagesFailure({ error }))),
+                    startWith(AppConfigActions.setVisibleLoader()),
+                    endWith(AppConfigActions.setInvisibleLoader())
+                );
+            })
+        )
+    );
+
+    lazyLoadCarriages$ = createEffect(() =>
+        this.actions$.pipe(
             ofType(
-                AppCarriagesActions.loadCarriages,
                 AppRoutesActions.loadRoutesSuccess,
                 AppTripActions.loadTripInfoSuccess,
                 AppOrdersActions.loadOrdersSuccess
             ),
-            exhaustMap(() => {
+            concatLatestFrom(() => this.store.select(selectCarriages)),
+            exhaustMap(([, carriagesOld]) => {
+                if (carriagesOld && carriagesOld.length > 0) {
+                    return of(AppCarriagesActions.carriagesLoadNotRequired());
+                }
                 return this.carriagesService.getCarriages().pipe(
                     map((carriages: Carriage[]) => {
                         this.form.reset();

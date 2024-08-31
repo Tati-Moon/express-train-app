@@ -10,6 +10,7 @@ export const AppStationsActions = createActionGroup({
         'Lazy Load Stations': emptyProps(),
         'Load Stations Success': props<{ stations: Station[] }>(),
         'Load Stations Failure': props<{ error: string }>(),
+        'Stations Load Not Required': emptyProps(),
 
         'Hide Form Station': emptyProps(),
 

@@ -8,6 +8,8 @@ export const AppCarriagesActions = createActionGroup({
         'Load Carriages': emptyProps(),
         'Load Carriages Success': props<{ carriages: Carriage[] }>(),
         'Load Carriages Failure': props<{ error: string }>(),
+        'Lazy Load Carriages': emptyProps(),
+        'Carriages Load Not Required': emptyProps(),
 
         'Hide Form Carriage': emptyProps(),
 
