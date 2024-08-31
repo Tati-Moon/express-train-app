@@ -9,6 +9,7 @@ import { Carriage } from '../../core/models';
 import { MessagesService } from '../../core/services/messages.service';
 import { AppCarriagesActions } from '../actions/app-carriages.actions';
 import { AppConfigActions } from '../actions/app-config.actions';
+import { AppOrdersActions } from '../actions/app-orders.actions';
 import { AppRoutesActions } from '../actions/app-routes.actions';
 import { AppTripActions } from '../actions/app-trip.actions';
 
@@ -31,7 +32,8 @@ export class AppCarriagesEffects {
             ofType(
                 AppCarriagesActions.loadCarriages,
                 AppRoutesActions.loadRoutesSuccess,
-                AppTripActions.loadTripInfoSuccess
+                AppTripActions.loadTripInfoSuccess,
+                AppOrdersActions.loadOrdersSuccess
             ),
             exhaustMap(() => {
                 return this.carriagesService.getCarriages().pipe(

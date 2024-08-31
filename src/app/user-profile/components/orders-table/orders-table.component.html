@@ -2,31 +2,59 @@
     <p-table [value]="orders" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
+                <th>{{ 'ORDER.USER_EMAIL' | translate }}</th>
                 <th>{{ 'ORDER.FROM' | translate }}</th>
                 <th>{{ 'ORDER.TO' | translate }}</th>
                 <th>{{ 'ORDER.DURATION' | translate }}</th>
-                <th>{{ 'ORDER.CARRIAGE' | translate }}</th>
+                <th>{{ 'ORDER.CARRIAGE_TYPE' | translate }}</th>
                 <th>{{ 'ORDER.CAR_NUMBER' | translate }}</th>
                 <th>{{ 'ORDER.SEAT_NUMBER' | translate }}</th>
                 <th>{{ 'ORDER.PRICE' | translate }}</th>
+                <th>{{ 'ORDER.STATUS' | translate }}</th>
                 <th style="width: 1rem"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order>
             <tr>
                 <td>
-                    <div>{{ order.path[0] }}</div>
-
-                    <div>{{ order.schedule.segments[0].time[0] }}</div>
+                    <div>{{ order?.user?.email }}</div>
                 </td>
                 <td>
-                    <div>{{ order.path[order.path.length - 1] }}</div>
+                    <div>{{ (getStation(order.stationStart) | async)?.city }}</div>
 
-                    <div>{{ order.schedule.segments[0].time[1] }}</div>
+                    <div>{{ order.startTime | date: 'yyyy-MM-dd h:mm a' }}</div>
                 </td>
                 <td>
-                    <p-button icon="pi pi-pencil" text="true" (onClick)="handleDeleteOrder(order)"></p-button>
+                    <div>{{ (getStation(order.stationEnd) | async)?.city }}</div>
+
+                    <div>{{ order.endTime | date: 'yyyy-MM-dd h:mm a' }}</div>
                 </td>
+
+                <td>
+                    <div>{{ order.tripDuration }}</div>
+                </td>
+                <td>
+                    <div>{{ order.carriageType }}</div>
+                </td>
+                <td>
+                    <div>{{ order.carriageNumber }}</div>
+                </td>
+                <td>
+                    <div>{{ order.seatInCarriage }}</div>
+                </td>
+                <td>
+                    <div>{{ order.totalPrice }}</div>
+                </td>
+                <td>
+                    <div>{{ order.status }}</div>
+                </td>
+                @if (order.status === OrderStatus.ACTIVE) {
+                    <td>
+                        <p-button icon="pi pi-trash" text="true" (onClick)="handleDeleteOrder(order)"></p-button>
+                    </td>
+                } @else {
+                    <td></td>
+                }
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
@@ -36,3 +64,12 @@
         </ng-template>
     </p-table>
 </div>
+<app-delete-confirmation
+    [visible]="deleteModalVisible"
+    [routeId]="orderToDelete"
+    [header]="'ORDER.DELETE_CONFIRMATION' | translate"
+    [message]="'ORDER.DELETE_CONFIRMATION_MESSAGE' | translate"
+    (confirm)="onConfirmDelete($event)"
+    (cancel)="onCancelDelete()"
+>
+</app-delete-confirmation>

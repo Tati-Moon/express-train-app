@@ -1,5 +1,8 @@
-<div class="orders grid">
+<div *ngIf="orders()?.length" class="orders grid">
+    <!-- <pre>
+        {{ orders() | json }}
+    </pre> -->
     <div class="col-12">
-        <app-orders-table [orders]="orders"></app-orders-table>
+        <app-orders-table [orders]="orders()"></app-orders-table>
     </div>
 </div>

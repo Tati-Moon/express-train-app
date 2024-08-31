@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { UserRole } from '../models/app-user-state.model';
+import { UserRole } from '../../core/models/user/user.model';
 
 export const AppUserActions = createActionGroup({
     source: 'APP User',
