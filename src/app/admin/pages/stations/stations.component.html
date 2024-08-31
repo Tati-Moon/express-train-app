@@ -16,11 +16,7 @@
 
     @if (isCreateStation) {
         <!-- Form with map -->
-        <app-create-station
-            [stationForm]="stationForm"
-            (save)="onSaveStation($event)"
-            (cancel)="onCancelEdit()"
-        ></app-create-station>
+        <app-create-station (save)="onSaveStation()" (cancel)="onCancelEdit()"></app-create-station>
     } @else {
         <div class="stations-list">
             <!-- List -->
@@ -28,7 +24,10 @@
                 <div class="station-item">
                     @if (selectedStation?.id === station.id) {
                         <!-- Form with map -->
-                        <app-view-station [stationForm]="stationForm" (cancel)="onCancelEdit()"></app-view-station>
+                        <app-view-station
+                            [selectedStation]="selectedStation"
+                            (cancel)="onCancelEdit()"
+                        ></app-view-station>
                     }
 
                     @if (selectedStation?.id !== station.id) {

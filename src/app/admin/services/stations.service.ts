@@ -22,7 +22,6 @@ export class StationsService {
         [StationCreateFormFields.CITY]: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
         [StationCreateFormFields.LATITUDE]: [0, [Validators.required, Validators.min(-90), Validators.max(90)]],
         [StationCreateFormFields.LONGITUDE]: [0, [Validators.required, Validators.min(-180), Validators.max(180)]],
-        [StationCreateFormFields.STATIONS]: [[], []],
         [StationCreateFormFields.CONNECTED_TO]: this.fb.array([], notEmptyArrayValidator),
     });
 
