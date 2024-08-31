@@ -50,7 +50,12 @@
                 </td>
                 @if (order.status === OrderStatus.ACTIVE) {
                     <td>
-                        <p-button icon="pi pi-trash" text="true" (onClick)="handleDeleteOrder(order)"></p-button>
+                        <p-button
+                            severity="danger"
+                            icon="pi pi-trash"
+                            text="true"
+                            (onClick)="handleDeleteOrder(order)"
+                        ></p-button>
                     </td>
                 } @else {
                     <td></td>

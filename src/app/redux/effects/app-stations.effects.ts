@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, EMPTY, endWith, exhaustMap, map, of, startWith } from 'rxjs';
+import { catchError, endWith, exhaustMap, map, of, startWith } from 'rxjs';
 
 import { StationsService } from '../../admin/services/stations.service';
 import { Station } from '../../core/models/station/station.model';
@@ -30,14 +30,8 @@ export class AppStationsEffects {
 
     loadStations$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(
-                AppStationsActions.loadStations,
-                AppStationsActions.deleteStationSuccess,
-                AppRoutesActions.loadRoutesSuccess,
-                AppTripActions.loadTripInfoSuccess
-            ),
+            ofType(AppStationsActions.loadStations, AppStationsActions.deleteStationSuccess),
             exhaustMap(() => {
-                console.log('\x1b[31m%s\x1b[0m', 'liflud');
                 return this.stationsService.getStations().pipe(
                     map((stations: Station[]) => {
                         this.form.reset();
@@ -56,12 +50,13 @@ export class AppStationsEffects {
                 AppStationsActions.lazyLoadStations,
                 AppRoutesActions.loadRoutesSuccess,
                 AppSchedulesActions.loadSchedulesSuccess,
-                AppOrdersActions.loadOrdersSuccess
+                AppOrdersActions.loadOrdersSuccess,
+                AppTripActions.loadTripInfoSuccess
             ),
             concatLatestFrom(() => this.store.select(selectStations)),
             exhaustMap(([, stationsOld]) => {
                 if (stationsOld && stationsOld.length > 0) {
-                    return EMPTY;
+                    return of(AppStationsActions.stationsLoadNotRequired());
                 }
                 return this.stationsService.getStations().pipe(
                     map((stations: Station[]) => {
