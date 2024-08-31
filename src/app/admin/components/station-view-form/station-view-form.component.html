@@ -2,11 +2,11 @@
     <form class="card edit-container" [formGroup]="stationForm">
         <div class="map-container">
             <app-map-view
-                [latitude]="stationForm.get(fields.LATITUDE)?.value"
-                [longitude]="stationForm.get(fields.LONGITUDE)?.value"
-                [city]="stationForm.get(fields.CITY)?.value"
-                [connectedTo]="stationForm.get(fields.CONNECTED_TO)?.value"
-                [stations]="stations"
+                [latitude]="latitude"
+                [longitude]="longitude"
+                [city]="city"
+                [connectedTo]="connectedTo.value"
+                [draggable]="false"
             >
             </app-map-view>
         </div>
@@ -24,14 +24,6 @@
                     styleClass="w-full"
                     pInputText
                 />
-
-                @if (stationForm.get(fields.CITY); as rows) {
-                    @if (!rows.pristine) {
-                        @for (error of handleCityNameErrorMessages(rows.errors); track $index) {
-                            <small class="p-error block mt-2"> {{ error | translate }} </small>
-                        }
-                    }
-                }
             </div>
 
             <div class="form-group mb-2">
@@ -46,14 +38,6 @@
                     styleClass="w-full"
                     pInputText
                 />
-
-                @if (stationForm.get(fields.LATITUDE); as rows) {
-                    @if (!rows.pristine) {
-                        @for (error of handleLatitudeErrorMessages(rows.errors); track $index) {
-                            <small class="p-error block mt-2"> {{ error | translate }} </small>
-                        }
-                    }
-                }
             </div>
 
             <div class="form-group mb-2">
@@ -68,14 +52,6 @@
                     styleClass="w-full"
                     pInputText
                 />
-
-                @if (stationForm.get(fields.LONGITUDE); as rows) {
-                    @if (!rows.pristine) {
-                        @for (error of handleLongitudeErrorMessages(rows.errors); track $index) {
-                            <small class="p-error block mt-2"> {{ error | translate }} </small>
-                        }
-                    }
-                }
             </div>
 
             <div class="form-group mb-5">
@@ -88,15 +64,13 @@
                 <div formArrayName="connectedTo">
                     @for (control of connectedTo.controls; track $index) {
                         <div [formGroupName]="$index" class="flex align-items-center mb-2 gap-2">
-                            <p-dropdown
+                            <input
+                                id="city"
+                                type="string"
                                 formControlName="city"
-                                optionLabel="city"
-                                optionValue="city"
-                                [options]="stations"
-                                placeholder="{{ 'STATION_PAGE.FIELDS.CONNECTED.PLACEHOLDER' | translate }}"
-                                class="w-full"
+                                class="ng-dirty w-full"
                                 styleClass="w-full"
-                                [disabled]="true"
+                                pInputText
                             />
                         </div>
                     }

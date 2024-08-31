@@ -1,7 +1,10 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnDestroy, OnInit, Signal, SimpleChanges } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
 import * as Leaflet from 'leaflet';
 
-import { IStation } from '../../models/station.interface';
+import { Station } from '../../../core/models/station/station.model';
+import { selectStations } from '../../../redux/selectors/app-stations.selector';
 
 const ICON_SIZE: [number, number] = [30, 30];
 const ICON_ANCHOR: [number, number] = [12, 24];
@@ -22,15 +25,23 @@ const INITIAL_LONGITUDE = -0.09;
     styleUrls: ['./map-view.component.scss'],
 })
 export class MapViewComponent implements OnInit, OnChanges, OnDestroy {
+    private store = inject(Store);
+    public allStations!: Signal<Station[]>;
     @Input() latitude: number = INITIAL_LATITUDE;
     @Input() longitude: number = INITIAL_LONGITUDE;
     @Input() city: string = '';
     @Input() connectedTo: { latitude: number; longitude: number; city: string; id: number }[] = [];
-    @Input() stations: IStation[] = [];
+
+    @Input() draggable!: boolean;
 
     private map!: Leaflet.Map;
     private mainMarker?: Leaflet.Marker;
     private markers?: Leaflet.Marker[];
+
+    constructor() {
+        const allStations$ = this.store.select(selectStations);
+        this.allStations = toSignal(allStations$, { initialValue: [] });
+    }
 
     ngOnInit(): void {
         this.initMap();
@@ -85,8 +96,30 @@ export class MapViewComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         const blueIcon = this.createIcon(MAIN_MARKER_COLOR);
-        this.mainMarker = Leaflet.marker([this.latitude, this.longitude], { icon: blueIcon }).addTo(this.map);
-        this.mainMarker.bindPopup(this.city).openPopup();
+        this.mainMarker = Leaflet.marker([this.latitude, this.longitude], {
+            icon: blueIcon,
+            draggable: this.draggable,
+        }).addTo(this.map);
+
+        this.mainMarker.bindPopup(this.city, { closeButton: true }).openPopup();
+
+        this.map.setView([this.latitude, this.longitude], INITIAL_ZOOM_LEVEL);
+
+        this.mainMarker.on('dragend', (event) => {
+            const marker = event.target;
+            const position = marker.getLatLng();
+            this.latitude = position.lat;
+            this.longitude = position.lng;
+
+            this.onMarkerDragEnd();
+        });
+    }
+
+    onMarkerDragEnd() {
+        const event = new CustomEvent('markerDragged', {
+            detail: { latitude: this.latitude, longitude: this.longitude },
+        });
+        window.dispatchEvent(event);
     }
 
     private addConnectedMarkers(): void {
@@ -102,13 +135,13 @@ export class MapViewComponent implements OnInit, OnChanges, OnDestroy {
         if (this.connectedTo.length > 0) {
             const relations = this.connectedTo
                 .map((connection) => {
-                    const matchingStation = this.stations.find((station) => station.city === connection.city);
+                    const matchingStation = this.allStations().find((station) => station.city === connection.city);
                     return matchingStation
                         ? {
-                              latitude: matchingStation?.latitude,
-                              longitude: matchingStation?.longitude,
-                              city: matchingStation?.city,
-                              id: matchingStation?.id,
+                              latitude: matchingStation.latitude,
+                              longitude: matchingStation.longitude,
+                              city: matchingStation.city,
+                              id: matchingStation.id,
                           }
                         : null;
                 })
@@ -117,17 +150,24 @@ export class MapViewComponent implements OnInit, OnChanges, OnDestroy {
                         relation !== null
                 );
 
-            relations?.forEach((location) => {
+            relations.forEach((location) => {
                 if (
                     location &&
                     typeof location === 'object' &&
-                    typeof location?.latitude === 'number' &&
-                    typeof location?.longitude === 'number'
+                    typeof location.latitude === 'number' &&
+                    typeof location.longitude === 'number'
                 ) {
-                    const marker = Leaflet.marker([location?.latitude, location?.longitude], { icon: grayIcon }).addTo(
+                    const marker = Leaflet.marker([location.latitude, location.longitude], { icon: grayIcon }).addTo(
                         this.map
                     );
-                    marker.bindPopup(location.city).openPopup();
+
+                    marker
+                        .bindTooltip(location.city, {
+                            permanent: true,
+                            direction: 'bottom',
+                        })
+                        .openTooltip();
+
                     this.markers?.push(marker);
                 }
             });

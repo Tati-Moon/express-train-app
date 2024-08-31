@@ -1,63 +1,76 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
+import { FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
-import { IStation } from '../../models/station.interface';
+import { Station } from '../../../core/models/station/station.model';
 import { StationCreateFormFields, StationFormMode } from '../../models/station-create-form';
-import { ErrorMessageService } from '../../services/error-message.service';
+import { StationsService } from '../../services/stations.service';
 import { MapViewComponent } from '../map-view/map-view.component';
 
 @Component({
     selector: 'app-view-station',
     standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        CommonModule,
-        InputTextModule,
-        ButtonModule,
-        TranslateModule,
-        MapViewComponent,
-        DropdownModule,
-    ],
+    imports: [ReactiveFormsModule, CommonModule, InputTextModule, ButtonModule, TranslateModule, MapViewComponent],
     templateUrl: './station-view-form.component.html',
     styleUrls: ['./station-view-form.component.scss'],
 })
 export class ViewStationComponent implements OnInit {
     @Input() public mode: StationFormMode = null;
-    @Input() stationForm!: FormGroup;
+    @Input() selectedStation: Station | null = null;
     @Output() cancel = new EventEmitter<void>();
 
     constructor(
-        private errorMessageService: ErrorMessageService,
+        private stationsService: StationsService,
         private fb: FormBuilder
     ) {}
 
     ngOnInit(): void {
+        this.stationForm.patchValue({
+            city: this.selectedStation?.city,
+            latitude: this.selectedStation?.latitude,
+            longitude: this.selectedStation?.longitude,
+            id: this.selectedStation?.id,
+        });
+
+        this.createConnectedFormArray(this.selectedStation);
+
         this.stationForm.disable();
+        this.stationForm.controls[StationCreateFormFields.CONNECTED_TO].disable();
     }
 
-    public handleCityNameErrorMessages(errors: ValidationErrors | null): string[] {
-        return this.errorMessageService.getCityNameErrorMessages(errors);
+    createConnectedFormArray(selectedStation: Station | null = null) {
+        const connectedToArray = this.stationForm.get(StationCreateFormFields.CONNECTED_TO) as FormArray;
+        connectedToArray.clear();
+        selectedStation?.connectedTo?.forEach((item) => {
+            connectedToArray.push(
+                this.fb.group({
+                    city: item.city,
+                })
+            );
+        });
     }
 
-    public handleLatitudeErrorMessages(errors: ValidationErrors | null): string[] {
-        return this.errorMessageService.getLatitudeErrorMessages(errors);
+    get city(): string {
+        return this.stationForm.controls[StationCreateFormFields.CITY].value as string;
     }
 
-    public handleLongitudeErrorMessages(errors: ValidationErrors | null): string[] {
-        return this.errorMessageService.getLongitudeErrorMessages(errors);
+    get longitude(): number {
+        return this.stationForm.controls[StationCreateFormFields.LONGITUDE].value as number;
+    }
+
+    get latitude(): number {
+        return this.stationForm.controls[StationCreateFormFields.LATITUDE].value as number;
+    }
+
+    public get stationForm() {
+        return this.stationsService.stationCreateForm;
     }
 
     get connectedTo(): FormArray {
         return this.stationForm.controls[StationCreateFormFields.CONNECTED_TO] as FormArray;
-    }
-
-    get stations(): IStation[] {
-        return this.stationForm.controls[StationCreateFormFields.STATIONS]?.value;
     }
 
     public get fields() {
@@ -65,6 +78,7 @@ export class ViewStationComponent implements OnInit {
     }
 
     onCancelEdit(): void {
+        this.stationForm.reset();
         this.cancel.emit();
     }
 }

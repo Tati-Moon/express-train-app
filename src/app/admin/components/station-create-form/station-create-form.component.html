@@ -3,11 +3,11 @@
         <div class="edit-container">
             <div class="map-container">
                 <app-map-view
-                    [latitude]="stationForm.get(fields.LATITUDE)?.value"
-                    [longitude]="stationForm.get(fields.LONGITUDE)?.value"
-                    [city]="stationForm.get(fields.CITY)?.value"
-                    [connectedTo]="stationForm.get(fields.CONNECTED_TO)?.value"
-                    [stations]="stations"
+                    [latitude]="latitude"
+                    [longitude]="longitude"
+                    [city]="city"
+                    [connectedTo]="connectedTo.value"
+                    [draggable]="true"
                 >
                 </app-map-view>
             </div>
@@ -113,7 +113,7 @@
                                     formControlName="city"
                                     optionLabel="city"
                                     optionValue="city"
-                                    [options]="stations"
+                                    [options]="getStationsWithoutSelected($index)"
                                     placeholder="{{ 'STATION_PAGE.FIELDS.CONNECTED.PLACEHOLDER' | translate }}"
                                     class="ng-dirty w-full"
                                     styleClass="w-full"
