@@ -36,7 +36,7 @@ export const appUserReducer = createReducer(
         })
     ),
     on(
-        AppUserActions.logOutSuccess,
+        AppUserActions.logOutDeleteToken,
         (): AppUserState => ({
             ...initialState,
         })

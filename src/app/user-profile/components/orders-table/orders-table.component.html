@@ -2,7 +2,10 @@
     <p-table [value]="orders" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
-                <th>{{ 'ORDER.USER_EMAIL' | translate }}</th>
+                @if (isAdmin()) {
+                    <th>{{ 'ORDER.USER_EMAIL' | translate }}</th>
+                }
+
                 <th>{{ 'ORDER.FROM' | translate }}</th>
                 <th>{{ 'ORDER.TO' | translate }}</th>
                 <th>{{ 'ORDER.DURATION' | translate }}</th>
@@ -16,9 +19,12 @@
         </ng-template>
         <ng-template pTemplate="body" let-order>
             <tr>
-                <td>
-                    <div>{{ order?.user?.email }}</div>
-                </td>
+                @if (isAdmin()) {
+                    <td>
+                        <div>{{ order?.user?.email }}</div>
+                    </td>
+                }
+
                 <td>
                     <div>{{ (getStation(order.stationStart) | async)?.city }}</div>
 
