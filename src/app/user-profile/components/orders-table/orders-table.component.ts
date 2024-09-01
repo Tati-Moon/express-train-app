@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, Signal, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
@@ -12,6 +13,7 @@ import { ConvertedOrder, Order, OrderStatus } from '../../../core/models/orders/
 import { Station } from '../../../core/models/station/station.model';
 import { AppOrdersActions } from '../../../redux/actions/app-orders.actions';
 import { selectStationById } from '../../../redux/selectors/app-stations.selector';
+import { selectIsAdmin } from '../../../redux/selectors/app-user.selector';
 
 @Component({
     selector: 'app-orders-table',
@@ -27,8 +29,13 @@ export class OrdersTableComponent {
     stationsMap: Map<number, Observable<Station | null>> = new Map();
     public deleteModalVisible: boolean = false;
     public orderToDelete!: number;
-
+    public isAdmin: Signal<boolean> = signal(false);
     public OrderStatus = OrderStatus;
+
+    constructor() {
+        const isAdmin$ = this.store.select(selectIsAdmin);
+        this.isAdmin = toSignal(isAdmin$, { initialValue: false });
+    }
 
     public handleDeleteOrder(order: Order): void {
         this.orderToDelete = order.id;

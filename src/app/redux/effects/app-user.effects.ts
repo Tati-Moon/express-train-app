@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { endWith, exhaustMap, map, startWith, tap } from 'rxjs';
+import { endWith, exhaustMap, map, of, startWith, tap } from 'rxjs';
 
 import { AuthService } from '../../auth/services/auth-service.service';
 import { Routers } from '../../core/models/enums/routers';
@@ -44,11 +44,16 @@ export class AppUserEffects {
             concatLatestFrom(() => this.store.select(selectToken)),
 
             exhaustMap(([, token]) => {
-                return this.authService.logOut(token ?? '').pipe(
-                    map(() => {
-                        return AppUserActions.logOutSuccess();
-                    })
-                );
+                return this.authService.logOut(token ?? '').pipe(map(() => AppUserActions.logOutDeleteToken()));
+            })
+        )
+    );
+
+    logOutDeleteToken$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AppUserActions.logOutDeleteToken),
+            exhaustMap(() => {
+                return of(AppUserActions.logOutSuccess());
             })
         )
     );

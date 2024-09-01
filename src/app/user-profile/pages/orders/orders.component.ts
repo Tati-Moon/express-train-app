@@ -7,7 +7,6 @@ import { ConvertedOrder } from '../../../core/models/orders/orders.model';
 import { AppOrdersActions } from '../../../redux/actions/app-orders.actions';
 import { selectMappedOrders } from '../../../redux/selectors/app-orders.selector';
 import { OrdersTableComponent } from '../../components/orders-table/orders-table.component';
-import { OrdersService } from '../../services/orders.service';
 
 @Component({
     selector: 'app-orders',
@@ -21,7 +20,7 @@ export class OrdersComponent implements OnInit {
 
     public orders: Signal<ConvertedOrder[]> = signal([]);
 
-    constructor(private ordersService: OrdersService) {
+    constructor() {
         const orders$ = this.store.select(selectMappedOrders);
         this.orders = toSignal(orders$, { initialValue: [] });
     }
