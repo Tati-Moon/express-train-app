@@ -42,6 +42,8 @@ export class SearchFormComponent implements OnInit {
 
     public minDate = new Date();
 
+    // @Output() searchResponse = new EventEmitter<SearchResult>();
+
     public errorMessage: string | null = null;
     constructor(
         private searchService: SearchService,
@@ -115,6 +117,7 @@ export class SearchFormComponent implements OnInit {
                     console.log('search_results', results);
                     this.searchResults = results;
                     this.errorMessage = null;
+                    // this.searchResponse.emit(results);
                 },
             });
     }
