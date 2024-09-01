@@ -36,24 +36,26 @@ export const appSchedulesReducer = createReducer(
             [AppScheduleFields.SCHEDULES_RIDE]: schedulesRide,
         })
     ),
-    /*    on(
-        AppSchedulesActions.newScheduleSavedSuccess,
-        (state, { schedule }): AppSchedulesState => ({
+    on(AppSchedulesActions.newScheduleSavedSuccess, (state, { schedule }): AppSchedulesState => {
+        const currentRide = state[AppScheduleFields.SCHEDULES_RIDE];
+
+        if (!currentRide || !currentRide.schedule) {
+            return state;
+        }
+
+        const updatedRide = {
+            ...currentRide,
+            schedule: [...currentRide.schedule, schedule],
+        };
+
+        return {
             ...state,
-            [AppScheduleFields.SCHEDULES]: [...state[AppScheduleFields.SCHEDULES], schedule],
+            [AppScheduleFields.SCHEDULES_RIDE]: updatedRide,
             [AppScheduleFields.SHOW_SCHEDULE_FORM]: false,
             [AppScheduleFields.SCHEDULE_FORM_MODE]: null,
-        })
-    ),
+        };
+    }),
 
-    on(
-        AppSchedulesActions.initEditSchedule,
-        (state): AppSchedulesState => ({
-            ...state,
-            [AppScheduleFields.SHOW_SCHEDULE_FORM]: true,
-            [AppScheduleFields.SCHEDULE_FORM_MODE]: 'EDIT',
-        })
-    ), */
     on(AppSchedulesActions.updateScheduleSuccess, (state, { segments, rideId }): AppSchedulesState => {
         const currentRide = state[AppScheduleFields.SCHEDULES_RIDE];
 

@@ -1,10 +1,12 @@
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
+import { Routers } from '../../../core/models/enums/routers';
 import { Route } from '../../../core/models/route/route.model';
 import { AppRoutesActions } from '../../../redux/actions/app-routes.actions';
 import {
@@ -46,7 +48,7 @@ export class RoutesComponent implements OnInit {
     public deleteModalVisible: boolean = false;
     public routeToDelete!: number;
 
-    constructor() {
+    constructor(private router: Router) {
         const routes$ = this.store.select(selectPaginatedRoutes);
         this.routes = toSignal(routes$, { initialValue: [] });
 
@@ -94,7 +96,7 @@ export class RoutesComponent implements OnInit {
     }
 
     onAssignRide(id: number): void {
-        console.log('id', id);
+        this.router.navigate([`${Routers.ADMIN}/${Routers.ROUTE}/${id}`]);
     }
 
     onDeleteRoute(id: number): void {

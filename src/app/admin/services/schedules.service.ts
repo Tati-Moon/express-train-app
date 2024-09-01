@@ -6,7 +6,12 @@ import { environment } from '../../../environments/environment';
 import { Carriage } from '../../core/models';
 import { ScheduleRide, Segment, Station } from '../../core/models/schedules/schedule.model';
 import { HttpService } from '../../core/services/http.service';
-import { RideTimeCreateForm, RideTimeCreateFormFields } from '../models/ride-create-form.model';
+import {
+    CreateRideForm,
+    CreateRideFormFields,
+    RideTimeCreateForm,
+    RideTimeCreateFormFields,
+} from '../models/ride-create-form.model';
 import { ScheduleCreateForm, ScheduleCreateFormFields } from '../models/schedule-create-form.model';
 
 @Injectable({
@@ -27,9 +32,23 @@ export class SchedulesService {
         [ScheduleCreateFormFields.STATIONS_LIST]: this.fb.array([]),
     });
 
+    public scheduleCreateNewRideForm: FormGroup = this.fb.group<ScheduleCreateForm>({
+        [ScheduleCreateFormFields.ID]: [0, [Validators.required]],
+        [ScheduleCreateFormFields.PATH]: this.fb.array([]),
+        [ScheduleCreateFormFields.CARRIAGES]: this.fb.array([]),
+        [ScheduleCreateFormFields.SCHEDULE]: this.fb.array([]),
+        [ScheduleCreateFormFields.CARRIAGES_LIST]: this.fb.array([]),
+        [ScheduleCreateFormFields.STATIONS_LIST]: this.fb.array([]),
+    });
+
     public rideTimeCreateForm: FormGroup = this.fb.group<RideTimeCreateForm>({
         [RideTimeCreateFormFields.ARRIVAL]: ['', []],
         [RideTimeCreateFormFields.DEPARTURE]: ['', []],
+    });
+
+    public createRideForm: FormGroup = this.fb.group<CreateRideForm>({
+        [CreateRideFormFields.ID]: [0, [Validators.required]],
+        [CreateRideFormFields.SEGMENTS]: this.fb.array([]),
     });
 
     public getStations(): Observable<Station[]> {
@@ -63,7 +82,6 @@ export class SchedulesService {
     }
 
     public deleteRide(routeId: number, rideId: number): Observable<object> {
-        console.log('🚀 ~ SchedulesService ~ deleteRide ~ deleteRide:');
         return this.http.delete<object>({
             url: `${environment.apiUrlRoute}/${routeId}/ride/${rideId}`,
         });

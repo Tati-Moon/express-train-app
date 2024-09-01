@@ -1,8 +1,64 @@
-.p-table tr {
-    border-bottom: none;
+.ride-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
-.p-table td {
-    vertical-align: top;
-    border: none;
+.city-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+}
+
+.time-container,
+.prices-container {
+    display: flex;
+    flex-direction: column;
+    width: 41%;
+}
+
+.time-item-pair,
+.price-item-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.time-item-container,
+.price-item-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.time-label,
+.price-label {
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    width: 30%;
+}
+
+.time-value,
+.price-value {
+    width: 60%;
+}
+
+@media (max-width: 768px) {
+    .ride-container {
+        flex-direction: column;
+    }
+
+    .city-container,
+    .time-container,
+    .prices-container {
+        text-align: left;
+        width: 100%;
+    }
+
+    .time-container,
+    .prices-container {
+        text-align: left;
+    }
 }

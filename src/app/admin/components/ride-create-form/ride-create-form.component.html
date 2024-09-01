@@ -1,1 +1,149 @@
-<p>ride-create-form works!</p>
+<div class="card">
+    <form [formGroup]="form">
+        <div formArrayName="segments">
+            @for (segment of segments.controls; track $index) {
+                <div [formGroupName]="$index" class="ride-container w-full">
+                    <div class="city-container">
+                        <label for="city">
+                            <h4 *ngIf="getStation(segment.value.id) | async as station; else noStation">
+                                <b>{{ station.city }}</b>
+                            </h4>
+                            <ng-template #noStation>
+                                <b>{{ segment.value.city }}</b>
+                            </ng-template>
+                        </label>
+                    </div>
+
+                    <div formArrayName="time" class="time-container">
+                        <div *ngFor="let time of getTimes($index).controls; let j = index" [formGroupName]="j">
+                            <div class="time-item-pair">
+                                @if (time.get(timeFields.ARRIVAL)) {
+                                    <div class="time-item-container">
+                                        <div class="time-label">{{ 'RIDE_PAGE.FIELDS.ARRIVAL.NAME' | translate }}:</div>
+                                        <div class="time-value">
+                                            <p-calendar
+                                                inputId="arrival"
+                                                dataType="string"
+                                                dateFormat="yy-mm-dd"
+                                                timeFormat="hh:mm"
+                                                [showTime]="true"
+                                                [formControlName]="timeFields.ARRIVAL"
+                                                [minDate]="minDate"
+                                                [iconDisplay]="'input'"
+                                                [showIcon]="true"
+                                                class="ng-dirty w-full"
+                                                styleClass="w-full"
+                                                placeholder="{{ 'RIDE_PAGE.FIELDS.ARRIVAL.PLACEHOLDER' | translate }}"
+                                                required
+                                            />
+                                            @if (time.get(timeFields.ARRIVAL); as rows) {
+                                                @if (!rows.pristine) {
+                                                    @for (
+                                                        error of handleArrivalErrorMessages(rows.errors);
+                                                        track $index
+                                                    ) {
+                                                        <small class="p-error block mt-2">
+                                                            {{ error | translate }}
+                                                        </small>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                @if (time.get(timeFields.DEPARTURE)) {
+                                    <div class="time-item-container">
+                                        <div class="time-label">
+                                            {{ 'RIDE_PAGE.FIELDS.DEPARTURE.NAME' | translate }}:
+                                        </div>
+                                        <div class="time-value">
+                                            <p-calendar
+                                                inputId="departure"
+                                                dataType="string"
+                                                dateFormat="yy-mm-dd"
+                                                timeFormat="hh:mm"
+                                                [showTime]="true"
+                                                [formControlName]="timeFields.DEPARTURE"
+                                                [minDate]="minDate"
+                                                [iconDisplay]="'input'"
+                                                [showIcon]="true"
+                                                class="ng-dirty w-full"
+                                                styleClass="w-full"
+                                                placeholder="{{ 'RIDE_PAGE.FIELDS.DEPARTURE.PLACEHOLDER' | translate }}"
+                                                required
+                                            />
+                                            @if (time.get(timeFields.DEPARTURE); as rows) {
+                                                @if (!rows.pristine) {
+                                                    @for (
+                                                        error of handleDepartureErrorMessages(rows.errors);
+                                                        track $index
+                                                    ) {
+                                                        <small class="p-error block mt-2">
+                                                            {{ error | translate }}
+                                                        </small>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div formArrayName="prices" class="prices-container"></div>
+                </div>
+                <div [formGroupName]="$index" class="ride-container w-full">
+                    <div class="city-container"></div>
+                    <div formArrayName="time" class="time-container"></div>
+                    <div formArrayName="prices" class="prices-container">
+                        <div class="price-item-pair">
+                            <div *ngFor="let price of getPrices($index).controls; let k = index" [formGroupName]="k">
+                                <div class="price-item-container">
+                                    <div class="price-label">{{ price.value.name }}:</div>
+                                    <div class="price-value">
+                                        <input
+                                            [id]="priceFields.VALUE"
+                                            [formControlName]="priceFields.VALUE"
+                                            placeholder="{{ 'RIDE_PAGE.FIELDS.PRICE.PLACEHOLDER' | translate }}"
+                                            type="number"
+                                            class="ng-dirty w-full"
+                                            styleClass="w-full"
+                                            required
+                                            pInputText
+                                        />
+                                        @if (price.get(priceFields.VALUE); as rows) {
+                                            @if (!rows.pristine) {
+                                                @for (error of handlePriceErrorMessages(rows.errors); track $index) {
+                                                    <small class="p-error block mt-2">
+                                                        {{ error | translate }}
+                                                    </small>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+    <div class="form-buttons flex gap-2">
+        <p-button
+            [disabled]="form.invalid"
+            type="submit"
+            (click)="onSaveRide()"
+            label="{{ 'BUTTONS.SAVE' | translate }}"
+            severity="primary"
+            icon="pi pi-save"
+        />
+        <p-button
+            (click)="onCancelRide()"
+            label="{{ 'BUTTONS.CANCEL' | translate }}"
+            severity="secondary"
+            icon="pi pi-times"
+        />
+    </div>
+</div>

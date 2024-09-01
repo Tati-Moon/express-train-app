@@ -1,6 +1,6 @@
 import { MenuItem } from 'primeng/api';
 
-import { Routers, RoutersParams } from '../../../core/models/enums/routers';
+import { Routers } from '../../../core/models/enums/routers';
 
 export const headerMenuGuestInitialState: MenuItem[] = [
     { label: 'GENERAL.SIDEBAR.HOME', icon: 'pi pi-fw pi-home', routerLink: [Routers.EMPTY_ROOT] },
@@ -38,10 +38,5 @@ export const headerMenuAdminInitialState: MenuItem[] = [
         label: 'GENERAL.SIDEBAR.ADMIN.ROUTES',
         icon: 'pi pi-fw pi-map-marker',
         routerLink: [Routers.ADMIN, Routers.ROUTES],
-    },
-    {
-        label: 'GENERAL.SIDEBAR.ADMIN.ROUTE_WITH_ID',
-        icon: 'pi pi-fw pi-info',
-        routerLink: [Routers.ADMIN, Routers.ROUTE, RoutersParams.ID],
     },
 ];
