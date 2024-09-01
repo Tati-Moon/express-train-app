@@ -76,10 +76,10 @@ export class AppStationsEffects {
             ofType(AppStationsActions.initSaveNewStation),
             exhaustMap((action) => {
                 return this.stationsService.postStation(action.station).pipe(
-                    map(() => {
+                    map(({ id }) => {
                         this.form.reset();
                         this.messagesService.sendSuccess('MESSAGES.STATIONS.SAVE_SUCCESS');
-                        return AppStationsActions.newStationSavedSuccess({ station: action.station });
+                        return AppStationsActions.newStationSavedSuccess({ station: { ...action.station, id } });
                     }),
                     catchError((error) => {
                         return of(AppStationsActions.newStationSavedFailure({ error }));

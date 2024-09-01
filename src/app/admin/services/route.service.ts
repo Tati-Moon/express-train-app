@@ -50,12 +50,8 @@ export class RoutesService {
         );
     }
 
-    public createRoute(route: Route): Observable<Route> {
-        return this.http.post<number>({ url: `${environment.apiUrlRoute}`, body: route }).pipe(
-            map((id: number) => {
-                return { ...route, id } as Route;
-            })
-        );
+    public createRoute(route: Route): Observable<{ id: number }> {
+        return this.http.post<{ id: number }>({ url: `${environment.apiUrlRoute}`, body: route });
     }
 
     public updateRoute(id: number, route: Route): Observable<Route> {

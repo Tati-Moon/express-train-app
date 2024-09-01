@@ -26,7 +26,7 @@ export class AppRoutesEffects {
         this.actions$.pipe(
             ofType(
                 AppRoutesActions.loadRoutes,
-                AppRoutesActions.newRouteSavedSuccess,
+
                 AppRoutesActions.updateRouteSuccess,
                 AppRoutesActions.deleteRouteSuccess
             ),
@@ -49,10 +49,10 @@ export class AppRoutesEffects {
             ofType(AppRoutesActions.initSaveNewRoute),
             exhaustMap((action) => {
                 return this.routesService.createRoute(action.route).pipe(
-                    map(() => {
+                    map(({ id }) => {
                         this.form.reset();
                         this.messagesService.sendSuccess('MESSAGES.ROUTES.SAVE_SUCCESS');
-                        return AppRoutesActions.newRouteSavedSuccess({ route: action.route });
+                        return AppRoutesActions.newRouteSavedSuccess({ route: { ...action.route, id } });
                     }),
                     catchError((error) => {
                         return of(AppRoutesActions.newRouteSavedFailure({ error }));
@@ -74,7 +74,7 @@ export class AppRoutesEffects {
                         return AppRoutesActions.updateRouteSuccess({ route: action.route });
                     }),
                     catchError((error) => {
-                        return of(AppRoutesActions.updateRouteFailure({ error }));
+                        return of(AppRoutesActions.updateRouteFailure({ error: error ?? 'some error' }));
                     }),
                     startWith(AppConfigActions.setVisibleLoader()),
                     endWith(AppConfigActions.setInvisibleLoader())
