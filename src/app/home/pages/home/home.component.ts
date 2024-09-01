@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { DropdownModule } from 'primeng/dropdown';
 
+import { DateFilterComponent } from '../../components/date-filter/date-filter.component';
 import { ResultListComponent } from '../../components/result-list/result-list.component';
 import { SearchFormComponent } from '../../components/search-form/search-form.component';
 // import { SearchResult } from '../../../core/models/search/search-result.model';
@@ -19,6 +20,7 @@ import { SearchFormComponent } from '../../components/search-form/search-form.co
         ReactiveFormsModule,
         SearchFormComponent,
         ResultListComponent,
+        DateFilterComponent,
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',

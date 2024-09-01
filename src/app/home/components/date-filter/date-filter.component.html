@@ -1,0 +1,11 @@
+<p-tabView [(activeIndex)]="activeIndex" [scrollable]="true">
+    <p-tabPanel *ngFor="let date of scrollableTabs">
+        <ng-template pTemplate="header">
+            <div class="flex flex-column filter-date">
+                <span class="filter-date-span">{{ date.day }}</span>
+                <span>{{ date.dayOfTheWeek }}</span>
+            </div>
+        </ng-template>
+        <p>{{ date.content }}</p>
+    </p-tabPanel>
+</p-tabView>
