@@ -21,14 +21,14 @@
       "UPDATE_SUCCESS": "Данные о вагоне обновлены!"
     },
     "STATIONS": {
-      "SAVE_SUCCESS": "Стация добавлен!",
+      "SAVE_SUCCESS": "Станция добавлена!",
       "UPDATE_SUCCESS": "Данные о станции обновлены!",
       "DELETE_SUCCESS": "Данные о станции удалены!"
     },
     "ROUTES": {
-      "SAVE_SUCCESS": "Путь успешно добавлен!",
-      "UPDATE_SUCCESS": "Путь успешно обновлен!",
-      "DELETE_SUCCESS": "Путь успешно удален!"
+      "SAVE_SUCCESS": "Маршрут успешно добавлен!",
+      "UPDATE_SUCCESS": "Маршрут успешно обновлен!",
+      "DELETE_SUCCESS": "Маршрут успешно удален!"
     },
     "SCHEDULES": {
       "SAVE_SUCCESS": "Расписание успешно добавлено!",
@@ -75,7 +75,7 @@
     "CANCEL": "Отменить",
     "UPDATE": "Обновить",
     "LOGOUT": "Выйти",
-    "CONFIRM": "Подвердить",
+    "CONFIRM": "Подтвердить",
     "SEARCH": "Поиск",
     "ADD": "Добавить",
     "ASSIGN_RIDE": "Назначить поездку"
@@ -83,15 +83,15 @@
   "FIELD": {
     "EMAIL": {
       "NAME": "Эл. почта",
-      "PLACEHOLDER": "Адрес электронной почты"
+      "PLACEHOLDER": "Введите адрес электронной почты"
     },
     "PASSWORD": {
       "NAME": "Пароль",
-      "PLACEHOLDER": "Пароль"
+      "PLACEHOLDER": "Введите пароль"
     },
     "REPEAT_PASSWORD": {
       "NAME": "Повторите пароль",
-      "PLACEHOLDER": "Повторите пароль"
+      "PLACEHOLDER": "Введите пароль ещё раз"
     },
     "NEW_PASSWORD": {
       "NAME": "Новый пароль",
@@ -113,21 +113,27 @@
     "PASSWORD_MIN_LENGTH": "Пароль должен быть не менее 8 символов.",
     "PASSWORD_MAX_LENGTH": "Пароль должен быть не больше 30 символов.",
     "PASSWORD_MISMATCH": "Пароли не совпадают.",
-    "NAME_MIN_LENGTH": "Имя должен быть не менее 2 символов.",
-    "NAME_MAX_LENGTH": "Имя должено быть не больше 30 символов.",
+    "NAME_MIN_LENGTH": "Имя должно быть не менее 2 символов.",
+    "NAME_MAX_LENGTH": "Имя должно быть не больше 30 символов.",
     "MIN": "Укажите большее число",
     "MAX": "Укажите меньшее число"
   },
   "SEARCH_PAGE": {
     "FIELDS": {
       "FROM": {
-        "PLACEHOLDER": "от"
+        "PLACEHOLDER": "Начальная станция"
       },
       "TO": {
-        "PLACEHOLDER": "до"
+        "PLACEHOLDER": "Конечная станция"
       },
       "CALENDAR": {
         "PLACEHOLDER": "Выберите дату"
+      },
+      "CARRIAGE_TYPE": {
+        "NAME": "Тип вагона"
+      },
+      "SEATS": {
+        "NAME": "мест"
       }
     }
   },
@@ -169,7 +175,7 @@
       },
       "CONNECTED": {
         "NAME": "Соединенные станции",
-        "PLACEHOLDER": "Выбере город",
+        "PLACEHOLDER": "Выберите город",
         "ERRORS": {
           "REQUIRED": "На станции не было выбрано ни одного города."
         }
@@ -177,34 +183,34 @@
     }
   },
   "ROUTE_PAGE": {
-    "TITLE": "Пути",
+    "TITLE": "Маршруты",
     "CITIES": "Города:",
     "CARRIAGE_TYPES": "Типы вагонов:",
-    "SUB_TITLE": "Путь",
-    "SUB_TITLE_NEW": "НОВЫЙ Путь",
+    "SUB_TITLE": "Маршрут",
+    "SUB_TITLE_NEW": "НОВЫЙ маршрут",
     "DELETE_CONFIRMATION": "Подтверждение удаления маршрута",
     "DELETE_CONFIRMATION_MESSAGE": "Вы уверены, что хотите удалить этот маршрут? Это действие необратимо.",
     "FIELDS": {
       "STATIONS": {
         "NAME": "Станции",
-        "PLACEHOLDER": "Выберете станцию",
+        "PLACEHOLDER": "Выберите станцию",
         "ERRORS": {
-          "REQUIRED": "Ни одна станция не была выбрана на пути.",
+          "REQUIRED": "Ни одна станция не была выбрана на маршруте.",
           "LESS_THEN_THREE": "Должно быть не менее трех станций."
         }
       },
       "CARRIAGES": {
         "NAME": "Вагоны",
-        "PLACEHOLDER": "Выберете вагон",
+        "PLACEHOLDER": "Выберите вагон",
         "ERRORS": {
-          "REQUIRED": "Ни один вагон не был выбран на пути.",
+          "REQUIRED": "Ни один вагон не был выбран на маршруте.",
           "LESS_THEN_THREE": "Должно быть не менее трех вагонов."
         }
       }
     }
   },
   "RIDE_PAGE": {
-    "TITLE": "Путь",
+    "TITLE": "Поездка",
     "FIELDS": {
       "ARRIVAL": {
         "NAME": "Прибытие"

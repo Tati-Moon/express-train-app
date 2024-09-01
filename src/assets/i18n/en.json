@@ -17,26 +17,26 @@
       "ERROR": "Error"
     },
     "CARRIAGES": {
-      "SAVE_SUCCESS": "The carriage saved!",
-      "UPDATE_SUCCESS": "The carriage updated!"
+      "SAVE_SUCCESS": "The carriage has been saved!",
+      "UPDATE_SUCCESS": "The carriage has been updated!"
     },
     "STATIONS": {
-      "SAVE_SUCCESS": "The station saved!",
-      "UPDATE_SUCCESS": "The station updated!",
-      "DELETE_SUCCESS": "The station deleted!"
+      "SAVE_SUCCESS": "The station has been saved!",
+      "UPDATE_SUCCESS": "The station has been updated!",
+      "DELETE_SUCCESS": "The station has been deleted!"
     },
     "ROUTES": {
-      "SAVE_SUCCESS": "The route saved!",
-      "UPDATE_SUCCESS": "The route updated!",
-      "DELETE_SUCCESS": "The route deleted!"
+      "SAVE_SUCCESS": "The route has been saved!",
+      "UPDATE_SUCCESS": "The route has been updated!",
+      "DELETE_SUCCESS": "The route has been deleted!"
     },
     "SCHEDULES": {
-      "SAVE_SUCCESS": "The schedule saved!",
-      "UPDATE_SUCCESS": "The schedule updated!",
-      "DELETE_SUCCESS": "The schedule deleted!"
+      "SAVE_SUCCESS": "The schedule has been saved!",
+      "UPDATE_SUCCESS": "The schedule has been updated!",
+      "DELETE_SUCCESS": "The schedule has been deleted!"
     },
     "ORDERS": {
-      "CANCEL_SUCCESS": "The order canceled!"
+      "CANCEL_SUCCESS": "The order has been canceled!"
     }
   },
   "ADMIN": {
@@ -65,7 +65,7 @@
     "STATUS": "Status",
     "USER_EMAIL": "Email",
     "DELETE_CONFIRMATION": "Cancel order",
-    "DELETE_CONFIRMATION_MESSAGE": "Are you sure you want to cancel order? This action cannot be undone."
+    "DELETE_CONFIRMATION_MESSAGE": "Are you sure you want to cancel this order? This action cannot be undone."
   },
   "BUTTONS": {
     "SIGN_IN": "Sign In",
@@ -121,13 +121,19 @@
   "SEARCH_PAGE": {
     "FIELDS": {
       "FROM": {
-        "PLACEHOLDER": "from"
+        "PLACEHOLDER": "Start station"
       },
       "TO": {
-        "PLACEHOLDER": "to"
+        "PLACEHOLDER": "End station"
       },
       "CALENDAR": {
         "PLACEHOLDER": "Select a date"
+      },
+      "CARRIAGE_TYPE": {
+        "NAME": "Carriage type"
+      },
+      "SEATS": {
+        "NAME": "seats"
       }
     }
   },
@@ -171,7 +177,7 @@
         "NAME": "Connected",
         "PLACEHOLDER": "Select a City",
         "ERRORS": {
-          "REQUIRED": "No cities has been selected on the station."
+          "REQUIRED": "No cities have been selected for the station."
         }
       }
     }
@@ -189,22 +195,22 @@
         "NAME": "Stations",
         "PLACEHOLDER": "Select a City",
         "ERRORS": {
-          "REQUIRED": "No stations has been selected on the route.",
-          "LESS_THEN_THREE": "There must be a minimum of three station."
+          "REQUIRED": "No stations have been selected for the route.",
+          "LESS_THAN_THREE": "There must be a minimum of three stations."
         }
       },
       "CARRIAGES": {
         "NAME": "Carriages",
         "PLACEHOLDER": "Select a Carriage",
         "ERRORS": {
-          "REQUIRED": "No carriages has been selected on the route.",
-          "LESS_THEN_THREE": "There must be a minimum of three carriages."
+          "REQUIRED": "No carriages have been selected for the route.",
+          "LESS_THAN_THREE": "There must be a minimum of three carriages."
         }
       }
     }
   },
   "RIDE_PAGE": {
-    "TITLE": "Route",
+    "TITLE": "Ride",
     "FIELDS": {
       "ARRIVAL": {
         "NAME": "Arrival"
@@ -214,39 +220,39 @@
       },
       "PRICE": {
         "NAME": "Price",
-        "PLACEHOLDER": "Input a price"
+        "PLACEHOLDER": "Enter a price"
       }
     }
   },
   "LOGIN_PAGE": {
-    "WELCOME": "Welcome, to Express Train!",
+    "WELCOME": "Welcome to Express Train!",
     "SIGN_IN_CONTINUE": "Sign in to continue",
     "EMAIL": "Email",
     "EMAIL_PLACEHOLDER": "Email address",
     "PASSWORD": "Password",
     "PASSWORD_PLACEHOLDER": "Password",
     "REMEMBER_ME": "Remember me",
-    "FORGOT_PASSWORD": "Forgot password?",
+    "FORGOT_PASSWORD": "Forgot your password?",
     "SIGN_IN": "Sign In"
   },
   "REGISTER_PAGE": {
-    "WELCOME": "Welcome, to Express Train!",
+    "WELCOME": "Welcome to Express Train!",
     "SIGN_UP_CONTINUE": "Sign up to continue"
   },
   "NO_DIRECT_TRAINS_FOUND": {
     "TITLE": "No direct trains found",
     "MESSAGE": "No seats on direct trains are available right now, but there is always hope. Try again later or travel with a transfer.",
-    "GO_TO_DASHBOARD": "Go to Dashboard"
+    "GO_TO_DASHBOARD": "Go to home page"
   },
   "ACCESS": {
     "TITLE": "Access Denied",
-    "MESSAGE": "You do not have the necessary permisions. Please contact admins.",
-    "GO_TO_DASHBOARD": "Go to Dashboard"
+    "MESSAGE": "You do not have the necessary permissions. Please contact admins.",
+    "GO_TO_DASHBOARD": "Go to home page"
   },
   "NOT_FOUND": {
-    "TITLE": "Error Occured",
+    "TITLE": "Error Occurred",
     "MESSAGE": "Requested resource is not available.",
-    "GO_TO_DASHBOARD": "Go to Dashboard"
+    "GO_TO_DASHBOARD": "Go to home page"
   },
   "GENERAL": {
     "SIDEBAR": {
@@ -277,10 +283,10 @@
   "primeng": {
     "startsWith": "Starts with",
     "contains": "Contains",
-    "notContains": "Not contains",
+    "notContains": "Does not contain",
     "endsWith": "Ends with",
     "equals": "Equals",
-    "notEquals": "Not equals",
+    "notEquals": "Does not equal",
     "noFilter": "No Filter",
     "filter": "Filter",
     "lt": "Less than",
@@ -367,11 +373,11 @@
       "previous": "Previous",
       "next": "Next",
       "navigation": "Navigation",
-      "scrollTop": "Scroll Top",
-      "moveTop": "Move Top",
+      "scrollTop": "Scroll to Top",
+      "moveTop": "Move to Top",
       "moveUp": "Move Up",
       "moveDown": "Move Down",
-      "moveBottom": "Move Bottom",
+      "moveBottom": "Move to Bottom",
       "moveToTarget": "Move to Target",
       "moveToSource": "Move to Source",
       "moveAllToTarget": "Move All to Target",
