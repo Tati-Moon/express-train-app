@@ -1,5 +1,5 @@
 import { DatePipe, NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TabViewModule } from 'primeng/tabview';
 
 @Component({
@@ -10,7 +10,7 @@ import { TabViewModule } from 'primeng/tabview';
     styleUrl: './date-filter.component.scss',
     providers: [DatePipe],
 })
-export class DateFilterComponent implements OnInit {
+export class DateFilterComponent {
     public day = new Date();
 
     public date = new Date();
@@ -22,17 +22,11 @@ export class DateFilterComponent implements OnInit {
     public activeIndex: number = 0;
 
     public scrollableTabs = Array.from({ length: this.numberOfDays }, (_, i) => ({
-        day: `${this.datePipe.transform(this.day, 'MMMM')}
-          ${i + 1}`,
+        day: `${this.datePipe.transform(this.day, 'MMMM')}`,
+        monthDay: ` ${i + 1}`,
         dayOfTheWeek: `${this.datePipe.transform(new Date(this.day.getFullYear(), this.day.getMonth(), i), 'EEEE')}`,
-        content: 'Content', //
+        content: `Content ${i + 1}`, //
     }));
 
     constructor(private datePipe: DatePipe) {}
-
-    ngOnInit(): void {
-        const test = new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate());
-        console.log(test);
-        console.log('gshshj  \n ddjsk');
-    }
 }

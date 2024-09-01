@@ -2,7 +2,7 @@
     <p-tabPanel *ngFor="let date of scrollableTabs">
         <ng-template pTemplate="header">
             <div class="flex flex-column filter-date">
-                <span class="filter-date-span">{{ date.day }}</span>
+                <span class="filter-date-span">{{ date.day }}{{ date.monthDay }}</span>
                 <span>{{ date.dayOfTheWeek }}</span>
             </div>
         </ng-template>
