@@ -27,11 +27,13 @@ export const selectTripInfo = createSelector(
             if (trip && fromTo.from && fromTo.to) {
                 const indexDeparture = trip.path.indexOf(fromTo.from);
                 const indexArrival = trip.path.indexOf(fromTo.to);
+                const from = stations.find((station: Station) => station.id === fromTo.from)?.city ?? '';
+                const to = stations.find((station: Station) => station.id === fromTo.to)?.city ?? '';
                 const tripInfo: TripInfo = {
                     departureTime: trip.schedule.segments[indexDeparture].time[0],
                     arrivalTime: trip.schedule.segments[indexArrival - 1].time[1],
-                    from: stations[fromTo.from].city,
-                    to: stations[fromTo.to].city,
+                    from,
+                    to,
                     rideId: trip.rideId,
                 };
                 return tripInfo;
@@ -55,10 +57,11 @@ export const selectTripSchedule = createSelector(
                         const timeFrom = trip.schedule.segments[index]?.time[0] ?? '';
                         const diff: number = Math.abs(new Date(timeTo).getTime() - new Date(timeFrom).getTime());
                         const time = Math.floor(diff / (1000 * 60)) ?? NaN;
+                        const city = stations.find((s) => s.id === station)?.city ?? '';
 
                         if (index === 0) {
                             return {
-                                city: stations[station]?.city ?? '',
+                                city,
                                 timeFrom,
                                 timeTo: '',
                                 timeStop: 'first station',
@@ -68,7 +71,7 @@ export const selectTripSchedule = createSelector(
                         }
 
                         return {
-                            city: stations[station]?.city ?? '',
+                            city,
                             timeFrom,
                             timeTo,
                             timeStop: Number.isNaN(time) ? 'last station' : `${time}m`,
@@ -77,7 +80,6 @@ export const selectTripSchedule = createSelector(
                         };
                     }),
                 };
-                console.log(tripSchedule);
                 return tripSchedule;
             }
         }
