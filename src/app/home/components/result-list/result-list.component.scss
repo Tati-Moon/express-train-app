@@ -1,0 +1,83 @@
+.result-container {
+    display: flex;
+    justify-content: space-between;
+
+    .result-details {
+        display: flex;
+        flex-direction: column;
+        .route-details,
+        .itinerary-travel {
+            display: flex;
+            gap: 10px;
+            .from-details,
+            .to-details {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                text-align: left;
+            }
+            .travel-time {
+                width: 230px;
+            }
+        }
+    }
+
+    .available-carriages {
+        display: flex;
+        .carriage-type-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .carriage-type {
+                display: flex;
+                flex-direction: column;
+                span {
+                    text-align: center;
+                    line-height: 25px;
+                }
+            }
+            .price {
+                text-align: center;
+                font-size: 17px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.time {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .result-container {
+        display: flex;
+        flex-direction: column;
+
+        .available-carriages {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            .carriage-type-details {
+                align-items: center;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .result-container {
+        display: flex;
+        flex-direction: column;
+
+        .available-carriages {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            .carriage-type-details {
+                align-items: center;
+            }
+        }
+    }
+}
