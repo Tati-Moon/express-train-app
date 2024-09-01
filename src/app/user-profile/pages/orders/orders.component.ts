@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 
@@ -19,7 +19,7 @@ import { OrdersService } from '../../services/orders.service';
 export class OrdersComponent implements OnInit {
     private store = inject(Store);
 
-    public orders!: Signal<ConvertedOrder[]>;
+    public orders: Signal<ConvertedOrder[]> = signal([]);
 
     constructor(private ordersService: OrdersService) {
         const orders$ = this.store.select(selectMappedOrders);

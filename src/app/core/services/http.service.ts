@@ -1,12 +1,17 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError, timeout } from 'rxjs';
+
+import { MessagesService } from './messages.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class HttpService {
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private messagesService: MessagesService
+    ) {}
 
     public get<T>({
         url,
@@ -45,7 +50,20 @@ export class HttpService {
 
         const jsonBody = body ? JSON.stringify(body) : undefined;
 
-        return this.http.post<T>(url, jsonBody, { params, headers: newHeaders });
+        return this.http.post<T>(url, jsonBody, { params, headers: newHeaders }).pipe(
+            timeout(10000),
+            catchError((error) => {
+                // TODO check solution
+                if (error.name === 'TimeoutError') {
+                    this.messagesService.sendError('TimeoutError');
+                }
+                return throwError(() => ({
+                    status: 400,
+                    message: 'TimeoutError',
+                    error: 'TimeoutError',
+                }));
+            })
+        );
     }
 
     public put<T>({

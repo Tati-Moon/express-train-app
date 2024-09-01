@@ -54,8 +54,8 @@ export class StationsService {
         );
     }
 
-    public postStation(station: Station): Observable<Station> {
-        return this.http.post<Station>({ url: environment.apiUrlStation, body: station });
+    public postStation(station: Station): Observable<{ id: number }> {
+        return this.http.post<{ id: number }>({ url: environment.apiUrlStation, body: station });
     }
 
     public putStation(station: Station): Observable<Station> {
