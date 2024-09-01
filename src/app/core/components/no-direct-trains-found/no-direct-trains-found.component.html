@@ -3,7 +3,8 @@
         <img
             src="assets/layout/images/{{ colorScheme() === 'light' ? 'logo-dark' : 'logo-white' }}.svg"
             alt="Express train logo"
-            class="mb-5 w-6rem flex-shrink-0"
+            class="mb-5 w-6rem flex-shrink-0 image-transform"
+            [routerLink]="['/']"
         />
         <div
             style="
@@ -32,6 +33,7 @@
                         alt="Access denied"
                         class="mb-3"
                         width="80%"
+                        [routerLink]="['/']"
                     />
                     <p-button
                         pRipple
