@@ -1,13 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn } from '@angular/forms';
+import {
+    FormArray,
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    ValidationErrors,
+    Validators,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 
 import { Schedule } from '../../../core/models/schedules/schedule.model';
-import { PriceCreateFormFields } from '../../models/ride-create-form.model';
+import { CreatePriceFormFields, PriceCreateFormFields } from '../../models/ride-create-form.model';
+import { ErrorMessageService } from '../../services/error-message.service';
 
 @Component({
     selector: 'app-ride-price-item',
@@ -38,7 +47,14 @@ export class RidePriceItemComponent {
         return PriceCreateFormFields;
     }
 
-    constructor(private fb: FormBuilder) {
+    public get fields() {
+        return CreatePriceFormFields;
+    }
+
+    constructor(
+        private errorMessageService: ErrorMessageService,
+        private fb: FormBuilder
+    ) {
         this.pricesForm = this.fb.group({
             prices: this.fb.array([]),
         });
@@ -48,25 +64,20 @@ export class RidePriceItemComponent {
         return this.pricesForm.controls[PriceCreateFormFields.PRICES] as FormArray;
     }
 
-    public onEditPrices() {
-        const pricesArray = this.pricesForm.get(this.priceFields.PRICES) as FormArray;
-        pricesArray.clear();
-        pricesArray.push(this.createPriceFormGroup(this.schedule?.segments[this.index ?? 0].price));
-        this.editPrices.emit();
-    }
-
     public onSavePrices() {
         const updatedSchedule = this.updateScheduleWithNewPrices(this.index ?? 0, this.schedule);
-        console.log('ОТПРАВИТЬ В СЕРВИС ДЛЯ СОХРАНЕНИЯ:', updatedSchedule);
         this.savePrices.emit(updatedSchedule);
     }
+
+    mapToNameValueObject = (array: { id: string; name: string; value: number }[]): { [key: string]: number } =>
+        array.reduce((obj, { name, value }) => ({ ...obj, [name]: value }), {} as { [key: string]: number });
 
     private updateScheduleWithNewPrices(index: number, schedule: Schedule): Schedule {
         const updatedSegments = schedule.segments.map((segment, segIndex) => {
             if (segIndex === index) {
                 return {
                     ...segment,
-                    price: { ...this.pricesForm?.value?.prices[0] },
+                    price: this.mapToNameValueObject(this.pricesForm.controls[PriceCreateFormFields.PRICES].value),
                 };
             }
             return segment;
@@ -80,16 +91,33 @@ export class RidePriceItemComponent {
         return updatedSchedule;
     }
 
-    createPriceFormGroup(prices: Record<string, number>): FormGroup {
-        const priceFormControls = Object.entries(prices).reduce(
-            (acc, [key, value]) => {
-                acc[key] = [value, []];
-                return acc;
-            },
-            {} as { [key: string]: [number, ValidatorFn[]] }
-        );
+    public onEditPrices() {
+        const pricesArray = this.pricesForm.get(this.priceFields.PRICES) as FormArray;
+        pricesArray.clear();
+        this.createPricesFormArray(this.schedule?.segments[this.index ?? 0].price);
+        this.editPrices.emit();
+    }
 
-        return this.fb.group(priceFormControls);
+    createPricesFormArray(price: Record<string, number>) {
+        const pricesArray = this.pricesForm.get(this.priceFields.PRICES) as FormArray;
+        pricesArray.clear();
+
+        Object.entries(price).forEach(([key, value]) => {
+            pricesArray.push(
+                this.fb.group({
+                    [CreatePriceFormFields.ID]: key,
+                    [CreatePriceFormFields.NAME]: key,
+                    [CreatePriceFormFields.VALUE]: [
+                        value,
+                        [Validators.required, Validators.min(1), Validators.max(9999)],
+                    ],
+                })
+            );
+        });
+    }
+
+    public handlePriceErrorMessages(errors: ValidationErrors | null): string[] {
+        return this.errorMessageService.getPriceErrorMessages(errors);
     }
 
     getObjectKeys(obj: Record<string, number>): string[] {

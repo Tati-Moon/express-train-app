@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { ScheduleRide, Segment } from '../../core/models/schedules/schedule.model';
+import { Schedule, ScheduleRide, Segment } from '../../core/models/schedules/schedule.model';
 
 export const AppSchedulesActions = createActionGroup({
     source: 'APP SCHEDULES',
@@ -14,8 +14,8 @@ export const AppSchedulesActions = createActionGroup({
         'Init Create Schedule': emptyProps(),
         'Init Edit Schedule': emptyProps(),
 
-        'Init Save New Schedule': props<{ id: number; routeId: number; segments: Segment[] }>(),
-        'New Schedule Saved Success': props<{ id: number }>(),
+        'Init Save New Schedule': props<{ routeId: number; segments: Segment[] }>(),
+        'New Schedule Saved Success': props<{ schedule: Schedule }>(),
         'New Schedule Saved Failure': props<{ error: string }>(),
 
         'Init Update Schedule': props<{ routeId: number; rideId: number; segments: Segment[] }>(),

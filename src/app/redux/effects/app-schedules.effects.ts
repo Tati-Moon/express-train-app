@@ -46,10 +46,12 @@ export class AppSchedulesEffects {
             ofType(AppSchedulesActions.initSaveNewSchedule),
             exhaustMap((action) => {
                 return this.schedulesService.createRide(action.routeId, action.segments).pipe(
-                    map(() => {
+                    map(({ id }) => {
                         this.form.reset();
                         this.messagesService.sendSuccess('MESSAGES.SCHEDULES.SAVE_SUCCESS');
-                        return AppSchedulesActions.newScheduleSavedSuccess({ id: action.id });
+                        return AppSchedulesActions.newScheduleSavedSuccess({
+                            schedule: { rideId: id, segments: action.segments },
+                        });
                     }),
                     catchError((error) => {
                         return of(AppSchedulesActions.newScheduleSavedFailure({ error }));

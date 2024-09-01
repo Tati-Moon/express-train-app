@@ -31,3 +31,40 @@ export interface RideTimeCreateForm {
     [RideTimeCreateFormFields.ARRIVAL]: ControlType<string>;
     [RideTimeCreateFormFields.DEPARTURE]: ControlType<string>;
 }
+
+export enum CreateRideFormFields {
+    ID = 'id',
+    SEGMENTS = 'segments',
+    CreateSegmentsFormFields = 'CreateSegmentsFormFields',
+}
+
+export interface CreateRideForm {
+    [CreateRideFormFields.ID]: ControlType<number>;
+    [CreateRideFormFields.SEGMENTS]: FormArray;
+}
+
+export enum CreateSegmentsFormFields {
+    ID = 'id',
+    CITY = 'city',
+    PRICES = 'prices',
+    TIME = 'time',
+}
+
+export interface CreateSegmentsForm {
+    [CreateSegmentsFormFields.ID]: ControlType<number>;
+    [CreateSegmentsFormFields.CITY]: ControlType<string>;
+    [CreateSegmentsFormFields.PRICES]: FormArray;
+    [CreateSegmentsFormFields.TIME]: FormArray;
+}
+
+export enum CreatePriceFormFields {
+    ID = 'id',
+    NAME = 'name',
+    VALUE = 'value',
+}
+
+export interface CreatePriceForm {
+    [CreatePriceFormFields.ID]: ControlType<string>;
+    [CreatePriceFormFields.NAME]: ControlType<string>;
+    [CreatePriceFormFields.VALUE]: ControlType<number>;
+}

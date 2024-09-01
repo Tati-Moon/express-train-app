@@ -1,49 +1,63 @@
-<td>
-    <p-tag
-        severity="warning"
-        class="mb-2"
-        [rounded]="true"
-        value="{{ 'RIDE_PAGE.FIELDS.PRICE.NAME' | translate }}:"
-    ></p-tag>
-
+<p-tag
+    severity="warning"
+    class="mb-2"
+    [rounded]="true"
+    value="{{ 'RIDE_PAGE.FIELDS.PRICE.NAME' | translate }}:"
+></p-tag>
+<div class="flex justify-content-between align-items-left mb-2">
     @if (editPriceIndex === index && selectedRideId === schedule.rideId) {
         <form [formGroup]="pricesForm">
             <div formArrayName="prices">
                 <div *ngFor="let priceGroup of prices.controls; let i = index">
                     <div [formGroupName]="i" class="form-group mb-2">
-                        <ng-container *ngFor="let key of getObjectKeys(priceGroup.value)">
-                            <label for="item-{{ i }}-{{ key }}" class="block">{{ key }}</label>
-                            <input
-                                id="item-{{ i }}-{{ key }}"
-                                placeholder="{{ 'RIDE_PAGE.FIELDS.PRICE.PLACEHOLDER' | translate }}"
-                                pInputText
-                                type="number"
-                                [formControlName]="key"
-                                class="ng-dirty w-full"
-                                required
-                            />
-                        </ng-container>
+                        <label
+                            ><b>{{ priceGroup.get(fields.NAME)?.value }}</b></label
+                        >
+                        <input
+                            id="item-{{ fields.VALUE }}"
+                            placeholder="{{ 'RIDE_PAGE.FIELDS.PRICE.PLACEHOLDER' | translate }}"
+                            [formControlName]="fields.VALUE"
+                            type="number"
+                            class="ng-dirty w-full"
+                            styleClass="w-full"
+                            required
+                            pInputText
+                        />
+                        @if (priceGroup.get(fields.VALUE); as rows) {
+                            @if (!rows.pristine) {
+                                @for (error of handlePriceErrorMessages(rows.errors); track $index) {
+                                    <small class="p-error block mt-2">
+                                        {{ error | translate }}
+                                    </small>
+                                }
+                            }
+                        }
                     </div>
                 </div>
             </div>
         </form>
     } @else {
-        @for (key of getObjectKeys(schedule.segments[index || 0].price); track $index) {
-            <div>{{ key }} - {{ schedule.segments[index || 0].price[key] }}</div>
+        <div class="mb-2">
+            @for (key of getObjectKeys(schedule.segments[index || 0].price); track $index) {
+                <p>
+                    <b> {{ key }} -</b> {{ schedule.segments[index || 0].price[key] }}
+                </p>
+            }
+        </div>
+    }
+
+    <div class="ml-2">
+        @if (editPriceIndex !== index || selectedRideId !== schedule.rideId) {
+            <p-button
+                icon="pi pi-pencil"
+                (click)="onEditPrices()"
+                [rounded]="true"
+                [text]="true"
+                [raised]="true"
+            ></p-button>
         }
-    }
-</td>
-<td>
-    @if (editPriceIndex !== index || selectedRideId !== schedule.rideId) {
-        <p-button
-            icon="pi pi-pencil"
-            (click)="onEditPrices()"
-            [rounded]="true"
-            [text]="true"
-            [raised]="true"
-        ></p-button>
-    }
-    @if (editPriceIndex === index && selectedRideId === schedule.rideId) {
-        <p-button icon="pi pi-save" (click)="onSavePrices()" [rounded]="true"></p-button>
-    }
-</td>
+        @if (editPriceIndex === index && selectedRideId === schedule.rideId) {
+            <p-button icon="pi pi-save" (click)="onSavePrices()" [rounded]="true"></p-button>
+        }
+    </div>
+</div>

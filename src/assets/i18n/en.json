@@ -211,18 +211,34 @@
   },
   "RIDE_PAGE": {
     "TITLE": "Ride",
+    "NEW_ITEM": "New ride",
     "FIELDS": {
       "ARRIVAL": {
-        "NAME": "Arrival"
+        "NAME": "Arrival",
+        "PLACEHOLDER": "Enter the time of arrival",
+        "ERRORS": {
+          "REQUIRED": "Arrival time is required"
+        }
       },
       "DEPARTURE": {
-        "NAME": "Departure"
+        "NAME": "Departure",
+        "PLACEHOLDER": "Enter the time of departure",
+        "ERRORS": {
+          "REQUIRED": "Departure time is required"
+        }
       },
       "PRICE": {
         "NAME": "Price",
-        "PLACEHOLDER": "Enter a price"
+        "PLACEHOLDER": "Enter a price",
+        "ERRORS": {
+          "REQUIRED": "Price is required",
+          "MIN": "The minimum price is 1",
+          "MAX": "The maximum price is 9999"
+        }
       }
-    }
+    },
+    "DELETE_CONFIRMATION": "Delete Confirmation",
+    "DELETE_CONFIRMATION_MESSAGE": "Are you sure you want to delete ride? This action cannot be undone."
   },
   "LOGIN_PAGE": {
     "WELCOME": "Welcome to Express Train!",

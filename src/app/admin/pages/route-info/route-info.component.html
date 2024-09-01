@@ -3,6 +3,7 @@
 </div>
 <div class="grid">
     <div class="col-12">
+        <p-button styleClass="col-12 md:col-1 mr-2" icon="pi pi-angle-left" [routerLink]="[routesLink]" />
         <p-button
             class="text-center"
             styleClass="col-12 md:col-2"
@@ -12,14 +13,16 @@
         ></p-button>
     </div>
     @if (showForm()) {
-        <div class="col-12">create-form</div>
+        <div class="col-12">
+            <app-ride-create-form
+                [carriages]="carriages()"
+                [rides]="rides()"
+                [routeId]="routeIdParams"
+            ></app-ride-create-form>
+            New Ride
+        </div>
     }
     <div class="col-12">
-        <app-ride-table
-            [carriages]="carriages()"
-            [rides]="rides()"
-            [routeId]="routeId"
-            (editCarriage)="handleEditRoute($event)"
-        ></app-ride-table>
+        <app-ride-table [carriages]="carriages()" [rides]="rides()" [routeId]="routeIdParams"></app-ride-table>
     </div>
 </div>

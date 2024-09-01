@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -9,6 +9,7 @@ import { TagModule } from 'primeng/tag';
 
 import { Schedule } from '../../../core/models/schedules/schedule.model';
 import { RideTimeCreateFormFields } from '../../models/ride-create-form.model';
+import { ErrorMessageService } from '../../services/error-message.service';
 import { SchedulesService } from '../../services/schedules.service';
 
 @Component({
@@ -34,8 +35,20 @@ export class RideTimeItemComponent {
     @Input() public selectedRideId: number | null = 0;
     @Output() public editTimes = new EventEmitter<void>();
     @Output() public saveTimes = new EventEmitter<Schedule>();
+    public minDate = new Date();
 
-    constructor(private schedulesService: SchedulesService) {}
+    public handleArrivalErrorMessages(errors: ValidationErrors | null): string[] {
+        return this.errorMessageService.getArrivalErrorMessages(errors);
+    }
+
+    public handleDepartureErrorMessages(errors: ValidationErrors | null): string[] {
+        return this.errorMessageService.getDepartureErrorMessages(errors);
+    }
+
+    constructor(
+        private errorMessageService: ErrorMessageService,
+        private schedulesService: SchedulesService
+    ) {}
 
     public get fields() {
         return RideTimeCreateFormFields;
@@ -59,7 +72,6 @@ export class RideTimeItemComponent {
             });
         }
         if (this.index === this.schedule.segments.length) {
-            console.log('this.schedule?.segments[this.index]', this.schedule?.segments[this.index]);
             this.form.patchValue({
                 [this.fields.DEPARTURE]: '',
                 [this.fields.ARRIVAL]: new Date(this.schedule?.segments[this.index - 1]?.time[1]?.toString()),
@@ -69,8 +81,6 @@ export class RideTimeItemComponent {
     }
 
     public onSaveTimes() {
-        console.log('onSaveTimes');
-
         const updatedSegments = [...this.schedule.segments];
 
         if (this.index === 0) {
@@ -96,8 +106,6 @@ export class RideTimeItemComponent {
         }
 
         this.schedule = { ...this.schedule, segments: updatedSegments };
-
-        console.log('ОТПРАВИТЬ В СЕРВИС ДЛЯ СОХРАНЕНИЯ:', this.schedule);
         this.saveTimes.emit(this.schedule);
     }
 }

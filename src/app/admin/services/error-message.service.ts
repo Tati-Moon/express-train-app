@@ -42,6 +42,48 @@ export class ErrorMessageService {
         return errorMessages;
     }
 
+    public getArrivalErrorMessages(errors: ValidationErrors | null): string[] {
+        if (!errors) return [];
+
+        const errorMessages: string[] = [];
+
+        if (errors['required']) {
+            errorMessages.push('RIDE_PAGE.FIELDS.ARRIVAL.ERRORS.REQUIRED');
+        }
+
+        return errorMessages;
+    }
+
+    public getDepartureErrorMessages(errors: ValidationErrors | null): string[] {
+        if (!errors) return [];
+
+        const errorMessages: string[] = [];
+
+        if (errors['required']) {
+            errorMessages.push('RIDE_PAGE.FIELDS.DEPARTURE.ERRORS.REQUIRED');
+        }
+
+        return errorMessages;
+    }
+
+    public getPriceErrorMessages(errors: ValidationErrors | null): string[] {
+        if (!errors) return [];
+
+        const errorMessages: string[] = [];
+
+        if (errors['required']) {
+            errorMessages.push('RIDE_PAGE.FIELDS.PRICE.ERRORS.REQUIRED');
+        }
+        if (errors['min']) {
+            errorMessages.push('RIDE_PAGE.FIELDS.PRICE.ERRORS.MIN');
+        }
+        if (errors['max']) {
+            errorMessages.push('RIDE_PAGE.FIELDS.PRICE.ERRORS.MAX');
+        }
+
+        return errorMessages;
+    }
+
     public getLatitudeErrorMessages(errors: ValidationErrors | null): string[] {
         if (!errors) return [];
 

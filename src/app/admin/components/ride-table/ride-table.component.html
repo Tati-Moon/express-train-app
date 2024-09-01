@@ -1,78 +1,81 @@
-<div *ngIf="rides && rides.schedule.length > 0; else noSchedule">
-    <ul>
-        <div *ngFor="let schedule of rides.schedule">
-            <div *ngIf="schedule.segments.length > 0">
-                <p-table [value]="rides.path" class="p-table" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            Ride
-                            {{
-                                schedule.rideId
-                            }}
-
-                            <p-button
-                                icon="pi pi-trash"
-                                severity="danger"
-                                (click)="onDeleteRide(schedule.rideId)"
-                                [rounded]="true"
-                                [text]="true"
-                                [raised]="true"
-                            ></p-button>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-path let-i="rowIndex">
-                        <tr>
-                            <td *ngIf="getStation(path) | async as station; else noStation">
-                                {{ station.city }}
-                            </td>
-                            <ng-template #noStation>
-                                <td>
-                                    <b>{{ path }}</b>
-                                </td>
-                            </ng-template>
-                            <td>{{ i }}</td>
-                            <td>
-                                <app-ride-time-item
-                                    [index]="i"
-                                    [schedule]="schedule"
-                                    [editTimeIndex]="editTimeIndex"
-                                    [selectedRideId]="schedule.rideId"
-                                    (editTimes)="onEditTimes(i, schedule)"
-                                    (saveTimes)="onSaveTimes($event)"
-                                ></app-ride-time-item>
-                            </td>
-
-                            @if (i !== schedule.segments.length) {
-                                <td>
-                                    <app-ride-price-item
-                                        [index]="i"
-                                        [schedule]="schedule"
-                                        [editPriceIndex]="editPriceIndex"
-                                        [selectedRideId]="schedule.rideId"
-                                        (editPrices)="onEditPrices(i, schedule)"
-                                        (savePrices)="onSavePrices($event)"
-                                    ></app-ride-price-item>
-                                </td>
-                            } @else {
-                                <td></td>
-                                <td></td>
-                            }
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td colspan="5">emptymessage</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
+@if (rides && rides.schedule.length > 0) {
+    @for (schedule of rides.schedule; track $index) {
+        <div class="card">
+            <div class="flex justify-content-between align-items-center mb-2">
+                <h3>{{ 'RIDE_PAGE.TITLE' | translate }} {{ schedule.rideId }}</h3>
+                <div class="flex justify-content-end align-items-center mb-2">
+                    <p-button
+                        icon="pi pi-trash"
+                        severity="danger"
+                        (click)="onDeleteRide(schedule.rideId)"
+                        [rounded]="true"
+                        [text]="true"
+                        [raised]="true"
+                    ></p-button>
+                </div>
             </div>
+
+            @for (path of rides.path; track $index) {
+                <div class="ride-container">
+                    <div class="city-container">
+                        <b *ngIf="getStation(path) | async as station; else noStation">
+                            <h3>{{ station.city }}</h3>
+                        </b>
+                        <ng-template #noStation>
+                            <h3>
+                                <b>{{ path }}</b>
+                            </h3>
+                        </ng-template>
+                    </div>
+                    <div class="time-container">
+                        <app-ride-time-item
+                            [index]="$index"
+                            [schedule]="schedule"
+                            [editTimeIndex]="editTimeIndex"
+                            [selectedRideId]="schedule.rideId"
+                            (editTimes)="onEditTimes($index, schedule)"
+                            (saveTimes)="onSaveTimes($event)"
+                        ></app-ride-time-item>
+                    </div>
+                    <div class="prices-container"></div>
+                </div>
+                <div class="ride-container">
+                    <div class="city-container"></div>
+                    <div class="time-container"></div>
+                    <div class="prices-container">
+                        @if ($index !== schedule.segments.length) {
+                            <app-ride-price-item
+                                [index]="$index"
+                                [schedule]="schedule"
+                                [editPriceIndex]="editPriceIndex"
+                                [selectedRideId]="schedule.rideId"
+                                (editPrices)="onEditPrices($index, schedule)"
+                                (savePrices)="onSavePrices($event)"
+                            ></app-ride-price-item>
+                        }
+                    </div>
+                </div>
+            }
         </div>
-    </ul>
-</div>
-<ng-template #noSchedule>
+    }
+} @else {
     <div class="card">
-        <div class="text-center">
-            <p>{{ 'ADMIN.NO_RIDE' | translate }}</p>
-        </div>
+        <p-messages severity="warn" [closable]="false">
+            <ng-template pTemplate>
+                <span class="pi pi-exclamation-circle"></span>
+                <div class="ml-2 align-items-center">
+                    {{ 'ADMIN.NO_RIDE' | translate }}
+                </div>
+            </ng-template>
+        </p-messages>
     </div>
-</ng-template>
+}
+<app-delete-confirmation
+    [visible]="deleteModalVisible"
+    [routeId]="rideToDelete"
+    [header]="'RIDE_PAGE.DELETE_CONFIRMATION' | translate"
+    [message]="'RIDE_PAGE.DELETE_CONFIRMATION_MESSAGE' | translate"
+    (confirm)="onConfirmDelete($event)"
+    (cancel)="onCancelDelete()"
+>
+</app-delete-confirmation>
