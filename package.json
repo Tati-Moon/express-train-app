@@ -31,7 +31,7 @@
     "@ngrx/store-devtools": "^18.0.2",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
-    "@planess/train-a-backend": "^0.0.7",
+    "@planess/train-a-backend": "^0.0.11",
     "@types/uuid": "^10.0.0",
     "html2canvas": "^1.4.1",
     "leaflet": "^1.9.4",
