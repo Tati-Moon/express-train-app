@@ -11,6 +11,7 @@ import { TagModule } from 'primeng/tag';
 
 import { AppAdminActions } from '../../../redux/actions/app-admin.actions';
 import { AppLanguageActions } from '../../../redux/actions/app-language.actions';
+import { AppUserActions } from '../../../redux/actions/app-user.actions';
 import { selectAdminMenuInit, selectAdminMenuShow } from '../../../redux/selectors/app-admin.selector';
 import { selectHeaderMenuInit } from '../../../redux/selectors/app-config.selector';
 import {
@@ -19,7 +20,7 @@ import {
     selectLanguageMenuShow,
 } from '../../../redux/selectors/app-language.selector';
 import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
-import { selectIsAdmin } from '../../../redux/selectors/app-user.selector';
+import { selectIsAdmin, selectToken } from '../../../redux/selectors/app-user.selector';
 import { Schemes } from '../../models/enums/constants';
 import { LayoutService } from '../../services/layout.service';
 import { HeaderMenuComponent } from './ui/header-menu/header-menu.component';
@@ -56,6 +57,7 @@ export class HeaderComponent {
     public colorScheme!: Signal<string>;
 
     public lang!: Signal<string>;
+    public token!: Signal<string | null>;
 
     items!: MenuItem[];
 
@@ -89,6 +91,9 @@ export class HeaderComponent {
 
         const lang$ = this.store.select(selectDefaultLanguage);
         this.lang = toSignal(lang$, { initialValue: this.translateService.currentLang });
+
+        const token$ = this.store.select(selectToken);
+        this.token = toSignal(token$, { initialValue: null });
     }
 
     public handleOpenAdminMenu(): void {
@@ -119,5 +124,9 @@ export class HeaderComponent {
         if (item.id) {
             this.store.dispatch(AppLanguageActions.updateApplicationLanguage({ language: item.id }));
         }
+    }
+
+    logout(): void {
+        this.store.dispatch(AppUserActions.logOut());
     }
 }

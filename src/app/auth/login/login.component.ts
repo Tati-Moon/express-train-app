@@ -90,15 +90,12 @@ export class LoginComponent {
                         this.store.dispatch(AppUserActions.logIn({ email: login, token: response.token }));
                     } else if ('error' in response) {
                         console.error('Login failed:', response.error.message);
-                        // this.handleLoginError(response.error);
                     }
                 },
                 error: (error) => {
                     console.error('Unexpected error:', error);
                 },
             });
-        // this.store.dispatch(Actions.login({ login, password }));
-        // this.form.reset();
     }
 
     public handleLoginErrorMessages(errors: ValidationErrors | null): string[] {
