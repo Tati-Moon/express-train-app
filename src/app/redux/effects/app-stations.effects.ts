@@ -13,7 +13,7 @@ import { AppRoutesActions } from '../actions/app-routes.actions';
 import { AppSchedulesActions } from '../actions/app-schedule.actions';
 import { AppStationsActions } from '../actions/app-station.actions';
 import { AppTripActions } from '../actions/app-trip.actions';
-import { selectStations } from '../selectors/app-stations.selector';
+import { selectIsStationInActiveRide, selectStations } from '../selectors/app-stations.selector';
 
 @Injectable()
 export class AppStationsEffects {
@@ -110,10 +110,19 @@ export class AppStationsEffects {
         )
     );
 
-    deleteStation$ = createEffect(() =>
+    deleteOrder$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AppStationsActions.initDeleteStation),
-            exhaustMap((action) => {
+            concatLatestFrom((action) => this.store.select(selectIsStationInActiveRide(action.id))),
+            exhaustMap(([action, isStationInActiveRide]) => {
+                if (isStationInActiveRide) {
+                    this.messagesService.sendError('MESSAGES.STATIONS.DELETE_STATION_IN_ACTIVE_RIDE');
+                    return of(
+                        AppOrdersActions.cancelOrderFailure({
+                            error: 'MESSAGES.STATIONS.DELETE_STATION_IN_ACTIVE_RIDE',
+                        })
+                    );
+                }
                 return this.stationsService.deleteStation(action.id).pipe(
                     map(() => {
                         this.messagesService.sendSuccess('MESSAGES.STATIONS.DELETE_SUCCESS');

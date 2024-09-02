@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { Carriage } from '../../core/models';
-import { Order } from '../../core/models/orders/orders.model';
+import { Order, OrderStatus } from '../../core/models/orders/orders.model';
 import { Segment } from '../../core/models/schedules/schedule.model';
 import { User } from '../../core/models/user/user.model';
 import { AppOrdersState } from '../models/app-orders-state.model';
@@ -174,4 +174,8 @@ export const selectMappedOrders = createSelector(
                 if (!a.startTime || !b.startTime) return 0;
                 return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
             })
+);
+
+export const selectActiveOrders = createSelector(selectOrders, (orders: Order[]) =>
+    orders.filter((order) => order.status === OrderStatus.ACTIVE)
 );
