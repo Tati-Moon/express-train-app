@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { isAdminGuard } from './core/guards/is-admin.guard';
+import { isloggedUserGuard } from './core/guards/is-logged-user.guard';
 import { Routers } from './core/models/enums/routers';
 
 export const routes: Routes = [
@@ -22,11 +24,13 @@ export const routes: Routes = [
                     import('./user-profile/pages/user-profile/user-profile.component').then(
                         (c) => c.UserProfileComponent
                     ),
+                canActivate: [isloggedUserGuard],
             },
             {
                 path: Routers.ORDERS,
                 loadComponent: () =>
                     import('./user-profile/pages/orders/orders.component').then((c) => c.OrdersComponent),
+                canActivate: [isloggedUserGuard],
             },
             {
                 path: Routers.ADMIN,
@@ -35,26 +39,31 @@ export const routes: Routes = [
                         path: Routers.EMPTY_ROOT,
                         loadComponent: () =>
                             import('./admin/pages/admin/admin.component').then((c) => c.AdminComponent),
+                        canActivate: [isAdminGuard],
                     },
                     {
                         path: Routers.STATIONS,
                         loadComponent: () =>
                             import('./admin/pages/stations/stations.component').then((c) => c.StationsComponent),
+                        canActivate: [isAdminGuard],
                     },
                     {
                         path: Routers.CARRIAGES,
                         loadComponent: () =>
                             import('./admin/pages/carriages/carriages.component').then((c) => c.CarriagesComponent),
+                        canActivate: [isAdminGuard],
                     },
                     {
                         path: Routers.ROUTES,
                         loadComponent: () =>
                             import('./admin/pages/routes/routes.component').then((c) => c.RoutesComponent),
+                        canActivate: [isAdminGuard],
                     },
                     {
                         path: Routers.ROUTE_WITH_ID,
                         loadComponent: () =>
                             import('./admin/pages/route-info/route-info.component').then((c) => c.RouteInfoComponent),
+                        canActivate: [isAdminGuard],
                     },
                 ],
             },
