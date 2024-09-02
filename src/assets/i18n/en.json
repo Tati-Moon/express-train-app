@@ -83,7 +83,8 @@
     "ADD": "Add",
     "ASSIGN_RIDE": "Assign ride",
     "BOOK_SEAT": "Book seat",
-    "CLEAR": "Clear"
+    "CLEAR": "Clear",
+    "OPEN": "Open"
   },
   "FIELD": {
     "EMAIL": {
@@ -245,6 +246,14 @@
     },
     "DELETE_CONFIRMATION": "Delete Confirmation",
     "DELETE_CONFIRMATION_MESSAGE": "Are you sure you want to delete ride? This action cannot be undone."
+  },
+  "ADMIN_PAGE": {
+    "HEADER_STATIONS": "Stations Page",
+    "HEADER_ROUTES": "Routes Page",
+    "HEADER_CARRIAGES": "Carriages page",
+    "TEXT_STATIONS": "The page allows the manager to manage train stations, which are key points where trains stop for passengers. Stations are interconnected by railway tracks, enabling the trains to travel between them efficiently. Each station must have its own unique geographical coordinates, and only one station is allowed per city to avoid confusion and overlap. Proper management of stations is crucial for maintaining the network's overall functionality.",
+    "TEXT_ROUTES": "The Routes page enables the manager to create and manage unique train routes by combining stations with specific carriage types. Each route defines the movement of the train between different cities, detailing the sequence and quantity of carriages used. However, the route itself does not specify details like ticket prices or travel times, which are managed separately. The careful organization of routes ensures optimized connectivity across the network.",
+    "TEXT_CARRIAGES": "The Carriage page allows the manager to create and configure different types of train carriages. Each train is composed of various carriages, and managers can design these types to suit different routes and service needs. Carriages can range from standard passenger cars to luxury compartments, or even specialized cargo units. Proper configuration of carriages contributes to the flexibility and adaptability of the train services offered."
   },
   "LOGIN_PAGE": {
     "WELCOME": "Welcome to Express Train!",
