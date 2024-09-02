@@ -8,8 +8,10 @@ import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { Routers } from '../../../core/models/enums/routers';
+import { UserRole } from '../../../core/models/user/user.model';
 import { AppTripActions } from '../../../redux/actions/app-trip.actions';
 import { selectSelectedSeat, selectTripInfo, selectTripSchedule } from '../../../redux/selectors/app-trip.selector';
+import { selectUserRole } from '../../../redux/selectors/app-user.selector';
 import { TripInfoComponent, TripRoutePopupComponent, TripSeatChoiceComponent } from '../../components';
 import { SeatBooking, TripInfo } from '../../models';
 import { CarriagesInTrain } from '../../models/trip-carriage.model';
@@ -42,6 +44,7 @@ export class TripComponent implements OnInit {
     public tripSchedule!: Signal<TripSchedule | null>;
     public tripCarriagesInfo!: Signal<CarriagesInTrain | null>;
     public selectedSeat!: Signal<SeatBooking | null>;
+    public userRole!: Signal<UserRole | null>;
 
     public showRouteModal: boolean = false;
 
@@ -64,6 +67,9 @@ export class TripComponent implements OnInit {
 
         const selectedSeat$ = this.store.select(selectSelectedSeat);
         this.selectedSeat = toSignal(selectedSeat$, { initialValue: null });
+
+        const userRole$ = this.store.select(selectUserRole);
+        this.userRole = toSignal(userRole$, { initialValue: null });
     }
 
     public ngOnInit(): void {
@@ -92,7 +98,7 @@ export class TripComponent implements OnInit {
 
     public handleOrdering(): void {
         const seat = this.selectedSeat()?.seatInTrain;
-        if (seat) {
+        if (seat && this.userRole()) {
             this.store.dispatch(
                 AppTripActions.orderingSeat({
                     rideId: this.rideIdParams,
@@ -101,6 +107,8 @@ export class TripComponent implements OnInit {
                     seat,
                 })
             );
+        } else {
+            this.router.navigate([Routers.SIGNIN]);
         }
     }
     public handleClearSelectedSeat(): void {
