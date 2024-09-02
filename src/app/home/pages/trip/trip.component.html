@@ -36,9 +36,9 @@
                             icon="pi pi-times"
                             styleClass="w-full"
                             (onClick)="handleClearSelectedSeat()"
-                            >Clear</p-button
+                            >{{ 'BUTTONS.CLEAR' | translate }}</p-button
                         >
-                        <p-button (onClick)="handleOrdering()">Book seat</p-button>
+                        <p-button (onClick)="handleOrdering()">{{ 'BUTTONS.BOOK_SEAT' | translate }}</p-button>
                     </div>
                 </div>
             }

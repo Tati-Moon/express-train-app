@@ -81,7 +81,9 @@
     "CONFIRM": "Confirm",
     "SEARCH": "Search",
     "ADD": "Add",
-    "ASSIGN_RIDE": "Assign ride"
+    "ASSIGN_RIDE": "Assign ride",
+    "BOOK_SEAT": "Book seat",
+    "CLEAR": "Clear"
   },
   "FIELD": {
     "EMAIL": {
