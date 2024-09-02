@@ -273,6 +273,7 @@
   },
   "GENERAL": {
     "SIDEBAR": {
+      "SEARCH": "Search",
       "HOME": "Home",
       "TRIP": "Trip",
       "USER_PROFILE": "User profile",
