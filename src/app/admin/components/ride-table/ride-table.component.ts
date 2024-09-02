@@ -97,6 +97,12 @@ export class RideTableComponent {
         this.selectedRideId = schedule.rideId;
     }
 
+    onCancelEdit() {
+        this.editTimeIndex = null;
+        this.editPriceIndex = null;
+        this.selectedRideId = null;
+    }
+
     onSavePrices(updatedSchedule: Schedule) {
         this.editPriceIndex = null;
         this.store.dispatch(

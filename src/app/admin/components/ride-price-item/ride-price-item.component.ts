@@ -38,6 +38,7 @@ export class RidePriceItemComponent {
     @Input() public index: number | null = 0;
     @Input() public editPriceIndex: number | null = 0;
     @Input() public selectedRideId: number | null = 0;
+    @Output() public cancelEdit = new EventEmitter<void>();
     @Output() public editPrices = new EventEmitter<void>();
     @Output() public savePrices = new EventEmitter<Schedule>();
 
@@ -96,6 +97,10 @@ export class RidePriceItemComponent {
         pricesArray.clear();
         this.createPricesFormArray(this.schedule?.segments[this.index ?? 0].price);
         this.editPrices.emit();
+    }
+
+    public onCancelEdit() {
+        this.cancelEdit.emit();
     }
 
     createPricesFormArray(price: Record<string, number>) {

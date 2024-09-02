@@ -216,6 +216,7 @@
   },
   "RIDE_PAGE": {
     "TITLE": "Поездка",
+    "SUB_TITLE": "Маршрут",
     "NEW_ITEM": "Новый рейс",
     "FIELDS": {
       "ARRIVAL": {

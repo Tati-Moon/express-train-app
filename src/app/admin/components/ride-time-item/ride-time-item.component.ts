@@ -33,6 +33,7 @@ export class RideTimeItemComponent {
     @Input() public index!: number;
     @Input() public editTimeIndex: number | null = null;
     @Input() public selectedRideId: number | null = 0;
+    @Output() public cancelEdit = new EventEmitter<void>();
     @Output() public editTimes = new EventEmitter<void>();
     @Output() public saveTimes = new EventEmitter<Schedule>();
     public minDate = new Date();
@@ -78,6 +79,10 @@ export class RideTimeItemComponent {
             });
         }
         this.editTimes.emit();
+    }
+
+    public onCancelEdit() {
+        this.cancelEdit.emit();
     }
 
     public onSaveTimes() {

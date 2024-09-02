@@ -3,14 +3,29 @@
 </div>
 <div class="grid">
     <div class="col-12">
-        <p-button styleClass="col-12 md:col-1 mr-2" icon="pi pi-angle-left" [routerLink]="[routesLink]" />
-        <p-button
-            class="text-center"
-            styleClass="col-12 md:col-2"
-            label="{{ 'ADMIN.CREATE_BTN' | translate }}"
-            [disabled]="showForm()"
-            (onClick)="handleCreateRoute()"
-        ></p-button>
+        <div class="text-center font-medium mb-2">
+            <div>
+                <p-button
+                    class="md:col-1 mr-2"
+                    icon="pi pi-angle-left"
+                    [routerLink]="[routesLink]"
+                    [rounded]="true"
+                    [text]="true"
+                    [raised]="true"
+                />
+                <span class="text-900 text-4xl">{{ 'RIDE_PAGE.SUB_TITLE' | translate }} {{ routeIdParams }}</span>
+                <p-button
+                    class="md:col-1 ml-2"
+                    severity="success"
+                    icon="pi pi-plus"
+                    [rounded]="true"
+                    [text]="true"
+                    [raised]="true"
+                    [disabled]="showForm()"
+                    (onClick)="handleCreateRoute()"
+                />
+            </div>
+        </div>
     </div>
     @if (showForm()) {
         <div class="col-12">
@@ -19,7 +34,6 @@
                 [rides]="rides()"
                 [routeId]="routeIdParams"
             ></app-ride-create-form>
-            New Ride
         </div>
     }
     <div class="col-12">

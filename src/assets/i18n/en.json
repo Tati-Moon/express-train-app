@@ -216,6 +216,7 @@
   },
   "RIDE_PAGE": {
     "TITLE": "Ride",
+    "SUB_TITLE": "Route",
     "NEW_ITEM": "New ride",
     "FIELDS": {
       "ARRIVAL": {
