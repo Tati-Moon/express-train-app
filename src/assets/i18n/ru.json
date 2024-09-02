@@ -8,7 +8,9 @@
     "AVAILABLE_SEATS": "Доступно мест",
     "TYPE_CARRIAGE": "Тип вагона",
     "PRICE": "Цена",
-    "SEAT": "Место"
+    "SEAT": "Место",
+    "FIRST_STATION": "Станция отправления",
+    "LAST_STATION": "Станция назначения"
   },
   "MESSAGES": {
     "TITLE": {

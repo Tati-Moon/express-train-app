@@ -64,7 +64,7 @@ export const selectTripSchedule = createSelector(
                                 city,
                                 timeFrom,
                                 timeTo: '',
-                                timeStop: 'first station',
+                                timeStop: 'TRIP.FIRST_STATION',
                                 cityFrom: station === fromTo.from,
                                 cityTo: station === fromTo.to,
                             };
@@ -74,7 +74,7 @@ export const selectTripSchedule = createSelector(
                             city,
                             timeFrom,
                             timeTo,
-                            timeStop: Number.isNaN(time) ? 'last station' : `${time}m`,
+                            timeStop: Number.isNaN(time) ? 'TRIP.LAST_STATION' : `${time}m`,
                             cityFrom: station === fromTo.from,
                             cityTo: station === fromTo.to,
                         };
