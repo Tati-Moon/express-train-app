@@ -9,6 +9,7 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { TagModule } from 'primeng/tag';
 
 import { Station } from '../../../core/models/station/station.model';
+import { AppOrdersActions } from '../../../redux/actions/app-orders.actions';
 import { AppStationsActions } from '../../../redux/actions/app-station.actions';
 import {
     selectCurrentPage,
@@ -64,7 +65,7 @@ export class StationsComponent implements OnInit {
     }
 
     getAllItems(): void {
-        this.store.dispatch(AppStationsActions.loadStations());
+        this.store.dispatch(AppOrdersActions.loadOrders({ all: true }));
     }
 
     onPageChange(event: PaginatorState): void {

@@ -23,7 +23,8 @@
     "STATIONS": {
       "SAVE_SUCCESS": "Станция добавлена!",
       "UPDATE_SUCCESS": "Данные о станции обновлены!",
-      "DELETE_SUCCESS": "Данные о станции удалены!"
+      "DELETE_SUCCESS": "Данные о станции удалены!",
+      "DELETE_STATION_IN_ACTIVE_RIDE": "Нет возможности удалить станцию ​​с активными поездками"
     },
     "ROUTES": {
       "SAVE_SUCCESS": "Маршрут успешно добавлен!",

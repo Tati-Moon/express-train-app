@@ -23,7 +23,8 @@
     "STATIONS": {
       "SAVE_SUCCESS": "The station has been saved!",
       "UPDATE_SUCCESS": "The station has been updated!",
-      "DELETE_SUCCESS": "The station has been deleted!"
+      "DELETE_SUCCESS": "The station has been deleted!",
+      "DELETE_STATION_IN_ACTIVE_RIDE": "Cannot delete station with active rides"
     },
     "ROUTES": {
       "SAVE_SUCCESS": "The route has been saved!",

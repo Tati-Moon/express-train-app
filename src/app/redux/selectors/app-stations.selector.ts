@@ -3,6 +3,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Station } from '../../core/models/station/station.model';
 import { AppStationsState } from '../models/app-stations-state';
 import { AppStationFields, StateFields } from '../models/state-fields';
+import { selectActiveOrders } from './app-orders.selector';
 
 export const selectAppStations = createFeatureSelector<AppStationsState>(StateFields.APP_STATIONS);
 
@@ -43,3 +44,6 @@ export const selectTotalRecords = createSelector(selectStations, (stations) => s
 
 export const selectStationById = (id: number) =>
     createSelector(selectStations, (stations: Station[]) => stations.find((station) => station.id === id) || null);
+
+export const selectIsStationInActiveRide = (stationId: number) =>
+    createSelector(selectActiveOrders, (orders) => orders.some((order) => order.path.includes(stationId)));
