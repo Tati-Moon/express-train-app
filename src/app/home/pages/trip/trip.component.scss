@@ -1,3 +1,18 @@
+:host ::ng-deep p-accordion {
+    z-index: 3;
+
+    .p-accordion-header-link {
+        background-color: var(--surface-ground);
+    }
+    .p-accordion-content {
+        gap: 5px;
+        padding: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+
 .sticky-block {
     position: sticky;
     top: 70px;

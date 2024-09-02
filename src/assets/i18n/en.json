@@ -10,7 +10,8 @@
     "PRICE": "Price",
     "SEAT": "Seat",
     "FIRST_STATION": "first station",
-    "LAST_STATION": "last station"
+    "LAST_STATION": "last station",
+    "INFO_ABOUT_TRIP": "Info about trip"
   },
   "MESSAGES": {
     "TITLE": {

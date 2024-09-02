@@ -3,7 +3,9 @@ import { Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AccordionModule } from 'primeng/accordion';
+import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 
@@ -29,6 +31,8 @@ import { TripSchedule } from '../../models/trip-schedule.model';
         TripSeatChoiceComponent,
         RouterLink,
         TranslateModule,
+        AccordionModule,
+        BadgeModule,
     ],
     templateUrl: './trip.component.html',
     styleUrl: './trip.component.scss',
@@ -55,9 +59,14 @@ export class TripComponent implements OnInit {
     public occupiedSeatsStartAdded: boolean = false;
     public occupiedSeatsEndAdded: boolean = false;
 
+    public get headerAccordion(): string {
+        return this.translate.instant('TRIP.INFO_ABOUT_TRIP');
+    }
+
     constructor(
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private translate: TranslateService
     ) {
         const tripInfo$ = this.store.select(selectTripInfo);
         this.tripInfo = toSignal(tripInfo$, { initialValue: null });
@@ -111,6 +120,7 @@ export class TripComponent implements OnInit {
             this.router.navigate([Routers.SIGNIN]);
         }
     }
+
     public handleClearSelectedSeat(): void {
         this.store.dispatch(AppTripActions.clearSelectedSeat());
     }

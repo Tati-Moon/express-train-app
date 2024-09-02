@@ -10,7 +10,8 @@
     "PRICE": "Цена",
     "SEAT": "Место",
     "FIRST_STATION": "Станция отправления",
-    "LAST_STATION": "Станция назначения"
+    "LAST_STATION": "Станция назначения",
+    "INFO_ABOUT_TRIP": "Информация о поездке"
   },
   "MESSAGES": {
     "TITLE": {
