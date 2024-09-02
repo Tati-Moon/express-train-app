@@ -2,31 +2,26 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, Input, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
+import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 
 import { Carriage } from '../../../core/models';
-import { SeatStatus } from '../../../core/models/enums/constants';
 import { SeatBooking } from '../../../home/models';
-import { AppTripActions } from '../../../redux/actions/app-trip.actions';
 import { selectBusySeats, selectSelectedSeat } from '../../../redux/selectors/app-trip.selector';
 import { CarriageSeatComponent } from '../carriage-seat/carriage-seat.component';
 import { CarriageViewSkeletonComponent } from '../carriage-view-skeleton/carriage-view-skeleton.component';
 
 @Component({
-    selector: 'app-carriage-view',
+    selector: 'app-carriage-view-small',
     standalone: true,
-    imports: [SkeletonModule, CarriageSeatComponent, CarriageViewSkeletonComponent, CommonModule],
-    templateUrl: './carriage-view.component.html',
-    styleUrl: './carriage-view.component.scss',
+    imports: [SkeletonModule, CarriageSeatComponent, CarriageViewSkeletonComponent, CommonModule, ButtonModule],
+    templateUrl: './carriage-view-small.component.html',
+    styleUrl: './carriage-view-small.component.scss',
 })
-export class CarriageViewComponent {
+export class CarriageViewSmallComponent {
     private store = inject(Store);
 
-    @Input() public numberOfCarriage!: number | null;
     @Input() public carriage!: Carriage | null;
-    @Input() public mode: 'create' | null = null;
-    @Input() public startIndexSeats: number = 0;
-    @Input() public price: number = 0;
 
     public selectedSeat!: Signal<SeatBooking | null>;
     public busySeats!: Signal<number[]>;
@@ -66,37 +61,5 @@ export class CarriageViewComponent {
             return rowIndex * (leftSeats + rightSeats) + leftSeats + seatIndex + 1;
         }
         return 0;
-    }
-
-    public handleSelectSeat(seatInCarriage: number): void {
-        const seatInTrain = seatInCarriage + this.startIndexSeats;
-        if (this.numberOfCarriage) {
-            this.store.dispatch(
-                AppTripActions.selectSeat({
-                    numberOfCarriage: this.numberOfCarriage,
-                    seatInTrain,
-                    seatInCarriage,
-                    price: this.price,
-                })
-            );
-        }
-    }
-
-    public handleIsBusySeat(index: number): string {
-        if (this.mode === 'create') {
-            return SeatStatus.AVAILABLE;
-        }
-
-        const indexSeatInTrain = index + this.startIndexSeats;
-
-        if (this.selectedSeat()?.seatInTrain === indexSeatInTrain) {
-            return SeatStatus.SELECTED;
-        }
-
-        if (this.busySeats()?.includes(indexSeatInTrain)) {
-            return SeatStatus.RESERVED;
-        }
-
-        return SeatStatus.AVAILABLE;
     }
 }

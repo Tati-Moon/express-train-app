@@ -1,6 +1,6 @@
 @if (show) {
     <!-- {{ countSeatsInCarriage }} -->
-    <div #card class="card flex overflow-auto carriage-view" [ngClass]="{ 'carriage-view-hidden': mode === 'picture' }">
+    <div class="card flex overflow-auto carriage-view">
         @if (carriage) {
             @for (row of getRowsArray(carriage.rows); track $index; let rowIndex = $index) {
                 <div>
@@ -28,10 +28,5 @@
         } @else {
             <app-carriage-view-skeleton class="w-full"></app-carriage-view-skeleton>
         }
-    </div>
-}
-@if (imageSrc) {
-    <div class="flex justify-content-center">
-        <img [src]="imageSrc" width="50%" height="100%" alt="carriage" />
     </div>
 }

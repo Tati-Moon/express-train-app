@@ -4,12 +4,12 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 
 import { Carriage } from '../../../core/models';
-import { CarriageViewComponent } from '../../../shared/components/carriage-view/carriage-view.component';
+import { CarriageViewSmallComponent } from '../../../shared/components';
 
 @Component({
     selector: 'app-carriage-table',
     standalone: true,
-    imports: [TableModule, ButtonModule, TranslateModule, CarriageViewComponent],
+    imports: [TableModule, ButtonModule, TranslateModule, CarriageViewSmallComponent],
     templateUrl: './carriage-table.component.html',
     styleUrl: './carriage-table.component.scss',
 })
