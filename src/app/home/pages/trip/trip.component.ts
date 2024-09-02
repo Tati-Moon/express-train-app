@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
@@ -52,7 +52,10 @@ export class TripComponent implements OnInit {
     public occupiedSeatsStartAdded: boolean = false;
     public occupiedSeatsEndAdded: boolean = false;
 
-    constructor(private route: ActivatedRoute) {
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
         const tripInfo$ = this.store.select(selectTripInfo);
         this.tripInfo = toSignal(tripInfo$, { initialValue: null });
 
@@ -67,6 +70,10 @@ export class TripComponent implements OnInit {
         this.rideIdParams = +this.route.snapshot.params['rideId'];
         this.fromParams = +this.route.snapshot.queryParams['from'];
         this.toParams = +this.route.snapshot.queryParams['to'];
+
+        if (!this.rideIdParams || !this.fromParams || !this.toParams) {
+            this.router.navigate([Routers.ROOT]);
+        }
 
         if (this.rideIdParams) {
             this.store.dispatch(
