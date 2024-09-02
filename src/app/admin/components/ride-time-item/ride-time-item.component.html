@@ -137,7 +137,16 @@
             ></p-button>
         }
         @if (editTimeIndex === index && selectedRideId === schedule.rideId) {
-            <p-button icon="pi pi-save" (click)="onSaveTimes()" [rounded]="true"></p-button>
+            <p-button class="mb-2 ml-2" icon="pi pi-save" (click)="onSaveTimes()" [rounded]="true"></p-button>
+            <p-button
+                class="mb-2 ml-2"
+                icon="pi pi-times"
+                severity="secondary"
+                (click)="onCancelEdit()"
+                [rounded]="true"
+                [text]="true"
+                [raised]="true"
+            ></p-button>
         }
     </div>
 </div>

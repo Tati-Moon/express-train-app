@@ -35,6 +35,7 @@
                             [selectedRideId]="schedule.rideId"
                             (editTimes)="onEditTimes($index, schedule)"
                             (saveTimes)="onSaveTimes($event)"
+                            (cancelEdit)="onCancelEdit()"
                         ></app-ride-time-item>
                     </div>
                     <div class="prices-container"></div>
@@ -51,6 +52,7 @@
                                 [selectedRideId]="schedule.rideId"
                                 (editPrices)="onEditPrices($index, schedule)"
                                 (savePrices)="onSavePrices($event)"
+                                (cancelEdit)="onCancelEdit()"
                             ></app-ride-price-item>
                         }
                     </div>

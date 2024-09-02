@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,7 +10,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 
 import { Carriage } from '../../../core/models';
-import { Schemes } from '../../../core/models/enums/constants';
 import { Routers } from '../../../core/models/enums/routers';
 import { ScheduleRide } from '../../../core/models/schedules/schedule.model';
 import { Station } from '../../../core/models/station/station.model';
@@ -18,11 +17,9 @@ import { AppSchedulesActions } from '../../../redux/actions/app-schedule.actions
 import { selectCarriages } from '../../../redux/selectors/app-carriages.selector';
 import { selectScheduleRide, selectShowSchedulesFormState } from '../../../redux/selectors/app-schedules.selector';
 import { selectStations } from '../../../redux/selectors/app-stations.selector';
-import { selectColorScheme } from '../../../redux/selectors/app-theme.selector';
 import { CarriageTableComponent } from '../../components/carriage-table/carriage-table.component';
 import { RideCreateFormComponent } from '../../components/ride-create-form/ride-create-form.component';
 import { RideTableComponent } from '../../components/ride-table/ride-table.component';
-import { SchedulesService } from '../../services/schedules.service';
 
 @Component({
     selector: 'app-route-info',
@@ -44,7 +41,6 @@ import { SchedulesService } from '../../services/schedules.service';
 })
 export class RouteInfoComponent implements OnInit {
     private store = inject(Store);
-    public colorScheme!: Signal<string>;
     public scheduleRide!: ScheduleRide;
     public showForm!: Signal<boolean>;
 
@@ -58,14 +54,7 @@ export class RouteInfoComponent implements OnInit {
         return Routers;
     }
 
-    constructor(
-        private scheduleService: SchedulesService,
-        private fb: FormBuilder,
-        private route: ActivatedRoute
-    ) {
-        const colorScheme$ = this.store.select(selectColorScheme);
-        this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
-
+    constructor(private route: ActivatedRoute) {
         const showForm$ = this.store.select(selectShowSchedulesFormState);
         this.showForm = toSignal(showForm$, { initialValue: false });
 

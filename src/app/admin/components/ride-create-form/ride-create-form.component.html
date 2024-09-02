@@ -1,5 +1,5 @@
 <div class="card">
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="mb-5">
         <div formArrayName="segments">
             @for (segment of segments.controls; track $index) {
                 <div [formGroupName]="$index" class="ride-container w-full">
