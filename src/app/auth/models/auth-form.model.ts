@@ -4,7 +4,6 @@ export enum AuthFormFields {
     LOGIN = 'login',
     PASSWORD = 'password',
     REPEAT_PASSWORD = 'repeat_password',
-    REMEMBER_ME = 'remember_me',
     NAME = 'name',
     ROLE = 'role',
     ID = 'id',
@@ -13,7 +12,6 @@ export enum AuthFormFields {
 export interface LoginForm {
     [AuthFormFields.LOGIN]: ControlType<string>;
     [AuthFormFields.PASSWORD]: ControlType<string>;
-    [AuthFormFields.REMEMBER_ME]: ControlType<boolean>;
 }
 
 export interface RegisterForm {

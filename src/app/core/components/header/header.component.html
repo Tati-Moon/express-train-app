@@ -24,6 +24,7 @@
             }
         }
     </div>
+
     <div class="layout-topbar-custom-menu flex justify-content-between align-items-center gap-2">
         <app-language-menu
             [lang]="lang()"
@@ -43,6 +44,9 @@
                 (openMenu)="handleOpenAdminMenu()"
                 (closeMenu)="handleCloseAdminMenu()"
             ></app-header-menu>
+        }
+        @if (token()) {
+            <p-button icon="pi pi-sign-out" [rounded]="true" [text]="true" (click)="logout()"></p-button>
         }
     </div>
 </div>

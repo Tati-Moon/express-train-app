@@ -72,7 +72,6 @@
   },
   "BUTTONS": {
     "SIGN_IN": "Sign In",
-    "REMEMBER_ME": "Remember me",
     "REGISTER": "Register",
     "SAVE": "Save",
     "CANCEL": "Cancel",
@@ -253,7 +252,6 @@
     "EMAIL_PLACEHOLDER": "Email address",
     "PASSWORD": "Password",
     "PASSWORD_PLACEHOLDER": "Password",
-    "REMEMBER_ME": "Remember me",
     "FORGOT_PASSWORD": "Forgot your password?",
     "SIGN_IN": "Sign In"
   },

@@ -16,7 +16,6 @@ export class LoginFormService {
     public loginForm: FormGroup = this.fb.group<LoginForm>({
         [AuthFormFields.LOGIN]: ['', [Validators.required, this.validationService.emailValidator()]],
         [AuthFormFields.PASSWORD]: ['', [Validators.required]],
-        [AuthFormFields.REMEMBER_ME]: [false, []],
     });
 
     public markFormDirty(form: FormGroup): void {
