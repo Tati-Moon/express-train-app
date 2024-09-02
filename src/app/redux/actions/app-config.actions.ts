@@ -8,7 +8,7 @@ export const AppConfigActions = createActionGroup({
         'Open User Profile Menu': emptyProps(),
         'Close User Profile Menu': emptyProps(),
         'Init Default State Header Menu': emptyProps(),
-        'Set New State Header Menu': props<{ headerMenu: MenuItem[] }>(),
+        'Set New State Header Menu': props<{ headerMenu: MenuItem[]; sidebarMenu: MenuItem[] }>(),
         'Set Visible Loader': emptyProps(),
         'Set Invisible Loader': emptyProps(),
     },

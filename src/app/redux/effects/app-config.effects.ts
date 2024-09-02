@@ -10,6 +10,9 @@ import {
     headerMenuAdminInitialState,
     headerMenuGuestInitialState,
     headerMenuUserInitialState,
+    sidebarMenuAdminInitialState,
+    sidebarMenuGuestInitialState,
+    sidebarMenuUserInitialState,
 } from '../reducers/initial-state';
 import { selectTokenAndIsAdmin } from '../selectors/app-user.selector';
 
@@ -26,16 +29,20 @@ export class AppConfigEffects {
 
             exhaustMap(([, { token, isAdmin }]) => {
                 let headerMenu;
+                let sidebarMenu;
 
                 if (isAdmin) {
                     headerMenu = headerMenuAdminInitialState;
+                    sidebarMenu = sidebarMenuAdminInitialState;
                 } else if (token) {
                     headerMenu = headerMenuUserInitialState;
+                    sidebarMenu = sidebarMenuUserInitialState;
                 } else {
                     headerMenu = headerMenuGuestInitialState;
+                    sidebarMenu = sidebarMenuGuestInitialState;
                 }
 
-                return of(AppConfigActions.setNewStateHeaderMenu({ headerMenu }));
+                return of(AppConfigActions.setNewStateHeaderMenu({ headerMenu, sidebarMenu }));
             })
         )
     );

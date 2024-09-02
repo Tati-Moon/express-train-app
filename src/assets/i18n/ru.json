@@ -266,6 +266,7 @@
   },
   "GENERAL": {
     "SIDEBAR": {
+      "SEARCH": "Поиск",
       "HOME": "Домашняя",
       "TRIP": "Поездка",
       "USER_PROFILE": "Профиль",
