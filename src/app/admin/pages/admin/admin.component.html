@@ -1,1 +1,67 @@
-<p>admin works!</p>
+<div class="admin-menu">
+    <p-card header="{{ 'ADMIN_PAGE.HEADER_STATIONS' | translate }}" class="m-2">
+        <ng-template pTemplate="header">
+            <img
+                alt="Card"
+                class="image-transform"
+                (click)="navigateToStationsPage()"
+                src="assets/images/admin/stations.png"
+            />
+        </ng-template>
+        <p>
+            {{ 'ADMIN_PAGE.TEXT_STATIONS' | translate }}
+        </p>
+        <ng-template pTemplate="footer">
+            <div class="flex gap-3 mt-1">
+                <p-button
+                    label="{{ 'BUTTONS.OPEN' | translate }}"
+                    (click)="navigateToStationsPage()"
+                    class="w-full"
+                    styleClass="w-full"
+                />
+            </div>
+        </ng-template>
+    </p-card>
+    <p-card header="{{ 'ADMIN_PAGE.HEADER_CARRIAGES' | translate }}" class="m-2">
+        <ng-template pTemplate="header">
+            <img
+                alt="Card"
+                class="image-transform"
+                (click)="navigateToCarriagesPage()"
+                src="assets/images/admin/carriages.png"
+            />
+        </ng-template>
+        <p>{{ 'ADMIN_PAGE.TEXT_CARRIAGES' | translate }}</p>
+        <ng-template pTemplate="footer">
+            <div class="flex gap-3 mt-1">
+                <p-button
+                    label="{{ 'BUTTONS.OPEN' | translate }}"
+                    (click)="navigateToCarriagesPage()"
+                    class="w-full"
+                    styleClass="w-full"
+                />
+            </div>
+        </ng-template>
+    </p-card>
+    <p-card header="{{ 'ADMIN_PAGE.HEADER_ROUTES' | translate }}" class="m-2">
+        <ng-template pTemplate="header">
+            <img
+                alt="Card"
+                class="image-transform"
+                (click)="navigateToRoutesPage()"
+                src="assets/images/admin/routes.png"
+            />
+        </ng-template>
+        <p>{{ 'ADMIN_PAGE.TEXT_ROUTES' | translate }}</p>
+        <ng-template pTemplate="footer">
+            <div class="flex gap-3 mt-1">
+                <p-button
+                    label="{{ 'BUTTONS.OPEN' | translate }}"
+                    class="w-full"
+                    (click)="navigateToRoutesPage()"
+                    styleClass="w-full"
+                />
+            </div>
+        </ng-template>
+    </p-card>
+</div>
