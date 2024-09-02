@@ -1,5 +1,5 @@
 <p-dialog
-    header="Route {{ tripSchedule?.rideId }}"
+    header="{{ headerTitle }} {{ tripSchedule?.rideId }}"
     [modal]="true"
     [(visible)]="showModal"
     [draggable]="false"
@@ -24,16 +24,16 @@
                     <p class="p-text-secondary m-0 font-bold">
                         {{ trip.city }}
                     </p>
-                    <p class="p-text-secondary">{{ trip.timeStop }}</p>
+                    <p class="p-text-secondary">{{ trip.timeStop | translate }}</p>
                 </div>
             </ng-template>
             <ng-template pTemplate="opposite" let-trip>
                 <div class="flex flex-column">
                     <p class="m-0">
-                        {{ trip.timeTo | date: 'hh:mm' }}
+                        {{ trip.timeTo | date: 'MMM d; hh:mm' }}
                     </p>
                     <p class="m-0">
-                        {{ trip.timeFrom | date: 'hh:mm' }}
+                        {{ trip.timeFrom | date: 'MMM d; hh:mm' }}
                     </p>
                 </div>
             </ng-template>

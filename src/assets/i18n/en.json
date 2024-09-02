@@ -8,7 +8,9 @@
     "AVAILABLE_SEATS": "Available seats",
     "TYPE_CARRIAGE": "Carriage type",
     "PRICE": "Price",
-    "SEAT": "Seat"
+    "SEAT": "Seat",
+    "FIRST_STATION": "first station",
+    "LAST_STATION": "last station"
   },
   "MESSAGES": {
     "TITLE": {
