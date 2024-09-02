@@ -9,41 +9,51 @@
             <p-button icon="pi pi-angle-left" class="mr-2" [routerLink]="[routers.ROOT]" />
         </div>
     </p-toolbar>
-    <p-toolbar styleClass="p-2 lg:p-3">
-        <div class="p-toolbar-group-start">
-            <app-trip-info [tripInfo]="tripInfo()" (openModal)="handleOpenModal()"></app-trip-info>
-        </div>
-        <div class="p-toolbar-group-end">
-            @if (selectedSeat(); as selectedSeat) {
-                <div class="card p-4">
-                    <div class="flex flex-column">
-                        <p>
-                            <span class="font-bold"> {{ 'TRIP.CARRIAGE' | translate }}: </span>
-                            {{ selectedSeat.numberOfCarriage }}
-                        </p>
-                        <p>
-                            <span class="font-bold"> {{ 'TRIP.SEAT' | translate }}: </span
-                            >{{ selectedSeat.seatInCarriage }}
-                        </p>
-                        <p>
-                            <span class="font-bold"> {{ 'TRIP.PRICE' | translate }}: </span>
-                            {{ selectedSeat.price | currency }}
-                        </p>
+    <p-accordion [activeIndex]="0">
+        <p-accordionTab class="p-0">
+            <ng-template pTemplate="header">
+                <span class="flex align-items-center gap-2 w-full">
+                    <span class="font-bold white-space-nowrap">{{ headerAccordion }}</span>
+                    @if (selectedSeat(); as selectedSeat) {
+                        <p-badge value="1" class="ml-auto mr-2" />
+                    }
+                </span>
+            </ng-template>
+            <div class="p-toolbar-group-start">
+                <app-trip-info [tripInfo]="tripInfo()" (openModal)="handleOpenModal()"></app-trip-info>
+            </div>
+            <div class="p-toolbar-group-end">
+                @if (selectedSeat(); as selectedSeat) {
+                    <div class="card p-4">
+                        <div class="flex flex-column">
+                            <p>
+                                <span class="font-bold"> {{ 'TRIP.CARRIAGE' | translate }}: </span>
+                                {{ selectedSeat.numberOfCarriage }}
+                            </p>
+                            <p>
+                                <span class="font-bold"> {{ 'TRIP.SEAT' | translate }}: </span
+                                >{{ selectedSeat.seatInCarriage }}
+                            </p>
+                            <p>
+                                <span class="font-bold"> {{ 'TRIP.PRICE' | translate }}: </span>
+                                {{ selectedSeat.price | currency }}
+                            </p>
+                        </div>
+                        <div class="flex flex-column gap-2">
+                            <p-button
+                                [text]="true"
+                                icon="pi pi-times"
+                                styleClass="w-full"
+                                (onClick)="handleClearSelectedSeat()"
+                                >{{ 'BUTTONS.CLEAR' | translate }}</p-button
+                            >
+                            <p-button (onClick)="handleOrdering()">{{ 'BUTTONS.BOOK_SEAT' | translate }}</p-button>
+                        </div>
                     </div>
-                    <div class="flex flex-column gap-2">
-                        <p-button
-                            [text]="true"
-                            icon="pi pi-times"
-                            styleClass="w-full"
-                            (onClick)="handleClearSelectedSeat()"
-                            >{{ 'BUTTONS.CLEAR' | translate }}</p-button
-                        >
-                        <p-button (onClick)="handleOrdering()">{{ 'BUTTONS.BOOK_SEAT' | translate }}</p-button>
-                    </div>
-                </div>
-            }
-        </div>
-    </p-toolbar>
+                }
+            </div>
+        </p-accordionTab>
+    </p-accordion>
 </div>
 
 <app-trip-seat-choice></app-trip-seat-choice>
