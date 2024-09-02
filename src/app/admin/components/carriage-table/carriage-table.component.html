@@ -2,18 +2,20 @@
     <p-table [value]="carriages" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
-                <th>{{ 'ADMIN.NAME' | translate }}</th>
-                <th>{{ 'ADMIN.COUNT_SEATS' | translate }}</th>
+                <th style="width: 2rem">{{ 'ADMIN.NAME' | translate }}</th>
+                <th style="width: 2rem" class="text-center">{{ 'ADMIN.COUNT_SEATS' | translate }}</th>
                 <th class="text-center">{{ 'ADMIN.PICTURE' | translate }}</th>
                 <th style="width: 1rem"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-carriage>
             <tr>
-                <td>{{ carriage.name }}</td>
-                <td>{{ carriage.rows * (carriage.leftSeats + carriage.rightSeats) }}</td>
+                <td style="width: 2rem">{{ carriage.name }}</td>
+                <td style="width: 2rem" class="text-center">
+                    {{ carriage.rows * (carriage.leftSeats + carriage.rightSeats) }}
+                </td>
                 <td>
-                    <app-carriage-view [mode]="'picture'" [carriage]="carriage"></app-carriage-view>
+                    <app-carriage-view-small [carriage]="carriage"></app-carriage-view-small>
                 </td>
                 <td>
                     <p-button icon="pi pi-pencil" text="true" (onClick)="handleEditCarriage(carriage)"></p-button>

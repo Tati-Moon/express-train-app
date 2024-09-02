@@ -1,0 +1,19 @@
+<div class="card flex carriage-view gap-1">
+    @if (carriage) {
+        @for (row of getRowsArray(carriage.rows); track $index; let rowIndex = $index) {
+            <div class="gap-1">
+                <div class="flex flex-column-reverse gap-1">
+                    @for (seatIndex of getSeatsArray(carriage.rightSeats); track $index) {
+                        <p-button label="{{ getSeatNumber(rowIndex, seatIndex, 'right') }}" class="seat"></p-button>
+                    }
+                </div>
+                <p>-</p>
+                <div class="flex flex-column-reverse gap-1">
+                    @for (seatIndex of getSeatsArray(carriage.leftSeats); track $index) {
+                        <p-button label="{{ getSeatNumber(rowIndex, seatIndex, 'left') }}" class="seat"></p-button>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>
