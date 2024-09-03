@@ -9,13 +9,14 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
-import { SearchService } from '../../../admin/services/search.service';
-import { SearchResult } from '../../../core/models/search/search-result.model';
+import { RideDetails, SearchResult } from '../../../core/models/search/search-result.model';
 import { Station } from '../../../core/models/station/station.model';
 import { AppStationsActions } from '../../../redux/actions/app-station.actions';
 import { selectStations } from '../../../redux/selectors/app-stations.selector';
 import { SearchFormFields } from '../../models/home.model';
 import { HomeFormService } from '../../services/home-form.service';
+import { SearchService } from '../../services/search.service';
+import { SearchResultItemComponent } from '../search-result-item/search-result-item.component';
 
 @Component({
     selector: 'app-search-form',
@@ -30,6 +31,7 @@ import { HomeFormService } from '../../services/home-form.service';
         InputTextModule,
         ButtonModule,
         CalendarModule,
+        SearchResultItemComponent,
     ],
     templateUrl: './search-form.component.html',
     styleUrl: './search-form.component.scss',
@@ -39,10 +41,8 @@ export class SearchFormComponent implements OnInit {
     public searchResults!: SearchResult | null;
     public allStations!: Signal<Station[]>;
     public selectedCity: Station | undefined;
-
+    public resultList!: RideDetails[];
     public minDate = new Date();
-
-    // @Output() searchResponse = new EventEmitter<SearchResult>();
 
     public errorMessage: string | null = null;
     constructor(
@@ -117,7 +117,11 @@ export class SearchFormComponent implements OnInit {
                     console.log('search_results', results);
                     this.searchResults = results;
                     this.errorMessage = null;
-                    // this.searchResponse.emit(results);
+                    this.resultList = this.searchService.mapToRideDetails(
+                        results.routes,
+                        results.from.stationId,
+                        results.to.stationId
+                    );
                 },
             });
     }

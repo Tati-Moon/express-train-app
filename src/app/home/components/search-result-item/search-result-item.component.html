@@ -1,0 +1,75 @@
+<div class="card result-container mt-2 mb-2">
+    <div class="result-details">
+        <div class="route-details">
+            <div class="from-details">
+                <span class="time">{{ rideDetail.cityFrom.time }}</span>
+                <span>{{ rideDetail.cityFrom.date }}</span>
+                <span>
+                    {{ rideDetail.cityFrom.name }}
+                </span>
+            </div>
+
+            <div class="travel-time">
+                <p-timeline class="timeline" [value]="events" layout="horizontal">
+                    <ng-template pTemplate="marker" let-event>
+                        @if (event.icon) {
+                            <i [class]="event.icon"></i>
+                        }
+                        @if (event.travelTime) {
+                            <span>{{ event.travelTime }}</span>
+                        }
+                    </ng-template>
+                </p-timeline>
+            </div>
+
+            <div class="to-details">
+                <span class="time">{{ rideDetail.cityTo.time }}</span>
+                <span>{{ rideDetail.cityTo.date }}</span>
+                <span>
+                    {{ rideDetail.cityTo.name }}
+                </span>
+            </div>
+        </div>
+        <div class="itinerary-travel">
+            <p-chip label="{{ rideDetail.trainInformation }}">
+                <img src="assets/images/home/train.png" alt="Train icon" width="20" height="20" />
+            </p-chip>
+            <p-button
+                [text]="true"
+                label="{{ 'TRIP.ROUTE' | translate }}"
+                [iconPos]="'right'"
+                icon="pi pi-angle-down"
+                (onClick)="handleOpenModal()"
+            ></p-button>
+        </div>
+    </div>
+
+    <div class="available-carriages">
+        <p-buttonGroup>
+            @for (item of rideDetail.carriages; track $index) {
+                <p-button
+                    [raised]="true"
+                    [outlined]="true"
+                    (click)="getLink(rideDetail.rideId, rideDetail.cityFrom.id, rideDetail.cityTo.id)"
+                >
+                    <div class="carriage-type-details">
+                        <div class="carriage-type">
+                            <b>{{ 'SEARCH_PAGE.FIELDS.CARRIAGE_TYPE.NAME' | translate }} <br />{{ item.name }}</b>
+                            <span
+                                >{{ carriageSeats(rideDetail.rideId, rideDetail.routeId, item.id) }}
+                                {{ 'SEARCH_PAGE.FIELDS.SEATS.NAME' | translate }}</span
+                            >
+                        </div>
+                        <div class="price">{{ item.price }}</div>
+                    </div>
+                </p-button>
+            }
+        </p-buttonGroup>
+    </div>
+</div>
+
+<app-trip-route-popup
+    [tripSchedule]="tripSchedule()"
+    (closeModal)="handleCloseModal()"
+    [showModal]="showRouteModal"
+></app-trip-route-popup>
