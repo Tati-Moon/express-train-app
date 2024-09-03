@@ -1,1 +1,14 @@
 <app-search-form></app-search-form>
+
+<app-search-result
+    *ngIf="startSearch"
+    [groupedResults]="groupedResults"
+    [selectedTabIndex]="selectedTabIndex"
+    [getSortedDates]="getSortedDates"
+>
+</app-search-result>
+@if (startSearch === false) {
+    <div class="flex justify-content-center">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+}

@@ -86,32 +86,3 @@
         </div>
     </form>
 </div>
-
-@if (startSearch === false) {
-    <div class="flex justify-content-center">
-        <p-progressSpinner ariaLabel="loading" />
-    </div>
-}
-@if (startSearch === true) {
-    <div class="m-2">
-        <p-tabView [scrollable]="true">
-            @for (date of getSortedDates(); track $index) {
-                <p-tabPanel
-                    [disabled]="!groupedResults[date] || groupedResults[date].length === 0"
-                    [selected]="selectedTabIndex === $index"
-                    ><ng-template pTemplate="header">
-                        <div class="flex flex-column align-items-center">
-                            <span>{{ date | date: 'MMMM dd' | titlecase }}</span>
-                            <span>{{ date | date: 'EEEE' | titlecase }}</span>
-                        </div>
-                    </ng-template>
-                    @for (item of groupedResults[date]; track $index) {
-                        <div>
-                            <app-search-result-item [rideDetail]="item"></app-search-result-item>
-                        </div>
-                    }
-                </p-tabPanel>
-            }
-        </p-tabView>
-    </div>
-}

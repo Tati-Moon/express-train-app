@@ -1,5 +1,5 @@
-import { CommonModule, NgStyle } from '@angular/common';
-import { Component, inject, OnInit, Signal, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, inject, OnInit, Output, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,21 +9,16 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { TabViewModule } from 'primeng/tabview';
 
 import { Carriage } from '../../../core/models/carriages/carriage.model';
-import { Routers } from '../../../core/models/enums/routers';
 import { RideDetails, SearchResult } from '../../../core/models/search/search-result.model';
 import { Station } from '../../../core/models/station/station.model';
-import { AppDatePipe } from '../../../core/pipes/date.pipe';
 import { AppStationsActions } from '../../../redux/actions/app-station.actions';
 import { selectCarriages } from '../../../redux/selectors/app-carriages.selector';
 import { selectStations } from '../../../redux/selectors/app-stations.selector';
 import { SearchFormFields } from '../../models/home.model';
 import { HomeFormService } from '../../services/home-form.service';
 import { SearchService } from '../../services/search.service';
-import { SearchResultItemComponent } from '../search-result-item/search-result-item.component';
 
 @Component({
     selector: 'app-search-form',
@@ -34,19 +29,16 @@ import { SearchResultItemComponent } from '../search-result-item/search-result-i
         DropdownModule,
         TranslateModule,
         ReactiveFormsModule,
-        NgStyle,
         InputTextModule,
         ButtonModule,
         CalendarModule,
-        SearchResultItemComponent,
-        TabViewModule,
-        AppDatePipe,
-        ProgressSpinnerModule,
     ],
     templateUrl: './search-form.component.html',
-    styleUrl: './search-form.component.scss',
+    styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit {
+    @Output() searchCompleted = new EventEmitter<boolean>();
+    @Output() startSearchChange = new EventEmitter<boolean>();
     private store = inject(Store);
     public searchResults!: SearchResult | null;
     public allStations: Signal<Station[]> = signal([]);
@@ -117,6 +109,7 @@ export class SearchFormComponent implements OnInit {
         }
 
         this.startSearch = false;
+        this.startSearchChange.emit(this.startSearch);
         this.groupedResults = {};
         this.minDate = undefined;
         this.maxDate = undefined;
@@ -146,7 +139,7 @@ export class SearchFormComponent implements OnInit {
                     );
 
                     if (rideDetails.length === 0) {
-                        this.router.navigate([Routers.NO_DIRECT_TRAINS_FOUND]);
+                        this.router.navigate(['NO_DIRECT_TRAINS_FOUND']);
                     } else {
                         rideDetails.forEach((result) => {
                             const dateStr = this.formatDate(result.date);
@@ -164,6 +157,7 @@ export class SearchFormComponent implements OnInit {
                         });
                     }
                     this.startSearch = true;
+                    this.searchCompleted.emit(this.startSearch);
                 },
             });
     }
@@ -177,7 +171,6 @@ export class SearchFormComponent implements OnInit {
         if (!this.minDate || !this.maxDate) {
             return [];
         }
-
         return Object.keys(this.groupedResults).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
     }
 }

@@ -60,7 +60,6 @@ export class SearchService {
         routes.forEach((routeItem) => {
             const cityFromIndex = routeItem.path.indexOf(cityFromId);
             const cityToIndex = routeItem.path.indexOf(cityToId);
-            console.log('routeItem.path', routeItem.path);
 
             if (cityFromIndex === -1 || cityToIndex === -1 || cityFromIndex >= cityToIndex) {
                 return;
