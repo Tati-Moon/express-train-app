@@ -1,6 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
@@ -10,11 +9,14 @@ import {
     Price,
     RideDetails,
     Route,
+    ScheduleItem,
     SearchResult,
     Segment,
 } from '../../core/models/search/search-result.model';
 import { HttpService } from '../../core/services/http.service';
+import { DateTimeService } from '../../shared/services/date-time.service';
 import { StationService } from '../../shared/services/station.service';
+import { TripSchedule } from '../models/trip-schedule.model';
 
 @Injectable({
     providedIn: 'root',
@@ -22,10 +24,9 @@ import { StationService } from '../../shared/services/station.service';
 export class SearchService {
     constructor(
         private http: HttpService,
-        private stationService: StationService
+        private stationService: StationService,
+        private dateTimeService: DateTimeService
     ) {}
-
-    private store = inject(Store);
 
     public search(filter: SearchFilter): Observable<SearchResult> {
         let params = new HttpParams()
@@ -72,7 +73,7 @@ export class SearchService {
                     return;
                 }
                 const sumPrice = this.calculateSumPrice(segmentRange);
-                const travelTime = this.calculateTimeDifference(
+                const travelTime = this.dateTimeService.calculateTimeDifference(
                     segmentRange[0].time[1],
                     segmentRange[segmentRange.length - 1].time[0]
                 );
@@ -93,6 +94,7 @@ export class SearchService {
                     occupiedSeats: segmentRange[segmentRange.length - 1].occupiedSeats,
                     travelTime,
                     trainInformation,
+                    tripSchedule: this.getTripSchedule(scheduleItem, routeData.path, cityFromId, cityToId),
                 });
             });
         });
@@ -100,6 +102,45 @@ export class SearchService {
         console.log('allRideDetails', allRideDetails);
 
         return allRideDetails;
+    }
+
+    private getTripSchedule(
+        scheduleItem: ScheduleItem,
+        path: number[],
+        cityFromId: number,
+        cityToId: number
+    ): TripSchedule {
+        const tripSchedule: TripSchedule = {
+            rideId: scheduleItem.rideId,
+            stationTripInfo: path.map((station: number, index: number) => {
+                const timeTo = scheduleItem.segments[index - 1]?.time[1] ?? '';
+                const timeFrom = scheduleItem.segments[index]?.time[0] ?? '';
+                const diff: number = Math.abs(new Date(timeTo).getTime() - new Date(timeFrom).getTime());
+                const time = Math.floor(diff / (1000 * 60)) ?? NaN;
+                const city = this.getCityName(station) ?? '';
+
+                if (index === 0) {
+                    return {
+                        city,
+                        timeFrom,
+                        timeTo: '',
+                        timeStop: 'TRIP.FIRST_STATION',
+                        cityFrom: station === cityFromId,
+                        cityTo: station === cityToId,
+                    };
+                }
+
+                return {
+                    city,
+                    timeFrom,
+                    timeTo,
+                    timeStop: Number.isNaN(time) ? 'TRIP.LAST_STATION' : `${time}m`,
+                    cityFrom: station === cityFromId,
+                    cityTo: station === cityToId,
+                };
+            }),
+        };
+        return tripSchedule;
     }
 
     private convertPriceToCarriageArray(price: Price): Carriage[] {
@@ -122,8 +163,6 @@ export class SearchService {
         id: cityId,
         name: this.getCityName(cityId) ?? '',
         dateTime,
-        date: this.getFormattedDate(dateTime),
-        time: this.getFormattedTime(dateTime),
     });
 
     private calculateSumPrice(segments: Segment[]): Price {
@@ -133,23 +172,6 @@ export class SearchService {
             });
             return acc;
         }, {} as Price);
-    }
-
-    getFormattedDate(dateTime: string): string {
-        const dateObj = new Date(dateTime);
-        const month = dateObj.toLocaleString('default', { month: 'long' });
-        const day = dateObj.getDate();
-        return `${this.capitalizeFirstLetter(month)} ${day}`;
-    }
-
-    capitalizeFirstLetter(str: string): string {
-        if (!str) return '';
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    getFormattedTime(dateTime: string): string {
-        const dateObj = new Date(dateTime);
-        return dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
     getTrainInformation(cityStartId: number, cityEndId: number): string {
@@ -164,14 +186,5 @@ export class SearchService {
             cityName = cityStart ? cityStart.city : 'Unknown';
         });
         return cityName;
-    }
-
-    public calculateTimeDifference(startTime: string, endTime: string): string {
-        const start = new Date(startTime);
-        const end = new Date(endTime);
-        const differenceInMs = end.getTime() - start.getTime();
-        const hours = Math.floor(differenceInMs / (1000 * 60 * 60));
-        const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
-        return `${hours}h${minutes}m`;
     }
 }

@@ -2,8 +2,8 @@
     <div class="result-details">
         <div class="route-details">
             <div class="from-details">
-                <span class="time">{{ rideDetail.cityFrom.time }}</span>
-                <span>{{ rideDetail.cityFrom.date }}</span>
+                <span class="time">{{ rideDetail.cityFrom.dateTime | date: 'hh:mm' }}</span>
+                <span>{{ rideDetail.cityFrom.dateTime | date: 'MMMM dd' }}</span>
                 <span>
                     {{ rideDetail.cityFrom.name }}
                 </span>
@@ -23,8 +23,8 @@
             </div>
 
             <div class="to-details">
-                <span class="time">{{ rideDetail.cityTo.time }}</span>
-                <span>{{ rideDetail.cityTo.date }}</span>
+                <span class="time">{{ rideDetail.cityTo.dateTime | date: 'hh:mm' }}</span>
+                <span>{{ rideDetail.cityTo.dateTime | date: 'MMMM dd' }}</span>
                 <span>
                     {{ rideDetail.cityTo.name }}
                 </span>
@@ -45,31 +45,30 @@
     </div>
 
     <div class="available-carriages">
-        <p-buttonGroup>
-            @for (item of rideDetail.carriages; track $index) {
-                <p-button
-                    [raised]="true"
-                    [outlined]="true"
-                    (click)="getLink(rideDetail.rideId, rideDetail.cityFrom.id, rideDetail.cityTo.id)"
-                >
-                    <div class="carriage-type-details">
-                        <div class="carriage-type">
-                            <b>{{ 'SEARCH_PAGE.FIELDS.CARRIAGE_TYPE.NAME' | translate }} <br />{{ item.name }}</b>
-                            <span
-                                >{{ carriageSeats(rideDetail.rideId, rideDetail.routeId, item.id) }}
-                                {{ 'SEARCH_PAGE.FIELDS.SEATS.NAME' | translate }}</span
-                            >
-                        </div>
-                        <div class="price">{{ item.price }}</div>
+        @for (item of rideDetail.carriages; track $index) {
+            <p-button
+                class="m-2"
+                [raised]="true"
+                [outlined]="true"
+                (click)="getLink(rideDetail.rideId, rideDetail.cityFrom.id, rideDetail.cityTo.id)"
+            >
+                <div class="carriage-type-details">
+                    <div class="carriage-type">
+                        <b>{{ 'SEARCH_PAGE.FIELDS.CARRIAGE_TYPE.NAME' | translate }} <br />{{ item.name }}</b>
+                        <span
+                            >{{ carriageSeats(rideDetail.rideId, rideDetail.routeId, item.id) }}
+                            {{ 'SEARCH_PAGE.FIELDS.SEATS.NAME' | translate }}</span
+                        >
                     </div>
-                </p-button>
-            }
-        </p-buttonGroup>
+                    <div class="price">{{ item.price }}</div>
+                </div>
+            </p-button>
+        }
     </div>
 </div>
 
 <app-trip-route-popup
-    [tripSchedule]="tripSchedule()"
+    [tripSchedule]="rideDetail.tripSchedule"
     (closeModal)="handleCloseModal()"
     [showModal]="showRouteModal"
 ></app-trip-route-popup>
