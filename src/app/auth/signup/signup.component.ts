@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Message } from 'primeng/api';
@@ -54,7 +53,8 @@ export class SignupComponent {
     constructor(
         private registerFormService: RegisterFormService,
         private errorMessageService: ErrorMessageService,
-        private httpService: HttpService
+        private httpService: HttpService,
+        private router: Router
     ) {
         const colorScheme$ = this.store.select(selectColorScheme);
         this.colorScheme = toSignal(colorScheme$, { initialValue: Schemes.LIGHT });
@@ -80,9 +80,7 @@ export class SignupComponent {
         }
 
         const login = this.form.get([this.fields.LOGIN])?.value;
-        console.log('🚀 ~ SignupComponent ~ handleSubmit ~ login:', login);
         const password = this.form.get([this.fields.PASSWORD])?.value;
-        // console.log('🚀 ~ SignupComponent ~ handleSubmit ~ password:', password);
 
         this.httpService
             .post<SignUpErrorResponse>({
@@ -96,25 +94,15 @@ export class SignupComponent {
                 next: (response) => {
                     if ('error' in response) {
                         console.error('Sign-up failed:', response.error.message);
-                        // this.handleSignUpError(response.error);
                     } else {
                         console.log('Sign-up successful');
-                    }
-
-                    if (response instanceof HttpErrorResponse) {
-                        return;
-                    }
-
-                    if ('token' in response) {
-                        console.log('Login successful:', response.token);
+                        this.router.navigate([Routers.SIGNIN]);
                     }
                 },
                 error: (error) => {
                     console.error('Unexpected error:', error);
                 },
             });
-        // this.store.dispatch(Actions.login({ login, password }));
-        // this.form.reset();
     }
 
     public handleLoginErrorMessages(errors: ValidationErrors | null): string[] {
