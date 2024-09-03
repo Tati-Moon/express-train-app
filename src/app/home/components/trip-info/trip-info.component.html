@@ -1,13 +1,15 @@
-@if (tripInfo) {
+@if (tripInfo && tripInfoCheck) {
     <div class="card trip-info p-4">
         <div class="flex justify-content-between">
             <div class="flex flex-column gap-1">
                 <span class="font-bold align-self-center">{{ 'TRIP.DEPARTURE' | translate }}</span>
-                <span class="font-bold align-self-center">{{ tripInfo.departureTime | date: 'MMMM dd, hh:mm' }}</span>
+                <span class="font-bold align-self-center">{{
+                    departureTime | date: 'MMMM dd, hh:mm' | titlecase
+                }}</span>
             </div>
             <div class="flex flex-column gap-1">
                 <span class="font-bold align-self-center">{{ 'TRIP.ARRIVAL' | translate }}</span>
-                <span class="font-bold align-self-center">{{ tripInfo.arrivalTime | date: 'MMMM dd, hh:mm' }}</span>
+                <span class="font-bold align-self-center">{{ arrivalTime | date: 'MMMM dd, hh:mm' | titlecase }}</span>
             </div>
         </div>
         <div class="mb-4">
@@ -23,7 +25,7 @@
             }
         </div>
         <div class="trip-info__bottom flex justify-content-between">
-            <p class="font-bold align-self-center m-0">{{ 'TRIP.RIDE' | translate }} {{ tripInfo.rideId }}</p>
+            <p class="font-bold align-self-center m-0">{{ 'TRIP.RIDE' | translate }} {{ rideId }}</p>
             <p-button
                 [text]="true"
                 label="{{ 'TRIP.ROUTE' | translate }}"
