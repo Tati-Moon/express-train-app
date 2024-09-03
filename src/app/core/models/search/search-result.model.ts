@@ -52,7 +52,7 @@ export interface RideDetails {
     cityEnd: CityInfo;
     cityFrom: CityInfo;
     cityTo: CityInfo;
-    carriages: Carriage[];
+    carriages: CarriageModel[];
     occupiedSeats: number[];
     travelTime: string;
     trainInformation: string;
@@ -70,9 +70,10 @@ export interface TravelInfo {
     icon?: string;
 }
 
-export interface Carriage {
+export interface CarriageModel {
     id: string;
     name: string;
     price: number;
-    seats: number;
+    countSeats: number;
+    availableSeats: number;
 }

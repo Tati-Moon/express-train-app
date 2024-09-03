@@ -3,28 +3,28 @@
         <div class="route-details">
             <div class="from-details">
                 <span class="time">{{ rideDetail.cityFrom.dateTime | date: 'hh:mm' }}</span>
-                <span>{{ rideDetail.cityFrom.dateTime | date: 'MMMM dd' }}</span>
+                <span>{{ rideDetail.cityFrom.dateTime | date: 'MMMM dd' | titlecase }}</span>
                 <span>
                     {{ rideDetail.cityFrom.name }}
                 </span>
             </div>
-
-            <div class="travel-time">
-                <p-timeline class="timeline" [value]="events" layout="horizontal">
-                    <ng-template pTemplate="marker" let-event>
-                        @if (event.icon) {
-                            <i [class]="event.icon"></i>
-                        }
-                        @if (event.travelTime) {
-                            <span>{{ event.travelTime }}</span>
-                        }
-                    </ng-template>
-                </p-timeline>
+            <div class="travel-time_wrapper">
+                <div class="travel-time">
+                    <p-timeline class="timeline" [value]="events" layout="horizontal">
+                        <ng-template pTemplate="marker" let-event>
+                            @if (event.icon) {
+                                <i [class]="event.icon"></i>
+                            }
+                            @if (event.travelTime) {
+                                <span>{{ event.travelTime }}</span>
+                            }
+                        </ng-template>
+                    </p-timeline>
+                </div>
             </div>
-
             <div class="to-details">
                 <span class="time">{{ rideDetail.cityTo.dateTime | date: 'hh:mm' }}</span>
-                <span>{{ rideDetail.cityTo.dateTime | date: 'MMMM dd' }}</span>
+                <span>{{ rideDetail.cityTo.dateTime | date: 'MMMM dd' | titlecase }}</span>
                 <span>
                     {{ rideDetail.cityTo.name }}
                 </span>
@@ -47,7 +47,7 @@
     <div class="available-carriages">
         @for (item of rideDetail.carriages; track $index) {
             <p-button
-                class="m-2"
+                class="m-2 available-carriages-item"
                 [raised]="true"
                 [outlined]="true"
                 (click)="getLink(rideDetail.rideId, rideDetail.cityFrom.id, rideDetail.cityTo.id)"
@@ -55,12 +55,9 @@
                 <div class="carriage-type-details">
                     <div class="carriage-type">
                         <b>{{ 'SEARCH_PAGE.FIELDS.CARRIAGE_TYPE.NAME' | translate }} <br />{{ item.name }}</b>
-                        <span
-                            >{{ carriageSeats(rideDetail.rideId, rideDetail.routeId, item.id) }}
-                            {{ 'SEARCH_PAGE.FIELDS.SEATS.NAME' | translate }}</span
-                        >
+                        <span>{{ item.availableSeats }} {{ 'SEARCH_PAGE.FIELDS.SEATS.NAME' | translate }}</span>
                     </div>
-                    <div class="price">{{ item.price }}</div>
+                    <div class="price">{{ item.price | currency }}</div>
                 </div>
             </p-button>
         }

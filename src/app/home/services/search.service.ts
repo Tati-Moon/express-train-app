@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { Carriage } from '../../core/models/carriages/carriage.model';
 import { SearchFilter } from '../../core/models/search/search-filter.model';
 import {
-    Carriage,
+    CarriageModel,
     Price,
     RideDetails,
     Route,
@@ -36,37 +37,39 @@ export class SearchService {
             .set('toLongitude', filter.toLongitude.toString());
 
         if (filter.date) {
-            // const dateObject = new Date(filter.date);
-            // console.log('dateObject', dateObject);
-            // const unixTimestamp = Math.floor(dateObject.getTime() / 1000);
-            params = params.set('time', filter.date);
+            const dateObject = new Date(filter.date);
+            const unixTimestamp = Math.floor(dateObject.getTime() / 1000);
+            params = params.set('time', unixTimestamp);
         }
-        console.log('filter', filter);
-        console.log('params', params);
 
         return this.http.get<SearchResult>({ url: environment.apiUrlSearch, params }).pipe(
             map((response: SearchResult) => {
-                console.log('response', response);
                 return response;
             })
         );
     }
 
-    public mapToRideDetails(routesData: Route[], cityFromId: number, cityToId: number): RideDetails[] {
+    public mapToRideDetails(
+        routes: Route[],
+        cityFromId: number,
+        cityToId: number,
+        allCarriages: Carriage[]
+    ): RideDetails[] {
         const allRideDetails: RideDetails[] = [];
 
-        routesData.forEach((routeData) => {
-            const cityFromIndex = routeData.path.indexOf(cityFromId);
-            const cityToIndex = routeData.path.indexOf(cityToId);
+        routes.forEach((routeItem) => {
+            const cityFromIndex = routeItem.path.indexOf(cityFromId);
+            const cityToIndex = routeItem.path.indexOf(cityToId);
+            console.log('routeItem.path', routeItem.path);
 
             if (cityFromIndex === -1 || cityToIndex === -1 || cityFromIndex >= cityToIndex) {
                 return;
             }
 
-            const cityStartId = routeData.path[0];
-            const cityEndId = routeData.path[routeData.path.length - 1];
+            const cityStartId = routeItem.path[0];
+            const cityEndId = routeItem.path[routeItem.path.length - 1];
 
-            routeData.schedule.forEach((scheduleItem) => {
+            routeItem.schedule.forEach((scheduleItem) => {
                 const { segments } = scheduleItem;
                 const segmentRange = segments.slice(cityFromIndex, cityToIndex);
                 if (segmentRange.length === 0) {
@@ -74,32 +77,38 @@ export class SearchService {
                 }
                 const sumPrice = this.calculateSumPrice(segmentRange);
                 const travelTime = this.dateTimeService.calculateTimeDifference(
-                    segmentRange[0].time[1],
-                    segmentRange[segmentRange.length - 1].time[0]
+                    segmentRange[0].time[0],
+                    segmentRange[segmentRange.length - 1].time[1]
                 );
 
                 const trainInformation = this.getTrainInformation(cityStartId, cityEndId);
-                const cityFromDateTime = segmentRange[0].time[1];
-                const cityToDateTime = segmentRange[segmentRange.length - 1].time[0];
+                const cityFromDateTime = segmentRange[0].time[0];
+                const cityToDateTime = segmentRange[segmentRange.length - 1].time[1];
 
                 allRideDetails.push({
                     date: segmentRange[0].time[1],
-                    routeId: routeData.id,
+                    routeId: routeItem.id,
                     rideId: scheduleItem.rideId,
                     cityStart: this.createCityDetail(cityStartId, ''),
                     cityEnd: this.createCityDetail(cityEndId, ''),
                     cityFrom: this.createCityDetail(cityFromId, cityFromDateTime),
                     cityTo: this.createCityDetail(cityToId, cityToDateTime),
-                    carriages: this.convertPriceToCarriageArray(sumPrice),
-                    occupiedSeats: segmentRange[segmentRange.length - 1].occupiedSeats,
+                    carriages: this.convertPriceToCarriageArray(
+                        scheduleItem,
+                        routeItem.path,
+                        cityFromId,
+                        cityToId,
+                        sumPrice,
+                        allCarriages,
+                        routeItem.carriages
+                    ),
+                    occupiedSeats: [],
                     travelTime,
                     trainInformation,
-                    tripSchedule: this.getTripSchedule(scheduleItem, routeData.path, cityFromId, cityToId),
+                    tripSchedule: this.getTripSchedule(scheduleItem, routeItem.path, cityFromId, cityToId),
                 });
             });
         });
-
-        console.log('allRideDetails', allRideDetails);
 
         return allRideDetails;
     }
@@ -143,20 +152,97 @@ export class SearchService {
         return tripSchedule;
     }
 
-    private convertPriceToCarriageArray(price: Price): Carriage[] {
-        return Object.entries(price)
-            .map(([carriageType, priceValue]) => {
-                if (!carriageType) {
-                    return null;
+    private convertPriceToCarriageArray(
+        scheduleItem: ScheduleItem,
+        path: number[],
+        cityFromId: number,
+        cityToId: number,
+        price: Price,
+        allCarriages: Carriage[],
+        carriages: string[]
+    ): CarriageModel[] {
+        const carriageModel = this.carriagesInfo(
+            allCarriages,
+            carriages,
+            this.getBusySeats(scheduleItem, path, cityFromId, cityToId),
+            price
+        );
+
+        const grouped: { [id: string]: CarriageModel } = {};
+
+        carriageModel.forEach((carriage) => {
+            if (!grouped[carriage.id]) {
+                grouped[carriage.id] = { ...carriage };
+            } else {
+                grouped[carriage.id].countSeats += carriage.countSeats;
+                grouped[carriage.id].availableSeats += carriage.availableSeats;
+            }
+        });
+
+        return Object.values(grouped);
+    }
+
+    getBusySeats(scheduleItem: ScheduleItem, path: number[], cityFromId: number, cityToId: number) {
+        if (scheduleItem) {
+            const occupiedSeats: number[] = [];
+            let occupiedSeatsStartAdded: boolean = false;
+            let occupiedSeatsEndAdded: boolean = false;
+
+            path.forEach((station: number, index: number) => {
+                if (station === cityFromId) {
+                    occupiedSeatsStartAdded = true;
                 }
-                return {
-                    id: carriageType,
-                    name: carriageType,
-                    price: priceValue,
-                    seats: 0,
-                };
-            })
-            .filter((carriage): carriage is Carriage => carriage !== null);
+
+                if (station === cityToId) {
+                    occupiedSeatsEndAdded = true;
+                }
+
+                const busySeats = scheduleItem.segments[index]?.occupiedSeats;
+                if (occupiedSeatsStartAdded) {
+                    if (!occupiedSeatsEndAdded) {
+                        if (busySeats !== undefined) {
+                            busySeats.forEach((seat: number) => {
+                                occupiedSeats.push(seat);
+                            });
+                        }
+                    }
+                }
+            });
+            return [...new Set(occupiedSeats)];
+        }
+        return [];
+    }
+
+    private carriagesInfo(
+        allCarriages: Carriage[],
+        carriagesRide: string[],
+        busySeats: number[],
+        price: { [key: string]: number }
+    ): CarriageModel[] {
+        const carriagesInfo: CarriageModel[] = [];
+        let startIndexSeats: number = 0;
+
+        carriagesRide.forEach((carriage: string) => {
+            const carriageInStore = allCarriages.find((car: Carriage) => carriage === car.code);
+            const rows = carriageInStore?.rows ?? 0;
+            const leftSeats = carriageInStore?.leftSeats ?? 0;
+            const rightSeats = carriageInStore?.rightSeats ?? 0;
+            const countSeats = (leftSeats + rightSeats) * rows;
+            const busySeatsInCarriage = busySeats.filter(
+                (seat: number) => seat > startIndexSeats && seat <= startIndexSeats + countSeats
+            );
+
+            carriagesInfo.push({
+                id: carriage,
+                name: carriage,
+                countSeats,
+                availableSeats: countSeats - busySeatsInCarriage.length,
+                price: price[carriage] ?? 0,
+            });
+            startIndexSeats += countSeats;
+        });
+
+        return carriagesInfo;
     }
 
     createCityDetail = (cityId: number, dateTime: string) => ({

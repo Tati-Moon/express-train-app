@@ -1,5 +1,5 @@
 import { CommonModule, NgStyle } from '@angular/common';
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,13 +9,16 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TabViewModule } from 'primeng/tabview';
 
+import { Carriage } from '../../../core/models/carriages/carriage.model';
 import { Routers } from '../../../core/models/enums/routers';
 import { RideDetails, SearchResult } from '../../../core/models/search/search-result.model';
 import { Station } from '../../../core/models/station/station.model';
 import { AppDatePipe } from '../../../core/pipes/date.pipe';
 import { AppStationsActions } from '../../../redux/actions/app-station.actions';
+import { selectCarriages } from '../../../redux/selectors/app-carriages.selector';
 import { selectStations } from '../../../redux/selectors/app-stations.selector';
 import { SearchFormFields } from '../../models/home.model';
 import { HomeFormService } from '../../services/home-form.service';
@@ -38,6 +41,7 @@ import { SearchResultItemComponent } from '../search-result-item/search-result-i
         SearchResultItemComponent,
         TabViewModule,
         AppDatePipe,
+        ProgressSpinnerModule,
     ],
     templateUrl: './search-form.component.html',
     styleUrl: './search-form.component.scss',
@@ -45,13 +49,13 @@ import { SearchResultItemComponent } from '../search-result-item/search-result-i
 export class SearchFormComponent implements OnInit {
     private store = inject(Store);
     public searchResults!: SearchResult | null;
-    public allStations!: Signal<Station[]>;
-    public selectedCity: Station | undefined;
-    public dateArray!: string[];
+    public allStations: Signal<Station[]> = signal([]);
+    public allCarriages: Signal<Carriage[]> = signal([]);
     public selectedTabIndex: number = 0;
     public groupedResults: { [date: string]: RideDetails[] } = {};
-    public minDate!: Date;
-    public maxDate!: Date;
+    public minDate: Date | undefined;
+    public maxDate: Date | undefined;
+    public startSearch!: boolean | null;
 
     constructor(
         private router: Router,
@@ -60,6 +64,9 @@ export class SearchFormComponent implements OnInit {
     ) {
         const allStations$ = this.store.select(selectStations);
         this.allStations = toSignal(allStations$, { initialValue: [] });
+
+        const allCarriages$ = this.store.select(selectCarriages);
+        this.allCarriages = toSignal(allCarriages$, { initialValue: [] });
     }
 
     ngOnInit(): void {
@@ -109,6 +116,10 @@ export class SearchFormComponent implements OnInit {
             return;
         }
 
+        this.startSearch = false;
+        this.groupedResults = {};
+        this.minDate = undefined;
+        this.maxDate = undefined;
         const fromCity = this.form.get([this.fields.FROM_CITY])?.value;
         const toCity = this.form.get([this.fields.TO_CITY])?.value;
         const date = this.form.get([this.fields.DATE])?.value;
@@ -123,13 +134,15 @@ export class SearchFormComponent implements OnInit {
             })
             .subscribe({
                 next: (results) => {
-                    console.log('search_results', results);
                     this.searchResults = results;
+
+                    const carriages = this.allCarriages();
 
                     const rideDetails = this.searchService.mapToRideDetails(
                         results.routes,
                         results.from.stationId,
-                        results.to.stationId
+                        results.to.stationId,
+                        carriages
                     );
 
                     if (rideDetails.length === 0) {
@@ -150,6 +163,7 @@ export class SearchFormComponent implements OnInit {
                             }
                         });
                     }
+                    this.startSearch = true;
                 },
             });
     }
