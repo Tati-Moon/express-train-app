@@ -93,7 +93,7 @@
                 [disabled]="!groupedResults[date] || groupedResults[date].length === 0"
                 [selected]="selectedTabIndex === $index"
                 ><ng-template pTemplate="header">
-                    <div class="flex flex-column align-items-center">
+                    <div class="flex flex-column align-items-center data-wrapper">
                         <p>{{ date | date: 'MMM dd' | titlecase }}</p>
                         <p>{{ date | date: 'EEE' | titlecase }}</p>
                     </div>

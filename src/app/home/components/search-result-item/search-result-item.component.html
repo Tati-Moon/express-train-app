@@ -8,20 +8,20 @@
                     {{ rideDetail.cityFrom.name }}
                 </span>
             </div>
-
-            <div class="travel-time">
-                <p-timeline class="timeline" [value]="events" layout="horizontal">
-                    <ng-template pTemplate="marker" let-event>
-                        @if (event.icon) {
-                            <i [class]="event.icon"></i>
-                        }
-                        @if (event.travelTime) {
-                            <span>{{ event.travelTime }}</span>
-                        }
-                    </ng-template>
-                </p-timeline>
+            <div class="travel-time_wrapper">
+                <div class="travel-time">
+                    <p-timeline class="timeline" [value]="events" layout="horizontal">
+                        <ng-template pTemplate="marker" let-event>
+                            @if (event.icon) {
+                                <i [class]="event.icon"></i>
+                            }
+                            @if (event.travelTime) {
+                                <span>{{ event.travelTime }}</span>
+                            }
+                        </ng-template>
+                    </p-timeline>
+                </div>
             </div>
-
             <div class="to-details">
                 <span class="time">{{ rideDetail.cityTo.dateTime | date: 'hh:mm' }}</span>
                 <span>{{ rideDetail.cityTo.dateTime | date: 'MMMM dd' | titlecase }}</span>
@@ -47,7 +47,7 @@
     <div class="available-carriages">
         @for (item of rideDetail.carriages; track $index) {
             <p-button
-                class="m-2"
+                class="m-2 available-carriages-item"
                 [raised]="true"
                 [outlined]="true"
                 (click)="getLink(rideDetail.rideId, rideDetail.cityFrom.id, rideDetail.cityTo.id)"

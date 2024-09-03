@@ -35,7 +35,11 @@
         width: 100%;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1199px) {
+        .search-form {
+            flex-direction: column;
+        }
+
         .search-form {
             flex-direction: column;
         }
@@ -52,12 +56,8 @@
         }
     }
 
-    @media (max-width: 768px) {
-        .search-form {
-            flex-direction: column;
-        }
-
-        .search-inputs {
+    @media (max-width: 767px) {
+        й .search-inputs {
             flex-direction: column;
             width: 100%;
             align-items: center;
@@ -79,5 +79,12 @@
         .revers-button {
             align-self: center;
         }
+    }
+}
+
+.data-wrapper {
+    p {
+        min-width: 65px;
+        text-align: center;
     }
 }
