@@ -8,6 +8,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
+import { tap } from 'rxjs';
 
 import { Routers } from '../../../core/models/enums/routers';
 import { UserRole } from '../../../core/models/user/user.model';
@@ -44,7 +45,7 @@ export class TripComponent implements OnInit {
         return Routers;
     }
 
-    public tripInfo!: Signal<TripInfo | null>;
+    public tripInfo!: Signal<TripInfo | Error | null>;
     public tripSchedule!: Signal<TripSchedule | null>;
     public tripCarriagesInfo!: Signal<CarriagesInTrain | null>;
     public selectedSeat!: Signal<SeatBooking | null>;
@@ -68,7 +69,13 @@ export class TripComponent implements OnInit {
         private router: Router,
         private translate: TranslateService
     ) {
-        const tripInfo$ = this.store.select(selectTripInfo);
+        const tripInfo$ = this.store.select(selectTripInfo).pipe(
+            tap((response) => {
+                if (response instanceof Error) {
+                    router.navigate([Routers.ERROR]);
+                }
+            })
+        );
         this.tripInfo = toSignal(tripInfo$, { initialValue: null });
 
         const tripSchedule$ = this.store.select(selectTripSchedule);

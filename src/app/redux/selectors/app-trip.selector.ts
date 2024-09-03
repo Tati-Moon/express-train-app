@@ -27,11 +27,15 @@ export const selectTripInfo = createSelector(
             if (trip && fromTo.from && fromTo.to) {
                 const indexDeparture = trip.path.indexOf(fromTo.from);
                 const indexArrival = trip.path.indexOf(fromTo.to);
+
+                if (indexArrival === -1 || indexDeparture === -1) {
+                    return Error('Trip not found');
+                }
                 const from = stations.find((station: Station) => station.id === fromTo.from)?.city ?? '';
                 const to = stations.find((station: Station) => station.id === fromTo.to)?.city ?? '';
                 const tripInfo: TripInfo = {
-                    departureTime: trip.schedule.segments[indexDeparture].time[0],
-                    arrivalTime: trip.schedule.segments[indexArrival - 1].time[1],
+                    departureTime: trip.schedule.segments[indexDeparture]?.time[0] ?? '',
+                    arrivalTime: trip.schedule.segments[indexArrival - 1]?.time[1] ?? '',
                     from,
                     to,
                     rideId: trip.rideId,
@@ -109,9 +113,11 @@ export const selectBusySeats = createSelector(
                     const busySeats = trip.schedule.segments[index]?.occupiedSeats;
                     if (occupiedSeatsStartAdded) {
                         if (!occupiedSeatsEndAdded) {
-                            busySeats.forEach((seat: number) => {
-                                occupiedSeats.push(seat);
-                            });
+                            if (busySeats !== undefined) {
+                                busySeats.forEach((seat: number) => {
+                                    occupiedSeats.push(seat);
+                                });
+                            }
                         }
                     }
                 });
@@ -144,13 +150,15 @@ export const selectPrice = createSelector(
                     const busySeats = trip.schedule.segments[index]?.price;
                     if (carriagesPriceStartAdded) {
                         if (!carriagesPriceEndAdded) {
-                            Object.keys(busySeats).forEach((seat: string) => {
-                                if (carriagesPrice[seat]) {
-                                    carriagesPrice[seat] += busySeats[seat];
-                                } else {
-                                    carriagesPrice[seat] = busySeats[seat];
-                                }
-                            });
+                            if (busySeats !== undefined) {
+                                Object.keys(busySeats).forEach((seat: string) => {
+                                    if (carriagesPrice[seat]) {
+                                        carriagesPrice[seat] += busySeats[seat];
+                                    } else {
+                                        carriagesPrice[seat] = busySeats[seat];
+                                    }
+                                });
+                            }
                         }
                     }
                 });
