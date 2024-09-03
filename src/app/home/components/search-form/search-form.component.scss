@@ -53,7 +53,7 @@
     }
 
     @media (max-width: 767px) {
-        й .search-inputs {
+        .search-inputs {
             flex-direction: column;
             width: 100%;
             align-items: center;
@@ -87,4 +87,9 @@
 
 ::ng-deep .p-tabview-nav-link[aria-selected='true'] {
     background-color: var(--surface-100);
+}
+::ng-deep .p-tabview-nav-link {
+    margin: 0;
+    @media (max-width: 767px) {
+    }
 }

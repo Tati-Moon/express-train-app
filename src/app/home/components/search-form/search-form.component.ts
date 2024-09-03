@@ -178,12 +178,6 @@ export class SearchFormComponent implements OnInit {
             return [];
         }
 
-        const dates = [];
-        for (let date = new Date(this.minDate); date <= this.maxDate; date.setDate(date.getDate() + 1)) {
-            const dateStr = date.toISOString().split('T')[0];
-            dates.push(dateStr);
-        }
-
-        return dates;
+        return Object.keys(this.groupedResults).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
     }
 }
