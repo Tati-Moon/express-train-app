@@ -1,3 +1,5 @@
+import { TripSchedule } from '../../../home/models/trip-schedule.model';
+
 export interface SearchResult {
     from: City;
     to: City;
@@ -54,14 +56,13 @@ export interface RideDetails {
     occupiedSeats: number[];
     travelTime: string;
     trainInformation: string;
+    tripSchedule: TripSchedule;
 }
 
 export interface CityInfo {
     id: number;
     name: string;
     dateTime: string;
-    date: string;
-    time: string;
 }
 
 export interface TravelInfo {

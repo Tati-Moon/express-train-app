@@ -9,13 +9,11 @@ import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
 import { TableModule } from 'primeng/table';
 import { TimelineModule } from 'primeng/timeline';
-import { Observable, of } from 'rxjs';
 
 import { Routers } from '../../../core/models/enums/routers';
 import { QueryParams } from '../../../core/models/query-params.model';
 import { RideDetails, TravelInfo } from '../../../core/models/search/search-result.model';
-import { Station } from '../../../core/models/station/station.model';
-import { selectStationById } from '../../../redux/selectors/app-stations.selector';
+import { AppDatePipe } from '../../../core/pipes/date.pipe';
 import { TripSchedule } from '../../models/trip-schedule.model';
 import { TripRoutePopupComponent } from '../trip-route-popup/trip-route-popup.component';
 
@@ -33,6 +31,7 @@ import { TripRoutePopupComponent } from '../trip-route-popup/trip-route-popup.co
         AsyncPipe,
         RouterLink,
         TripRoutePopupComponent,
+        AppDatePipe,
     ],
     templateUrl: './search-result-item.component.html',
     styleUrl: './search-result-item.component.scss',
@@ -61,17 +60,6 @@ export class SearchResultItemComponent implements OnInit {
 
     setEvents() {
         this.events = [{ icon: 'pi pi-circle' }, { travelTime: this.travelTime }, { icon: 'pi pi-circle-fill' }];
-    }
-
-    stationsMap: Map<number, Observable<Station | null>> = new Map();
-
-    getStation(id: number): Observable<Station | null> {
-        if (!this.stationsMap.has(id)) {
-            const stationSelector = selectStationById(id);
-            const station$ = this.store.select(stationSelector);
-            this.stationsMap.set(id, station$);
-        }
-        return this.stationsMap.get(id) || of(null);
     }
 
     public handleOpenModal(): void {

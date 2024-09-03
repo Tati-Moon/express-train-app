@@ -2,15 +2,19 @@ import { CommonModule, NgStyle } from '@angular/common';
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { TabViewModule } from 'primeng/tabview';
 
+import { Routers } from '../../../core/models/enums/routers';
 import { RideDetails, SearchResult } from '../../../core/models/search/search-result.model';
 import { Station } from '../../../core/models/station/station.model';
+import { AppDatePipe } from '../../../core/pipes/date.pipe';
 import { AppStationsActions } from '../../../redux/actions/app-station.actions';
 import { selectStations } from '../../../redux/selectors/app-stations.selector';
 import { SearchFormFields } from '../../models/home.model';
@@ -32,6 +36,8 @@ import { SearchResultItemComponent } from '../search-result-item/search-result-i
         ButtonModule,
         CalendarModule,
         SearchResultItemComponent,
+        TabViewModule,
+        AppDatePipe,
     ],
     templateUrl: './search-form.component.html',
     styleUrl: './search-form.component.scss',
@@ -41,11 +47,14 @@ export class SearchFormComponent implements OnInit {
     public searchResults!: SearchResult | null;
     public allStations!: Signal<Station[]>;
     public selectedCity: Station | undefined;
-    public resultList!: RideDetails[];
-    public minDate = new Date();
+    public dateArray!: string[];
+    public selectedTabIndex: number = 0;
+    public groupedResults: { [date: string]: RideDetails[] } = {};
+    public minDate!: Date;
+    public maxDate!: Date;
 
-    public errorMessage: string | null = null;
     constructor(
+        private router: Router,
         private searchService: SearchService,
         private homeFormService: HomeFormService
     ) {
@@ -116,13 +125,51 @@ export class SearchFormComponent implements OnInit {
                 next: (results) => {
                     console.log('search_results', results);
                     this.searchResults = results;
-                    this.errorMessage = null;
-                    this.resultList = this.searchService.mapToRideDetails(
+
+                    const rideDetails = this.searchService.mapToRideDetails(
                         results.routes,
                         results.from.stationId,
                         results.to.stationId
                     );
+
+                    if (rideDetails.length === 0) {
+                        this.router.navigate([Routers.NO_DIRECT_TRAINS_FOUND]);
+                    } else {
+                        rideDetails.forEach((result) => {
+                            const dateStr = this.formatDate(result.date);
+                            if (!this.groupedResults[dateStr]) {
+                                this.groupedResults[dateStr] = [];
+                            }
+                            this.groupedResults[dateStr].push(result);
+                            const currentDate = new Date(dateStr);
+                            if (!this.minDate || currentDate < this.minDate) {
+                                this.minDate = currentDate;
+                            }
+                            if (!this.maxDate || currentDate > this.maxDate) {
+                                this.maxDate = currentDate;
+                            }
+                        });
+                    }
                 },
             });
+    }
+
+    formatDate(dateString: string): string {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    }
+
+    getSortedDates(): string[] {
+        if (!this.minDate || !this.maxDate) {
+            return [];
+        }
+
+        const dates = [];
+        for (let date = new Date(this.minDate); date <= this.maxDate; date.setDate(date.getDate() + 1)) {
+            const dateStr = date.toISOString().split('T')[0];
+            dates.push(dateStr);
+        }
+
+        return dates;
     }
 }
