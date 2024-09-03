@@ -51,7 +51,8 @@ export class AppCarriagesEffects {
             ofType(
                 AppRoutesActions.loadRoutesSuccess,
                 AppTripActions.loadTripInfoSuccess,
-                AppOrdersActions.loadOrdersSuccess
+                AppOrdersActions.loadOrdersSuccess,
+                AppCarriagesActions.lazyLoadCarriages
             ),
             concatLatestFrom(() => this.store.select(selectCarriages)),
             exhaustMap(([, carriagesOld]) => {

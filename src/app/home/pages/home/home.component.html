@@ -1,5 +1,15 @@
-<app-search-form></app-search-form>
-<!-- (searchResponse)="receiveSearchResults($event)" -->
+<app-search-form (valueChanged)="onChildValueChanged($event)"></app-search-form>
 
-<app-search-result-list></app-search-result-list>
-<!-- [searchResult]="searchResult" -->
+<app-search-result
+    *ngIf="startSearch"
+    [groupedResults]="groupedResults"
+    [selectedTabIndex]="selectedTabIndex"
+    [getSortedDates]="getSortedDates"
+>
+</app-search-result>
+
+@if (startSearch === false) {
+    <div class="flex justify-content-center">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+}

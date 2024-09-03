@@ -1,3 +1,5 @@
+import { TripSchedule } from '../../../home/models/trip-schedule.model';
+
 export interface SearchResult {
     from: City;
     to: City;
@@ -35,4 +37,38 @@ export interface Segment {
 
 export interface Price {
     [carriageType: string]: number;
+}
+
+export interface RideDetails {
+    date: string;
+    routeId: number;
+    rideId: number;
+    cityStart: CityInfo;
+    cityEnd: CityInfo;
+    cityFrom: CityInfo;
+    cityTo: CityInfo;
+    carriages: CarriageModel[];
+    occupiedSeats: number[];
+    travelTime: string;
+    trainInformation: string;
+    tripSchedule: TripSchedule;
+}
+
+export interface CityInfo {
+    id: number;
+    name: string;
+    dateTime: string;
+}
+
+export interface TravelInfo {
+    travelTime?: string;
+    icon?: string;
+}
+
+export interface CarriageModel {
+    id: string;
+    name: string;
+    price: number;
+    countSeats: number;
+    availableSeats: number;
 }
