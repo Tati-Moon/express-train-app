@@ -55,12 +55,9 @@
                 <div class="carriage-type-details">
                     <div class="carriage-type">
                         <b>{{ 'SEARCH_PAGE.FIELDS.CARRIAGE_TYPE.NAME' | translate }} <br />{{ item.name }}</b>
-                        <span
-                            >{{ carriageSeats(rideDetail.rideId, rideDetail.routeId, item.id) }}
-                            {{ 'SEARCH_PAGE.FIELDS.SEATS.NAME' | translate }}</span
-                        >
+                        <span>{{ item.availableSeats }} {{ 'SEARCH_PAGE.FIELDS.SEATS.NAME' | translate }}</span>
                     </div>
-                    <div class="price">{{ item.price }}</div>
+                    <div class="price">{{ item.price | currency }}</div>
                 </div>
             </p-button>
         }

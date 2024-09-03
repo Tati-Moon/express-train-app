@@ -12,6 +12,7 @@ import { AppCarriagesActions } from '../actions/app-carriages.actions';
 import { AppConfigActions } from '../actions/app-config.actions';
 import { AppOrdersActions } from '../actions/app-orders.actions';
 import { AppRoutesActions } from '../actions/app-routes.actions';
+import { AppStationsActions } from '../actions/app-station.actions';
 import { AppTripActions } from '../actions/app-trip.actions';
 import { selectCarriages } from '../selectors/app-carriages.selector';
 
@@ -51,7 +52,9 @@ export class AppCarriagesEffects {
             ofType(
                 AppRoutesActions.loadRoutesSuccess,
                 AppTripActions.loadTripInfoSuccess,
-                AppOrdersActions.loadOrdersSuccess
+                AppOrdersActions.loadOrdersSuccess,
+                AppCarriagesActions.lazyLoadCarriages,
+                AppStationsActions.loadStationsSuccess
             ),
             concatLatestFrom(() => this.store.select(selectCarriages)),
             exhaustMap(([, carriagesOld]) => {

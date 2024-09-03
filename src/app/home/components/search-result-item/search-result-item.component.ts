@@ -74,8 +74,4 @@ export class SearchResultItemComponent implements OnInit {
     public tripSchedule(): TripSchedule | null {
         return null;
     }
-
-    public carriageSeats(rideId: number, routeId: number, carriageId: string): number {
-        return rideId + routeId + carriageId.length;
-    }
 }
