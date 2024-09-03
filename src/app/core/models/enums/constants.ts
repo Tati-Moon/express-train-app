@@ -35,3 +35,7 @@ export enum SeatStatus {
     AVAILABLE = 'available',
     SELECTED = 'selected',
 }
+
+export enum Loader {
+    TIME_WAIT = 5000,
+}

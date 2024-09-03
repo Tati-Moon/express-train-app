@@ -1,9 +1,10 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject, Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { catchError, throwError } from 'rxjs';
+import { catchError, debounceTime, tap, throwError } from 'rxjs';
 
 import { AppConfigActions } from '../../redux/actions/app-config.actions';
+import { Loader } from '../models/enums/constants';
 import { MessagesService } from '../services/messages.service';
 
 export const messagesInterceptor: HttpInterceptorFn = (req, next) => {
@@ -18,6 +19,11 @@ export const messagesInterceptor: HttpInterceptorFn = (req, next) => {
             store.dispatch(AppConfigActions.setInvisibleLoader());
             messagesService.sendError(message);
             return throwError(() => response.error);
+        }),
+        debounceTime(Loader.TIME_WAIT),
+        tap(() => {
+            const store = injector.get(Store);
+            store.dispatch(AppConfigActions.setInvisibleLoader());
         })
     );
 };
