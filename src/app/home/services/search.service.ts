@@ -86,7 +86,7 @@ export class SearchService {
                 const cityToDateTime = segmentRange[segmentRange.length - 1].time[1];
 
                 allRideDetails.push({
-                    date: segmentRange[0].time[1],
+                    date: segmentRange[0].time[0],
                     routeId: routeItem.id,
                     rideId: scheduleItem.rideId,
                     cityStart: this.createCityDetail(cityStartId, ''),
