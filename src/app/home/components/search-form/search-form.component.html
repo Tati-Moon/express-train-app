@@ -94,8 +94,8 @@
                 [selected]="selectedTabIndex === $index"
                 ><ng-template pTemplate="header">
                     <div class="flex flex-column align-items-center">
-                        <p>{{ date | date: 'MMM dd' }}</p>
-                        <p>{{ date | date: 'EEE' }}</p>
+                        <p>{{ date | date: 'MMM dd' | titlecase }}</p>
+                        <p>{{ date | date: 'EEE' | titlecase }}</p>
                     </div>
                 </ng-template>
                 @for (item of groupedResults[date]; track $index) {

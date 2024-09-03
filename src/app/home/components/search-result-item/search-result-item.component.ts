@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -21,6 +21,7 @@ import { TripRoutePopupComponent } from '../trip-route-popup/trip-route-popup.co
     selector: 'app-search-result-item',
     standalone: true,
     imports: [
+        CommonModule,
         TimelineModule,
         ButtonModule,
         ChipModule,
