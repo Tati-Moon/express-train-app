@@ -16,7 +16,7 @@ export const isAdminGuard: CanActivateFn = () => {
         if (auth.userRole() === UserRole.MANAGER) {
             return true;
         }
-        return router.navigate([Routers.ACCESS]);
+        return router.navigate([Routers.ROOT]);
     }
-    return router.navigate([Routers.ACCESS]);
+    return router.navigate([Routers.ROOT]);
 };
