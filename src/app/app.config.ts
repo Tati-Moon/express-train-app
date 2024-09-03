@@ -1,4 +1,4 @@
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import localeEn from '@angular/common/locales/en';
 import localeRu from '@angular/common/locales/ru';
@@ -69,5 +69,6 @@ export const appConfig: ApplicationConfig = {
         ),
         { provide: LOCALE_ID, useValue: 'en-US' },
         { provide: DEFAULT_CURRENCY_CODE, useValue: 'USD' },
+        DatePipe,
     ],
 };

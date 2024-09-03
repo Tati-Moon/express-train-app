@@ -4,12 +4,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { TimelineModule } from 'primeng/timeline';
 
+import { AppDatePipe } from '../../../core/pipes/date.pipe';
 import { TripInfo } from '../../models';
 
 @Component({
     selector: 'app-trip-info',
     standalone: true,
-    imports: [ButtonModule, CommonModule, TranslateModule, TimelineModule],
+    imports: [ButtonModule, CommonModule, TranslateModule, TimelineModule, AppDatePipe],
     templateUrl: './trip-info.component.html',
     styleUrl: './trip-info.component.scss',
 })
