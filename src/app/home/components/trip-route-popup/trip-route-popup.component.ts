@@ -5,12 +5,13 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { TimelineModule } from 'primeng/timeline';
 
+import { AppDatePipe } from '../../../core/pipes/date.pipe';
 import { TripSchedule } from '../../models/trip-schedule.model';
 
 @Component({
     selector: 'app-trip-route-popup',
     standalone: true,
-    imports: [DialogModule, ButtonModule, TimelineModule, CommonModule, TranslateModule],
+    imports: [DialogModule, ButtonModule, TimelineModule, CommonModule, TranslateModule, AppDatePipe],
     templateUrl: './trip-route-popup.component.html',
     styleUrl: './trip-route-popup.component.scss',
 })
