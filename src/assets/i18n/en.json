@@ -41,6 +41,9 @@
     },
     "ORDERS": {
       "CANCEL_SUCCESS": "The order has been canceled!"
+    },
+    "TRIP": {
+      "BOOK_SUCCESS": "The seat has been booked!"
     }
   },
   "ADMIN": {

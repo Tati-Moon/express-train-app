@@ -38,6 +38,7 @@ export class AppTripEffects {
             exhaustMap(({ rideId, seat, from, to }) => {
                 return this.tripService.postOrder({ rideId, seat, stationStart: from, stationEnd: to }).pipe(
                     map(() => {
+                        this.messagesService.sendSuccess('MESSAGES.TRIP.BOOK_SUCCESS');
                         return AppTripActions.orderingSeatSuccess({ rideId, from, to });
                     }),
                     catchError((error) => of(AppTripActions.orderingSeatFailure({ error }))),
