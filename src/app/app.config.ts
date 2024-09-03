@@ -29,6 +29,7 @@ import { AppLanguageEffects } from './redux/effects/app-language.effects';
 import { AppOrdersEffects } from './redux/effects/app-orders.effects';
 import { AppRoutesEffects } from './redux/effects/app-routes.effects';
 import { AppSchedulesEffects } from './redux/effects/app-schedules.effects';
+import { AppSearchEffects } from './redux/effects/app-search.effects';
 import { AppStationsEffects } from './redux/effects/app-stations.effects';
 import { AppTripEffects } from './redux/effects/app-trip.effects';
 import { AppUserEffects } from './redux/effects/app-user.effects';
@@ -59,7 +60,8 @@ export const appConfig: ApplicationConfig = {
             AppTripEffects,
             AppSchedulesEffects,
             AppOrdersEffects,
-            AppAllUsersEffects
+            AppAllUsersEffects,
+            AppSearchEffects
         ),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         importProvidersFrom(

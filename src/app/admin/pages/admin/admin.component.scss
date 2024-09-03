@@ -6,7 +6,7 @@
     p-card {
         width: 360px;
         margin: 8px;
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             width: 100%;
             margin: 8px 0;
         }

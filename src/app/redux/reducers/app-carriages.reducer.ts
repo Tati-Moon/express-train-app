@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { AppCarriagesActions } from '../actions/app-carriages.actions';
+import { AppSearchActions } from '../actions/app-search.actions';
 import { AppCarriagesState } from '../models/app-carriages-state.model';
 import { AppCarriageFields } from '../models/state-fields';
 
@@ -39,6 +40,7 @@ export const appCarriagesReducer = createReducer(
     ),
     on(
         AppCarriagesActions.loadCarriagesSuccess,
+        AppSearchActions.loadSearchDataSuccess,
         (state, { carriages }): AppCarriagesState => ({
             ...state,
             [AppCarriageFields.CARRIAGES]: carriages,

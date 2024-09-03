@@ -1,0 +1,19 @@
+<div *ngIf="getSortedDates().length > 0" class="m-2">
+    <p-tabView [scrollable]="true">
+        <p-tabPanel
+            *ngFor="let date of getSortedDates(); let i = index"
+            [disabled]="!groupedResults[date] || groupedResults[date].length === 0"
+            [selected]="selectedTabIndex === i"
+        >
+            <ng-template pTemplate="header">
+                <div class="flex flex-column align-items-center data-wrapper">
+                    <span>{{ date | date: 'MMMM dd' | titlecase }}</span>
+                    <span>{{ date | date: 'EEEE' | titlecase }}</span>
+                </div>
+            </ng-template>
+            <div *ngFor="let item of groupedResults[date]">
+                <app-search-result-item [rideDetail]="item"></app-search-result-item>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -24,6 +24,7 @@
 
     .available-carriages {
         display: flex;
+        flex-wrap: wrap;
         .carriage-type-details {
             display: flex;
             flex-direction: column;
@@ -52,32 +53,37 @@
 
 @media screen and (max-width: 768px) {
     .result-container {
-        display: flex;
-        flex-direction: column;
+        .result-details {
+            .route-details {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                margin-bottom: 1rem;
 
-        .available-carriages {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            .carriage-type-details {
-                align-items: center;
+                .travel-time {
+                    &_wrapper {
+                        width: 100%;
+                        order: -1;
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
             }
+        }
+
+        .itinerary-travel {
+            justify-content: center;
         }
     }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1199px) {
     .result-container {
         display: flex;
         flex-direction: column;
 
         .available-carriages {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            .carriage-type-details {
-                align-items: center;
-            }
+            justify-content: center;
         }
     }
 }

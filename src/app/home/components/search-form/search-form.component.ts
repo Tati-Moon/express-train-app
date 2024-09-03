@@ -1,7 +1,8 @@
-import { CommonModule, NgStyle } from '@angular/common';
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, inject, OnInit, Output, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
@@ -9,13 +10,16 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
-import { SearchService } from '../../../admin/services/search.service';
-import { SearchResult } from '../../../core/models/search/search-result.model';
+import { Carriage } from '../../../core/models/carriages/carriage.model';
+import { Routers } from '../../../core/models/enums/routers';
+import { RideDetails, SearchResult } from '../../../core/models/search/search-result.model';
 import { Station } from '../../../core/models/station/station.model';
-import { AppStationsActions } from '../../../redux/actions/app-station.actions';
+import { AppSearchActions } from '../../../redux/actions/app-search.actions';
+import { selectCarriages } from '../../../redux/selectors/app-carriages.selector';
 import { selectStations } from '../../../redux/selectors/app-stations.selector';
 import { SearchFormFields } from '../../models/home.model';
 import { HomeFormService } from '../../services/home-form.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
     selector: 'app-search-form',
@@ -26,31 +30,36 @@ import { HomeFormService } from '../../services/home-form.service';
         DropdownModule,
         TranslateModule,
         ReactiveFormsModule,
-        NgStyle,
         InputTextModule,
         ButtonModule,
         CalendarModule,
     ],
     templateUrl: './search-form.component.html',
-    styleUrl: './search-form.component.scss',
+    styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit {
+    @Output() searchCompleted = new EventEmitter<boolean>();
+    @Output() valueChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
     private store = inject(Store);
     public searchResults!: SearchResult | null;
-    public allStations!: Signal<Station[]>;
-    public selectedCity: Station | undefined;
+    public allStations: Signal<Station[]> = signal([]);
+    public allCarriages: Signal<Carriage[]> = signal([]);
+    public selectedTabIndex: number = 0;
+    public groupedResults: { [date: string]: RideDetails[] } = {};
+    public minDate: Date | undefined;
+    public maxDate: Date | undefined;
+    public startSearch!: boolean | null;
 
-    public minDate = new Date();
-
-    // @Output() searchResponse = new EventEmitter<SearchResult>();
-
-    public errorMessage: string | null = null;
     constructor(
+        private router: Router,
         private searchService: SearchService,
         private homeFormService: HomeFormService
     ) {
         const allStations$ = this.store.select(selectStations);
         this.allStations = toSignal(allStations$, { initialValue: [] });
+
+        const allCarriages$ = this.store.select(selectCarriages);
+        this.allCarriages = toSignal(allCarriages$, { initialValue: [] });
     }
 
     ngOnInit(): void {
@@ -58,7 +67,7 @@ export class SearchFormComponent implements OnInit {
     }
 
     getAllItems(): void {
-        this.store.dispatch(AppStationsActions.lazyLoadStations());
+        this.store.dispatch(AppSearchActions.loadSearchData());
     }
 
     public get form() {
@@ -100,6 +109,11 @@ export class SearchFormComponent implements OnInit {
             return;
         }
 
+        this.startSearch = false;
+        this.valueChanged.emit(this.startSearch);
+        this.groupedResults = {};
+        this.minDate = undefined;
+        this.maxDate = undefined;
         const fromCity = this.form.get([this.fields.FROM_CITY])?.value;
         const toCity = this.form.get([this.fields.TO_CITY])?.value;
         const date = this.form.get([this.fields.DATE])?.value;
@@ -114,11 +128,50 @@ export class SearchFormComponent implements OnInit {
             })
             .subscribe({
                 next: (results) => {
-                    console.log('search_results', results);
                     this.searchResults = results;
-                    this.errorMessage = null;
-                    // this.searchResponse.emit(results);
+
+                    const carriages = this.allCarriages();
+
+                    const rideDetails = this.searchService.mapToRideDetails(
+                        results.routes,
+                        results.from.stationId,
+                        results.to.stationId,
+                        carriages
+                    );
+
+                    if (rideDetails.length === 0) {
+                        this.router.navigate([Routers.NO_DIRECT_TRAINS_FOUND]);
+                    } else {
+                        rideDetails.forEach((result) => {
+                            const dateStr = this.formatDate(result.date);
+                            if (!this.groupedResults[dateStr]) {
+                                this.groupedResults[dateStr] = [];
+                            }
+                            this.groupedResults[dateStr].push(result);
+                            const currentDate = new Date(dateStr);
+                            if (!this.minDate || currentDate < this.minDate) {
+                                this.minDate = currentDate;
+                            }
+                            if (!this.maxDate || currentDate > this.maxDate) {
+                                this.maxDate = currentDate;
+                            }
+                        });
+                    }
+                    this.startSearch = true;
+                    this.searchCompleted.emit(this.startSearch);
                 },
             });
+    }
+
+    formatDate(dateString: string): string {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    }
+
+    getSortedDates(): string[] {
+        if (!this.minDate || !this.maxDate) {
+            return [];
+        }
+        return Object.keys(this.groupedResults).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
     }
 }
