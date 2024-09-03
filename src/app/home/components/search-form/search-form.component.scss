@@ -40,10 +40,6 @@
             flex-direction: column;
         }
 
-        .search-form {
-            flex-direction: column;
-        }
-
         .search-inputs {
             flex-direction: row;
             width: 100%;
@@ -87,4 +83,8 @@
         min-width: 65px;
         text-align: center;
     }
+}
+
+::ng-deep .p-tabview-nav-link[aria-selected='true'] {
+    background-color: var(--surface-100);
 }
