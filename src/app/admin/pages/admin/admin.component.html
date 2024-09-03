@@ -1,8 +1,8 @@
 <div class="admin-menu">
-    <p-card header="{{ 'ADMIN_PAGE.HEADER_STATIONS' | translate }}" class="m-2">
+    <p-card header="{{ 'ADMIN_PAGE.HEADER_STATIONS' | translate }}" [style]="{ 'min-height': '750px' }">
         <ng-template pTemplate="header">
             <img
-                alt="Card"
+                alt="Stations"
                 class="image-transform"
                 (click)="navigateToStationsPage()"
                 src="assets/images/admin/stations.png"
@@ -22,10 +22,10 @@
             </div>
         </ng-template>
     </p-card>
-    <p-card header="{{ 'ADMIN_PAGE.HEADER_CARRIAGES' | translate }}" class="m-2">
+    <p-card header="{{ 'ADMIN_PAGE.HEADER_CARRIAGES' | translate }}" [style]="{ 'min-height': '750px' }">
         <ng-template pTemplate="header">
             <img
-                alt="Card"
+                alt="Carriages"
                 class="image-transform"
                 (click)="navigateToCarriagesPage()"
                 src="assets/images/admin/carriages.png"
@@ -43,10 +43,10 @@
             </div>
         </ng-template>
     </p-card>
-    <p-card header="{{ 'ADMIN_PAGE.HEADER_ROUTES' | translate }}" class="m-2">
+    <p-card header="{{ 'ADMIN_PAGE.HEADER_ROUTES' | translate }}" [style]="{ 'min-height': '750px' }">
         <ng-template pTemplate="header">
             <img
-                alt="Card"
+                alt="Routes"
                 class="image-transform"
                 (click)="navigateToRoutesPage()"
                 src="assets/images/admin/routes.png"
