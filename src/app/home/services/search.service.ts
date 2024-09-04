@@ -104,7 +104,13 @@ export class SearchService {
                     occupiedSeats: [],
                     travelTime,
                     trainInformation,
-                    tripSchedule: this.getTripSchedule(scheduleItem, routeItem.path, cityFromId, cityToId),
+                    tripSchedule: this.getTripSchedule(
+                        routeItem.id,
+                        scheduleItem,
+                        routeItem.path,
+                        cityFromId,
+                        cityToId
+                    ),
                 });
             });
         });
@@ -113,13 +119,14 @@ export class SearchService {
     }
 
     private getTripSchedule(
+        routeId: number,
         scheduleItem: ScheduleItem,
         path: number[],
         cityFromId: number,
         cityToId: number
     ): TripSchedule {
         const tripSchedule: TripSchedule = {
-            routeId: scheduleItem.rideId,
+            routeId,
             stationTripInfo: path.map((station: number, index: number) => {
                 const timeTo = scheduleItem.segments[index - 1]?.time[1] ?? '';
                 const timeFrom = scheduleItem.segments[index]?.time[0] ?? '';
