@@ -6,8 +6,10 @@ import { Store } from '@ngrx/store';
 import { endWith, exhaustMap, map, of, startWith, tap } from 'rxjs';
 
 import { AuthService } from '../../auth/services/auth-service.service';
+import { LocalStorageFields } from '../../core/models/enums/constants';
 import { Routers } from '../../core/models/enums/routers';
 import { UserRole } from '../../core/models/user/user.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 import { AppConfigActions } from '../actions/app-config.actions';
 import { AppUserActions } from '../actions/app-user.actions';
 import { selectToken } from '../selectors/app-user.selector';
@@ -18,7 +20,8 @@ export class AppUserEffects {
     constructor(
         private actions$: Actions,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private localStorageService: LocalStorageService
     ) {}
 
     logIn$ = createEffect(() =>
@@ -28,6 +31,8 @@ export class AppUserEffects {
             exhaustMap(() => {
                 return this.authService.getUserProfile().pipe(
                     map(({ email, name, role }) => {
+                        this.localStorageService.setItem(LocalStorageFields.EMAIL, email);
+                        this.localStorageService.setItem(LocalStorageFields.ROLE, role);
                         return AppUserActions.updateUserData({ email, name, role: role as UserRole });
                     }),
                     startWith(AppConfigActions.setVisibleLoader()),
