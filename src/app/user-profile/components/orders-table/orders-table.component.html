@@ -6,8 +6,10 @@
                     <th>{{ 'ORDER.USER_EMAIL' | translate }}</th>
                 }
 
-                <th>{{ 'ORDER.FROM' | translate }}</th>
-                <th>{{ 'ORDER.TO' | translate }}</th>
+                <th>{{ 'ORDER.FROM_STATION' | translate }}</th>
+                <th>{{ 'ORDER.FROM_TIME' | translate }}</th>
+                <th>{{ 'ORDER.TO_STATION' | translate }}</th>
+                <th>{{ 'ORDER.TO_TIME' | translate }}</th>
                 <th>{{ 'ORDER.DURATION' | translate }}</th>
                 <th>{{ 'ORDER.CARRIAGE_TYPE' | translate }}</th>
                 <th>{{ 'ORDER.CAR_NUMBER' | translate }}</th>
@@ -27,13 +29,15 @@
 
                 <td>
                     <div>{{ (getStation(order.stationStart) | async)?.city }}</div>
-
-                    <div>{{ order.startTime | date: 'yyyy-MM-dd h:mm a' }}</div>
+                </td>
+                <td>
+                    <div>{{ order.startTime | date: 'MMMM dd hh:mm' | titlecase }}</div>
                 </td>
                 <td>
                     <div>{{ (getStation(order.stationEnd) | async)?.city }}</div>
-
-                    <div>{{ order.endTime | date: 'yyyy-MM-dd h:mm a' }}</div>
+                </td>
+                <td>
+                    <div>{{ order.endTime | date: 'MMMM dd hh:mm' | titlecase }}</div>
                 </td>
 
                 <td>
