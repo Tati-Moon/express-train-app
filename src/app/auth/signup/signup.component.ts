@@ -95,10 +95,7 @@ export class SignupComponent {
             .subscribe({
                 next: (response) => {
                     this.submitForm = false;
-                    if ('error' in response) {
-                        console.error('Sign-up failed:', response.error.message);
-                    } else {
-                        console.log('Sign-up successful');
+                    if (!('error' in response)) {
                         this.router.navigate([Routers.SIGNIN]);
                     }
                 },

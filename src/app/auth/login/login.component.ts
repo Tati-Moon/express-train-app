@@ -44,6 +44,8 @@ export class LoginComponent {
     private store = inject(Store);
 
     public colorScheme!: Signal<string>;
+    public submitForm: boolean = false;
+
     constructor(
         private loginFormService: LoginFormService,
         private errorMessageService: ErrorMessageService,
@@ -68,7 +70,7 @@ export class LoginComponent {
             this.loginFormService.markFormDirty(this.form);
             return;
         }
-
+        this.submitForm = true;
         const login = this.form.get([this.fields.LOGIN])?.value;
 
         const password = this.form.get([this.fields.PASSWORD])?.value;
@@ -83,17 +85,15 @@ export class LoginComponent {
             })
             .subscribe({
                 next: (response) => {
+                    this.submitForm = false;
                     if ('token' in response) {
-                        console.log('Login successful:', response.token);
                         this.localStorageService.setItem(LocalStorageFields.TOKEN, response.token);
                         this.router.navigate([Routers.ROOT]);
                         this.store.dispatch(AppUserActions.logIn({ email: login, token: response.token }));
-                    } else if ('error' in response) {
-                        console.error('Login failed:', response.error.message);
                     }
                 },
-                error: (error) => {
-                    console.error('Unexpected error:', error);
+                error: () => {
+                    this.submitForm = false;
                 },
             });
     }
@@ -104,5 +104,9 @@ export class LoginComponent {
 
     public handlePasswordErrorMessages(errors: ValidationErrors | null): string[] {
         return this.errorMessageService.getPasswordErrorMessages(errors);
+    }
+
+    public get disabledSubmitButton(): boolean {
+        return !this.form.valid;
     }
 }
