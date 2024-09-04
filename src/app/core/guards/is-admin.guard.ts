@@ -13,10 +13,16 @@ export const isAdminGuard: CanActivateFn = () => {
     const localStorage = inject(LocalStorageService);
 
     if (localStorage.hasItem(LocalStorageFields.TOKEN)) {
-        const role = localStorage.getItem(LocalStorageFields.ROLE);
-        const email = localStorage.getItem(LocalStorageFields.EMAIL);
+        const btoaRole = btoa(LocalStorageFields.ROLE as string);
+        const role = localStorage.getItem(btoaRole) as string;
+        const atobRole = atob(role);
+
+        const btoaEmail = btoa(LocalStorageFields.EMAIL as string);
+        const email = localStorage.getItem(btoaEmail) as string;
+        const atobEmail = atob(email);
+
         if (auth.userRole() === null) {
-            if (role === UserRole.MANAGER && email === UsersEmail.ADMIN) {
+            if (atobRole === UserRole.MANAGER && atobEmail === UsersEmail.ADMIN) {
                 return true;
             }
             return router.navigate([Routers.ROOT]);
