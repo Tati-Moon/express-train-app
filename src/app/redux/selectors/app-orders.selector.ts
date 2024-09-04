@@ -64,7 +64,7 @@ const getTotalPrice = (
     if (startIndex === null || endIndex === null || carriageType === null) {
         return 0;
     }
-    if (startIndex < 0 || endIndex >= carriages.length || startIndex > endIndex) {
+    if (startIndex < 0 || endIndex >= segments.length || startIndex > endIndex) {
         return 0;
     }
 
