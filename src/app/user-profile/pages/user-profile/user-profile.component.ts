@@ -272,7 +272,6 @@ export class UserProfileComponent implements OnInit {
     changePassword(): void {
         const newPassword = this.passwordForm.get(this.fields.PASSWORD)?.value;
         if (newPassword) {
-            // this.userProfileService.updatePassword(this.form.get(this.fields.PASSWORD)?.value)
             this.updatePassword(newPassword);
             this.closePasswordModal();
             this.passwordForm.reset();

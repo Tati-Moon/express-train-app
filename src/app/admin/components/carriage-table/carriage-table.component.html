@@ -18,7 +18,13 @@
                     <app-carriage-view-small [carriage]="carriage"></app-carriage-view-small>
                 </td>
                 <td>
-                    <p-button icon="pi pi-pencil" text="true" (onClick)="handleEditCarriage(carriage)"></p-button>
+                    <p-button
+                        icon="pi pi-pencil"
+                        [rounded]="true"
+                        [text]="true"
+                        [raised]="true"
+                        (onClick)="handleEditCarriage(carriage)"
+                    ></p-button>
                 </td>
             </tr>
         </ng-template>
