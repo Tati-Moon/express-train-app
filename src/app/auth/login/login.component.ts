@@ -44,6 +44,8 @@ export class LoginComponent {
     private store = inject(Store);
 
     public colorScheme!: Signal<string>;
+    public disableForm: boolean = false;
+    public isClicked: boolean = false;
     constructor(
         private loginFormService: LoginFormService,
         private errorMessageService: ErrorMessageService,
@@ -64,6 +66,7 @@ export class LoginComponent {
     }
 
     public handleSubmit(): void {
+        this.isClicked = true;
         if (!this.form.valid) {
             this.loginFormService.markFormDirty(this.form);
             return;
@@ -72,7 +75,7 @@ export class LoginComponent {
         const login = this.form.get([this.fields.LOGIN])?.value;
 
         const password = this.form.get([this.fields.PASSWORD])?.value;
-
+        this.disableForm = true;
         this.httpService
             .post<SignInSuccessResponse | SignInErrorResponse>({
                 url: environment.apiSignIn,
@@ -83,17 +86,26 @@ export class LoginComponent {
             })
             .subscribe({
                 next: (response) => {
+                    this.disableForm = false;
                     if ('token' in response) {
                         console.log('Login successful:', response.token);
                         this.localStorageService.setItem(LocalStorageFields.TOKEN, response.token);
+                        this.form.reset();
                         this.router.navigate([Routers.ROOT]);
                         this.store.dispatch(AppUserActions.logIn({ email: login, token: response.token }));
                     } else if ('error' in response) {
                         console.error('Login failed:', response.error.message);
                     }
+                    this.disableForm = false;
                 },
                 error: (error) => {
-                    console.error('Unexpected error:', error);
+                    this.disableForm = false;
+                    if (error?.reason === 'userNotFound') {
+                        this.form.get([this.fields.LOGIN])?.setErrors({ userNotFound: true });
+                        this.form.get([this.fields.PASSWORD])?.setErrors({ userNotFound: true });
+                        return;
+                    }
+                    console.error('handleSubmit', error);
                 },
             });
     }

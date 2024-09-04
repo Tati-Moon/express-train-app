@@ -51,6 +51,7 @@ export class SignupComponent {
     public Routers = Routers;
     public colorScheme!: Signal<string>;
     public submitForm: boolean = false;
+    public isClicked: boolean = false;
 
     constructor(
         private registerFormService: RegisterFormService,
@@ -76,6 +77,7 @@ export class SignupComponent {
     }
 
     public handleSubmit(): void {
+        this.isClicked = true;
         if (!this.form.valid) {
             this.registerFormService.markFormDirty(this.form);
             return;
@@ -99,11 +101,15 @@ export class SignupComponent {
                         console.error('Sign-up failed:', response.error.message);
                     } else {
                         console.log('Sign-up successful');
+                        this.form.reset();
                         this.router.navigate([Routers.SIGNIN]);
                     }
                 },
-                error: () => {
+                error: (error) => {
                     this.submitForm = false;
+                    if (error?.reason === 'invalidUniqueKey') {
+                        this.form.get([this.fields.LOGIN])?.setErrors({ invalidUniqueKey: true });
+                    }
                 },
             });
     }

@@ -114,8 +114,8 @@
     }
   },
   "ERRORS": {
-    "REQUIRED": "This field is required.",
-    "INVALID_EMAIL": "Please enter a valid email address.",
+    "REQUIRED": "Required",
+    "INVALID_EMAIL": "Incorrect email",
     "PASSWORD_STRONG": "Your password isn't strong enough.",
     "PASSWORD_UPPER": "Password must contain uppercase letters (A-Z).",
     "PASSWORD_LOWER": "Password must contain lowercase letters (a-z).",
@@ -127,7 +127,9 @@
     "NAME_MIN_LENGTH": "Name must be at least 2 characters long.",
     "NAME_MAX_LENGTH": "The name must not exceed 30 characters.",
     "MIN": "Specify a larger number",
-    "MAX": "Specify a smaller number"
+    "MAX": "Specify a smaller number",
+    "USER_NOT_FOUND": "Incorrect email or password",
+    "ACCOUNT_ALREADY_EXISTS": "Account with this email already exists"
   },
   "SEARCH_PAGE": {
     "FIELDS": {

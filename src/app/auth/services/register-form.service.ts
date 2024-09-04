@@ -15,7 +15,7 @@ export class RegisterFormService {
 
     public registerForm: FormGroup = this.fb.group<RegisterForm>({
         [AuthFormFields.LOGIN]: ['', [Validators.required, this.validationService.emailValidator()]],
-        [AuthFormFields.PASSWORD]: ['', [Validators.required, this.validationService.strongPasswordValidator()]],
+        [AuthFormFields.PASSWORD]: ['', [Validators.required, Validators.minLength(8)]],
         [AuthFormFields.REPEAT_PASSWORD]: ['', [Validators.required, this.matchPasswordValidators()]],
     });
 
