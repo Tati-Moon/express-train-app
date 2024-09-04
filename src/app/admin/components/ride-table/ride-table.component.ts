@@ -133,4 +133,11 @@ export class RideTableComponent {
         this.deleteModalVisible = false;
         this.rideToDelete = null!;
     }
+
+    isTheRouteOverdue(date: string): boolean {
+        const inputDate = new Date(date);
+        const currentDate = new Date();
+
+        return inputDate < currentDate;
+    }
 }
