@@ -5,6 +5,7 @@
     [draggable]="false"
     styleClass="p-0 col-11 md:col-6"
     (onHide)="handleCloseModal()"
+    [dismissableMask]="true"
 >
     @if (tripSchedule?.stationTripInfo) {
         <p-timeline [value]="tripSchedule?.stationTripInfo">
