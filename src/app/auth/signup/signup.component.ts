@@ -50,6 +50,8 @@ export class SignupComponent {
     messages: Message[] | undefined;
     public Routers = Routers;
     public colorScheme!: Signal<string>;
+    public submitForm: boolean = false;
+
     constructor(
         private registerFormService: RegisterFormService,
         private errorMessageService: ErrorMessageService,
@@ -78,7 +80,7 @@ export class SignupComponent {
             this.registerFormService.markFormDirty(this.form);
             return;
         }
-
+        this.submitForm = true;
         const login = this.form.get([this.fields.LOGIN])?.value;
         const password = this.form.get([this.fields.PASSWORD])?.value;
 
@@ -92,6 +94,7 @@ export class SignupComponent {
             })
             .subscribe({
                 next: (response) => {
+                    this.submitForm = false;
                     if ('error' in response) {
                         console.error('Sign-up failed:', response.error.message);
                     } else {
@@ -99,8 +102,8 @@ export class SignupComponent {
                         this.router.navigate([Routers.SIGNIN]);
                     }
                 },
-                error: (error) => {
-                    console.error('Unexpected error:', error);
+                error: () => {
+                    this.submitForm = false;
                 },
             });
     }
@@ -111,5 +114,9 @@ export class SignupComponent {
 
     public handlePasswordErrorMessages(errors: ValidationErrors | null): string[] {
         return this.errorMessageService.getPasswordErrorMessages(errors);
+    }
+
+    public get disabledSubmitButton(): boolean {
+        return !this.form.valid;
     }
 }

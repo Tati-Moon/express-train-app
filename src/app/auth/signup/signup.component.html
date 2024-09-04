@@ -106,6 +106,7 @@
                                 styleClass="w-full p-3 text-xl"
                                 class="btn-primary"
                                 (onClick)="handleSubmit()"
+                                [disabled]="disabledSubmitButton || submitForm"
                             >
                             </p-button>
                             <p-button
@@ -114,6 +115,7 @@
                                 styleClass="w-full p-3 text-xl"
                                 class="btn-secondary"
                                 [routerLink]="['/signin']"
+                                [disabled]="submitForm"
                             >
                             </p-button>
                         </div>
