@@ -7,7 +7,7 @@ import { AppThemeFields } from '../models/state-fields';
 
 export const initialState: AppThemeState = {
     [AppThemeFields.COLOR_SCHEME]: Schemes.LIGHT,
-    [AppThemeFields.THEME]: Themes.LARA_LIGHT_INDIGO,
+    [AppThemeFields.THEME]: Themes.TAILWIND_LIGHT,
 };
 
 export const appThemeReducer = createReducer(
