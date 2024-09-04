@@ -119,7 +119,7 @@ export class SearchService {
         cityToId: number
     ): TripSchedule {
         const tripSchedule: TripSchedule = {
-            rideId: scheduleItem.rideId,
+            routeId: scheduleItem.rideId,
             stationTripInfo: path.map((station: number, index: number) => {
                 const timeTo = scheduleItem.segments[index - 1]?.time[1] ?? '';
                 const timeFrom = scheduleItem.segments[index]?.time[0] ?? '';
