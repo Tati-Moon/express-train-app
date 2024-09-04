@@ -3,6 +3,7 @@ import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 
+import { NoOrdersComponent } from '../../../core/components/no-orders/no-orders.component';
 import { ConvertedOrder } from '../../../core/models/orders/orders.model';
 import { AppOrdersActions } from '../../../redux/actions/app-orders.actions';
 import { selectMappedOrders } from '../../../redux/selectors/app-orders.selector';
@@ -11,7 +12,7 @@ import { OrdersTableComponent } from '../../components/orders-table/orders-table
 @Component({
     selector: 'app-orders',
     standalone: true,
-    imports: [OrdersTableComponent, CommonModule],
+    imports: [OrdersTableComponent, CommonModule, NoOrdersComponent],
     templateUrl: './orders.component.html',
     styleUrl: './orders.component.scss',
 })

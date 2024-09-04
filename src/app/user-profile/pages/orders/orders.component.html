@@ -1,4 +1,4 @@
-<div *ngIf="orders()?.length" class="orders grid">
+<div *ngIf="orders()?.length; else empty_orders" class="orders grid">
     <!-- <pre>
         {{ orders() | json }}
     </pre> -->
@@ -6,3 +6,9 @@
         <app-orders-table [orders]="orders()"></app-orders-table>
     </div>
 </div>
+
+<ng-template #empty_orders>
+    <div class="flex justify-content-center align-content-center">
+        <app-no-orders></app-no-orders>
+    </div>
+</ng-template>
