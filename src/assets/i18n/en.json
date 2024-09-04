@@ -132,13 +132,13 @@
   "SEARCH_PAGE": {
     "FIELDS": {
       "FROM": {
-        "PLACEHOLDER": "Start station"
+        "PLACEHOLDER": "From"
       },
       "TO": {
-        "PLACEHOLDER": "End station"
+        "PLACEHOLDER": "To"
       },
       "CALENDAR": {
-        "PLACEHOLDER": "Select a date"
+        "PLACEHOLDER": "Date/Time"
       },
       "CARRIAGE_TYPE": {
         "NAME": "Carriage type"
