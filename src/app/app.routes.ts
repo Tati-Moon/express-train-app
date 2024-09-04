@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { isAdminGuard } from './core/guards/is-admin.guard';
+import { isloggedGuard } from './core/guards/is-logged.guard';
 import { isloggedUserGuard } from './core/guards/is-logged-user.guard';
 import { Routers } from './core/models/enums/routers';
 
@@ -72,10 +73,12 @@ export const routes: Routes = [
     {
         path: Routers.SIGNIN,
         loadComponent: () => import('./auth/login/login.component').then((c) => c.LoginComponent),
+        canActivate: [isloggedGuard],
     },
     {
         path: Routers.SIGNUP,
         loadComponent: () => import('./auth/signup/signup.component').then((c) => c.SignupComponent),
+        canActivate: [isloggedGuard],
     },
     {
         path: Routers.ACCESS,
