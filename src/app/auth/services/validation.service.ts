@@ -31,8 +31,8 @@ export class ValidationService {
                 return null;
             }
 
-            const hasUpperCase = /[A-Z]/.test(value);
-            const hasLowerCase = /[a-z]/.test(value);
+            const hasUpperCase = /[\p{Lu}]/u.test(value);
+            const hasLowerCase = /[\p{Ll}]/u.test(value);
             const hasNumeric = /[0-9]/.test(value);
             const hasSpecialChar = /[!@#?_]/.test(value);
             const hasMinLength = value.length >= 8;
