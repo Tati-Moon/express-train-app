@@ -51,9 +51,15 @@ export class HttpService {
         const jsonBody = body ? JSON.stringify(body) : undefined;
 
         return this.http.post<T>(url, jsonBody, { params, headers: newHeaders }).pipe(
-            timeout(10000),
+            timeout(100000),
             catchError((error) => {
-                // TODO check solution
+                if (error?.error?.message) {
+                    return throwError(() => ({
+                        status: 400,
+                        message: error?.error?.message,
+                        reason: error?.error?.reason,
+                    }));
+                }
                 if (error.name === 'TimeoutError') {
                     this.messagesService.sendError('TimeoutError');
                 }

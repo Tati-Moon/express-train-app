@@ -40,7 +40,7 @@ export enum SeatStatus {
 }
 
 export enum Loader {
-    TIME_WAIT = 5000,
+    TIME_WAIT = 2000,
 }
 
 export enum UsersEmail {

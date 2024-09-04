@@ -36,7 +36,7 @@
                                 style="padding: 1rem"
                             />
                             @if (form.get(fields.LOGIN); as login) {
-                                @if (!login.pristine) {
+                                @if (!login.pristine && isClicked) {
                                     @for (error of handleLoginErrorMessages(login.errors); track $index) {
                                         <small class="p-error block mt-2"> {{ error | translate }} </small>
                                     }
@@ -57,14 +57,10 @@
                                 [feedback]="false"
                             ></p-password>
                             @if (form.get(fields.PASSWORD); as password) {
-                                @if (!password.pristine) {
-                                    <small class="p-error block mt-2">
-                                        <ul>
-                                            @for (error of handlePasswordErrorMessages(password.errors); track $index) {
-                                                <li>{{ error | translate }}</li>
-                                            }
-                                        </ul>
-                                    </small>
+                                @if (!password.pristine && isClicked) {
+                                    @for (error of handlePasswordErrorMessages(password.errors); track $index) {
+                                        <small class="p-error block mt-2"> {{ error | translate }} </small>
+                                    }
                                 }
                             }
                         </div>
@@ -73,6 +69,7 @@
                                 label="{{ 'BUTTONS.SIGN_IN' | translate }}"
                                 styleClass="w-full p-3 text-xl"
                                 class="btn-primary"
+                                [disabled]="isClicked && (!form.valid || disableForm)"
                                 (onClick)="handleSubmit()"
                             >
                             </p-button>

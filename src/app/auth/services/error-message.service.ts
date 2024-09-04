@@ -34,6 +34,12 @@ export class ErrorMessageService {
         if (errors['invalidEmail']) {
             errorMessages.push('ERRORS.INVALID_EMAIL');
         }
+        if (errors['userNotFound']) {
+            errorMessages.push('ERRORS.USER_NOT_FOUND');
+        }
+        if (errors['invalidUniqueKey']) {
+            errorMessages.push('ERRORS.ACCOUNT_ALREADY_EXISTS');
+        }
 
         return errorMessages;
     }
@@ -66,6 +72,12 @@ export class ErrorMessageService {
         }
         if (errors['matchPassword']) {
             errorMessages.push('ERRORS.PASSWORD_MISMATCH');
+        }
+        if (errors['userNotFound']) {
+            errorMessages.push('ERRORS.USER_NOT_FOUND');
+        }
+        if (errors['minlength']) {
+            errorMessages.push('ERRORS.PASSWORD_MIN_LENGTH');
         }
 
         return errorMessages;
