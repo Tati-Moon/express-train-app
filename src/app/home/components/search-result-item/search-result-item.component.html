@@ -1,4 +1,7 @@
-<div class="card result-container mt-2 mb-2">
+<div
+    class="card result-container mt-2 mb-2"
+    (click)="getLink(rideDetail.rideId, rideDetail.cityFrom.id, rideDetail.cityTo.id)"
+>
     <div class="result-details">
         <div class="route-details">
             <div class="from-details">
@@ -39,7 +42,7 @@
                 label="{{ 'TRIP.ROUTE' | translate }}"
                 [iconPos]="'right'"
                 icon="pi pi-angle-down"
-                (onClick)="handleOpenModal()"
+                (onClick)="handleOpenModal($event)"
             ></p-button>
         </div>
     </div>

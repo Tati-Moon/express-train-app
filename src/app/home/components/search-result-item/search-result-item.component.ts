@@ -63,7 +63,8 @@ export class SearchResultItemComponent implements OnInit {
         this.events = [{ icon: 'pi pi-circle' }, { travelTime: this.travelTime }, { icon: 'pi pi-circle-fill' }];
     }
 
-    public handleOpenModal(): void {
+    public handleOpenModal(event: MouseEvent): void {
+        event.stopPropagation();
         this.showRouteModal = true;
     }
 
