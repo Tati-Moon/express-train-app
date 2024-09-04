@@ -55,7 +55,7 @@ export const selectTripSchedule = createSelector(
         if (stations.length !== 0) {
             if (trip && fromTo.from && fromTo.to) {
                 const tripSchedule: TripSchedule = {
-                    rideId: trip.rideId,
+                    routeId: trip.routeId,
                     stationTripInfo: trip.path.map((station: number, index: number) => {
                         const timeTo = trip.schedule.segments[index - 1]?.time[1] ?? '';
                         const timeFrom = trip.schedule.segments[index]?.time[0] ?? '';

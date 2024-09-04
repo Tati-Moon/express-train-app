@@ -1,6 +1,6 @@
 export interface TripSchedule {
     stationTripInfo: StationTripInfo[];
-    rideId: number;
+    routeId: number;
 }
 
 export interface StationTripInfo {

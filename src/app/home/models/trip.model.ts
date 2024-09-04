@@ -4,5 +4,6 @@ export interface Trip {
     carriages: string[];
     path: number[];
     rideId: number;
+    routeId: number;
     schedule: Schedule;
 }
