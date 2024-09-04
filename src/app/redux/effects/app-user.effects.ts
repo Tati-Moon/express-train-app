@@ -31,8 +31,12 @@ export class AppUserEffects {
             exhaustMap(() => {
                 return this.authService.getUserProfile().pipe(
                     map(({ email, name, role }) => {
-                        this.localStorageService.setItem(LocalStorageFields.EMAIL, email);
-                        this.localStorageService.setItem(LocalStorageFields.ROLE, role);
+                        const btoaEmail = btoa(LocalStorageFields.EMAIL as string);
+                        const btoaRole = btoa(LocalStorageFields.ROLE as string);
+
+                        this.localStorageService.setItem(btoaEmail, btoa(email));
+                        this.localStorageService.setItem(btoaRole, btoa(role));
+
                         return AppUserActions.updateUserData({ email, name, role: role as UserRole });
                     }),
                     startWith(AppConfigActions.setVisibleLoader()),

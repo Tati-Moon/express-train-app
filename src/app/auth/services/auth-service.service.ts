@@ -28,9 +28,12 @@ export class AuthService {
 
     public logOut(token: string): Observable<void> {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        const btoaRole = btoa(LocalStorageFields.ROLE as string);
+        const btoaEmail = btoa(LocalStorageFields.EMAIL as string);
+
         this.localStorageService.removeItem(LocalStorageFields.TOKEN);
-        this.localStorageService.removeItem(LocalStorageFields.ROLE);
-        this.localStorageService.removeItem(LocalStorageFields.EMAIL);
+        this.localStorageService.removeItem(btoaRole);
+        this.localStorageService.removeItem(btoaEmail);
 
         return this.http.delete<void>({ url: environment.apiLogout, headers });
     }
