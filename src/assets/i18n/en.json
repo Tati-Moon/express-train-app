@@ -61,8 +61,10 @@
     }
   },
   "ORDER": {
-    "FROM": "FROM",
-    "TO": "TO",
+    "FROM_STATION": "Start trip station",
+    "TO_STATION": "End trip station",
+    "FROM_TIME": "Start trip time",
+    "TO_TIME": "End trip time",
     "DURATION": "Duration",
     "CARRIAGE_TYPE": "Carriage type",
     "CAR_NUMBER": "Car number",
