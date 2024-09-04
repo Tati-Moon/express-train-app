@@ -6,7 +6,19 @@ import { headerMenuAdminInitialState } from './header-menu';
 export const sidebarMenuGuestInitialState: MenuItem[] = [
     {
         label: 'GENERAL.SIDEBAR.HOME',
-        items: [{ label: 'GENERAL.SIDEBAR.SEARCH', icon: 'pi pi-fw pi-search', routerLink: [Routers.EMPTY_ROOT] }],
+        items: [
+            { label: 'GENERAL.SIDEBAR.SEARCH', icon: 'pi pi-fw pi-search', routerLink: [Routers.EMPTY_ROOT] },
+            {
+                label: 'GENERAL.SIDEBAR.LOGIN',
+                icon: 'pi pi-fw pi-sign-in',
+                routerLink: [Routers.ROOT, Routers.SIGNIN],
+            },
+            {
+                label: 'GENERAL.SIDEBAR.SIGNUP',
+                icon: 'pi pi-fw pi-plus',
+                routerLink: [Routers.ROOT, Routers.SIGNUP],
+            },
+        ],
     },
 ];
 
