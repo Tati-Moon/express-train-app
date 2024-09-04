@@ -11,6 +11,7 @@ export enum Schemes {
 export enum Themes {
     LARA_DARK_INDIGO = 'lara-dark-indigo',
     LARA_LIGHT_INDIGO = 'lara-light-indigo',
+    TAILWIND_LIGHT = 'tailwind-light',
 }
 
 export enum Constants {
