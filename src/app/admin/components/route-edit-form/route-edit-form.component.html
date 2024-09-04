@@ -35,6 +35,10 @@
                                 [filter]="true"
                                 filterBy="city"
                                 [required]="true"
+                                [disabled]="$index !== path.length - 1 && path.controls[$index].valid"
+                                (onChange)="
+                                    path.controls[$index].valid && $index === path.length - 1 ? addStation() : null
+                                "
                             />
 
                             <p-button
