@@ -138,7 +138,7 @@
         "PLACEHOLDER": "Конечная станция"
       },
       "CALENDAR": {
-        "PLACEHOLDER": "Выберите дату"
+        "PLACEHOLDER": "Дата/Время"
       },
       "CARRIAGE_TYPE": {
         "NAME": "Тип вагона"
