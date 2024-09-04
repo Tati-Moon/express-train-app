@@ -11,6 +11,7 @@ import { Observable, of } from 'rxjs';
 import { DeleteConfirmationComponent } from '../../../admin/components/delete-confirmation/delete-confirmation.component';
 import { ConvertedOrder, Order, OrderStatus } from '../../../core/models/orders/orders.model';
 import { Station } from '../../../core/models/station/station.model';
+import { AppDatePipe } from '../../../core/pipes/date.pipe';
 import { AppOrdersActions } from '../../../redux/actions/app-orders.actions';
 import { selectStationById } from '../../../redux/selectors/app-stations.selector';
 import { selectIsAdmin } from '../../../redux/selectors/app-user.selector';
@@ -18,7 +19,7 @@ import { selectIsAdmin } from '../../../redux/selectors/app-user.selector';
 @Component({
     selector: 'app-orders-table',
     standalone: true,
-    imports: [TableModule, ButtonModule, TranslateModule, CommonModule, DeleteConfirmationComponent],
+    imports: [TableModule, ButtonModule, TranslateModule, CommonModule, DeleteConfirmationComponent, AppDatePipe],
     templateUrl: './orders-table.component.html',
     styleUrl: './orders-table.component.scss',
 })
