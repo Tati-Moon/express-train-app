@@ -49,6 +49,7 @@ export class SearchFormComponent implements OnInit {
     public minDate: Date | undefined;
     public maxDate: Date | undefined;
     public startSearch!: boolean | null;
+    public currentDate: Date = new Date();
 
     constructor(
         private router: Router,
@@ -132,12 +133,12 @@ export class SearchFormComponent implements OnInit {
 
                     const carriages = this.allCarriages();
 
-                    const rideDetails = this.searchService.mapToRideDetails(
-                        results.routes,
-                        results.from.stationId,
-                        results.to.stationId,
-                        carriages
-                    );
+                    const rideDetails = this.searchService
+                        .mapToRideDetails(results.routes, results.from.stationId, results.to.stationId, carriages)
+                        .filter((ride) => {
+                            const rideDateObj = new Date(ride.date);
+                            return rideDateObj >= date;
+                        });
 
                     if (rideDetails.length === 0) {
                         this.router.navigate([Routers.NO_DIRECT_TRAINS_FOUND]);
