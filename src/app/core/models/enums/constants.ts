@@ -19,6 +19,8 @@ export enum Constants {
 
 export enum LocalStorageFields {
     TOKEN = 'token-express-train-app',
+    EMAIL = 'email-express-train-app',
+    ROLE = 'role-express-train-app',
 }
 
 export enum PaginationSize {
@@ -38,4 +40,8 @@ export enum SeatStatus {
 
 export enum Loader {
     TIME_WAIT = 5000,
+}
+
+export enum UsersEmail {
+    ADMIN = 'admin@admin.com',
 }

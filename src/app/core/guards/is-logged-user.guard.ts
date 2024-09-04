@@ -13,6 +13,19 @@ export const isloggedUserGuard: CanActivateFn = () => {
     const localStorage = inject(LocalStorageService);
 
     if (localStorage.hasItem(LocalStorageFields.TOKEN)) {
+        const role = localStorage.getItem(LocalStorageFields.ROLE);
+
+        if (auth.userRole() === null) {
+            if (role === UserRole.USER) {
+                return true;
+            }
+
+            if (role === UserRole.MANAGER) {
+                return true;
+            }
+            return router.navigate([Routers.ROOT]);
+        }
+
         if (auth.userRole() === UserRole.USER) {
             return true;
         }
@@ -20,6 +33,7 @@ export const isloggedUserGuard: CanActivateFn = () => {
         if (auth.userRole() === UserRole.MANAGER) {
             return true;
         }
+
         return router.navigate([Routers.ROOT]);
     }
     return router.navigate([Routers.ROOT]);
