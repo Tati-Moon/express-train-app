@@ -1,7 +1,7 @@
 import { Carriage } from '../carriages/carriage.model';
 
 export interface ScheduleRide {
-    id: number; // Route identifier
+    id: number;
     path: number[];
     stations: Station[];
     carriages: string[];
