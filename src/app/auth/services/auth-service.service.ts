@@ -35,6 +35,14 @@ export class AuthService {
         this.localStorageService.removeItem(btoaRole);
         this.localStorageService.removeItem(btoaEmail);
 
+        if (this.localStorageService.hasItem(LocalStorageFields.EMAIL)) {
+            this.localStorageService.removeItem(LocalStorageFields.EMAIL);
+        }
+
+        if (this.localStorageService.hasItem(LocalStorageFields.ROLE)) {
+            this.localStorageService.removeItem(LocalStorageFields.ROLE);
+        }
+
         return this.http.delete<void>({ url: environment.apiLogout, headers });
     }
 
