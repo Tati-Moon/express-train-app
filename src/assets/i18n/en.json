@@ -277,6 +277,11 @@
     "MESSAGE": "No seats on direct trains are available right now, but there is always hope. Try again later or travel with a transfer.",
     "GO_TO_DASHBOARD": "Go to home page"
   },
+  "NO_ORDERS": {
+    "TITLE": "No orders yet",
+    "MESSAGE": "You can make order on home page",
+    "GO_TO_DASHBOARD": "Go to home page"
+  },
   "ACCESS": {
     "TITLE": "Access Denied",
     "MESSAGE": "You do not have the necessary permissions. Please contact admins.",
