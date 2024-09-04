@@ -116,11 +116,10 @@ function convertOrder(order: Order, carriageData: Carriage[], allUsers: User[]) 
         const end = new Date(endTime).getTime();
         const durationMs = end - start;
 
-        const days = Math.floor(durationMs / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((durationMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const hours = Math.floor(durationMs / (1000 * 60 * 60));
         const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
 
-        tripDuration = `${days > 0 ? `${days}d ` : ''}${hours}h ${minutes}m`;
+        tripDuration = `${hours}h ${minutes}m`;
     }
 
     const { carriageType, seatInCarriage, carriageNumber } = getSeatDetails(
