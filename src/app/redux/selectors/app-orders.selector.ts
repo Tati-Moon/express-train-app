@@ -87,28 +87,16 @@ function convertOrder(order: Order, carriageData: Carriage[], allUsers: User[]) 
         stationStart: number,
         stationEnd: number
     ): { startIndex: number | null; endIndex: number | null } {
-        const indicesMap = new Map<number, number>();
-
-        if (!indicesMap.has(stationStart)) {
-            const startIndex = path.indexOf(stationStart);
-            indicesMap.set(stationStart, startIndex);
-        }
-
-        if (!indicesMap.has(stationEnd)) {
-            const endIndex = path.indexOf(stationEnd);
-            indicesMap.set(stationEnd, endIndex);
-        }
-
         return {
-            startIndex: indicesMap.get(stationStart) ?? null,
-            endIndex: indicesMap.get(stationEnd) ?? null,
+            startIndex: path.indexOf(stationStart) ?? null,
+            endIndex: path.indexOf(stationEnd) ?? null,
         };
     }
 
     const { startIndex, endIndex } = getStationIndices(order.path, order.stationStart, order.stationEnd);
 
-    const startTime = startIndex !== null ? order.schedule.segments[startIndex].time[0] : null;
-    const endTime = endIndex !== null ? order.schedule.segments[endIndex].time[1] : null;
+    const startTime = startIndex !== null ? order.schedule.segments[startIndex]?.time[0] : null;
+    const endTime = endIndex !== null ? order.schedule.segments[endIndex - 1]?.time[1] : null;
 
     let tripDuration: string | null = null;
     if (startTime && endTime) {
