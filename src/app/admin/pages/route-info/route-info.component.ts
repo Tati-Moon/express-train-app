@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -39,9 +39,8 @@ import { RideTableComponent } from '../../components/ride-table/ride-table.compo
     templateUrl: './route-info.component.html',
     styleUrl: './route-info.component.scss',
 })
-export class RouteInfoComponent implements OnInit {
+export class RouteInfoComponent implements OnInit, OnDestroy {
     private store = inject(Store);
-    public scheduleRide!: ScheduleRide;
     public showForm!: Signal<boolean>;
 
     public carriages!: Signal<Carriage[]>;
@@ -73,6 +72,10 @@ export class RouteInfoComponent implements OnInit {
         if (this.routeIdParams) {
             this.store.dispatch(AppSchedulesActions.loadSchedules({ id: this.routeIdParams }));
         }
+    }
+
+    ngOnDestroy(): void {
+        this.store.dispatch(AppSchedulesActions.hideFormSchedule());
     }
 
     public handleCreateRoute(): void {

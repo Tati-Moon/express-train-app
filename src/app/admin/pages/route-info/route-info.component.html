@@ -1,11 +1,9 @@
-<div *ngIf="scheduleRide">
-    <h1>Route {{ scheduleRide.id }} Schedule</h1>
-</div>
 <div class="grid">
     <div class="col-12">
         <div class="text-center font-medium mb-2">
             <div>
                 <p-button
+                    label="{{ 'BUTTONS.BACK' | translate }}"
                     class="md:col-1 mr-2"
                     icon="pi pi-angle-left"
                     [routerLink]="[routesLink]"
@@ -15,6 +13,7 @@
                 />
                 <span class="text-900 text-4xl">{{ 'RIDE_PAGE.SUB_TITLE' | translate }} {{ routeIdParams }}</span>
                 <p-button
+                    label="{{ 'BUTTONS.ADD' | translate }}"
                     class="md:col-1 ml-2"
                     severity="success"
                     icon="pi pi-plus"

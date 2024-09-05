@@ -54,7 +54,7 @@
     "COUNT_SEATS": "Count seats",
     "ROWS": "Count rows",
     "NO_CARRIAGE": "No carriages found.",
-    "NO_RIDE": "No ride found.",
+    "NO_RIDE": "No ride found. To add a schedule, use the add button on the top panel.",
     "PICTURE": "Picture",
     "CARRIAGE_CREATE_FORM": {
       "TITLE": "New carriage"
@@ -91,7 +91,8 @@
     "ASSIGN_RIDE": "Assign ride",
     "BOOK_SEAT": "Book seat",
     "CLEAR": "Clear",
-    "OPEN": "Open"
+    "OPEN": "Open",
+    "BACK": "Back"
   },
   "FIELD": {
     "EMAIL": {
