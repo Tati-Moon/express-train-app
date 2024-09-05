@@ -5,7 +5,7 @@
     <div class="result-details">
         <div class="route-details">
             <div class="from-details">
-                <span class="time">{{ rideDetail.cityFrom.dateTime | date: 'hh:mm' }}</span>
+                <span class="time">{{ rideDetail.cityFrom.dateTime | date: 'HH:mm' }}</span>
                 <span>{{ rideDetail.cityFrom.dateTime | date: 'MMMM dd' | titlecase }}</span>
                 <span>
                     {{ rideDetail.cityFrom.name }}
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="to-details">
-                <span class="time">{{ rideDetail.cityTo.dateTime | date: 'hh:mm' }}</span>
+                <span class="time">{{ rideDetail.cityTo.dateTime | date: 'HH:mm' }}</span>
                 <span>{{ rideDetail.cityTo.dateTime | date: 'MMMM dd' | titlecase }}</span>
                 <span>
                     {{ rideDetail.cityTo.name }}

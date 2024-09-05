@@ -31,13 +31,13 @@
                     <div>{{ (getStation(order.stationStart) | async)?.city }}</div>
                 </td>
                 <td>
-                    <div>{{ order.startTime | date: 'MMMM dd hh:mm' | titlecase }}</div>
+                    <div>{{ order.startTime | date: 'MMMM dd HH:mm' | titlecase }}</div>
                 </td>
                 <td>
                     <div>{{ (getStation(order.stationEnd) | async)?.city }}</div>
                 </td>
                 <td>
-                    <div>{{ order.endTime | date: 'MMMM dd hh:mm' | titlecase }}</div>
+                    <div>{{ order.endTime | date: 'MMMM dd HH:mm' | titlecase }}</div>
                 </td>
 
                 <td>

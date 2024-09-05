@@ -118,6 +118,15 @@ export class SearchFormComponent implements OnInit {
         const fromCity = this.form.get([this.fields.FROM_CITY])?.value;
         const toCity = this.form.get([this.fields.TO_CITY])?.value;
         const date = this.form.get([this.fields.DATE])?.value;
+        const time = this.form.get([this.fields.TIME])?.value;
+        const combinedDateTime = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            time?.getHours() ?? 0,
+            time?.getMinutes() ?? 0,
+            time?.getSeconds() ?? 0
+        );
 
         this.searchService
             .search({
@@ -137,7 +146,7 @@ export class SearchFormComponent implements OnInit {
                         .mapToRideDetails(results.routes, results.from.stationId, results.to.stationId, carriages)
                         .filter((ride) => {
                             const rideDateObj = new Date(ride.date);
-                            return rideDateObj >= date;
+                            return rideDateObj >= combinedDateTime;
                         });
 
                     if (rideDetails.length === 0) {
