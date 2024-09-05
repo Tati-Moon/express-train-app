@@ -122,6 +122,12 @@
                                 [filter]="true"
                                 filterBy="name"
                                 [required]="true"
+                                [disabled]="$index !== carriages.length - 1 && carriages.controls[$index].valid"
+                                (onChange)="
+                                    carriages.controls[$index].valid && $index === carriages.length - 1
+                                        ? addCarriage()
+                                        : null
+                                "
                             />
 
                             <p-button
