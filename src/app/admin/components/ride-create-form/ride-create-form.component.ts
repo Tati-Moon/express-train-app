@@ -50,9 +50,7 @@ export class RideCreateFormComponent implements OnInit {
     @Input() public carriages: Carriage[] = [];
     @Input() public rides: ScheduleRide | null = null;
     @Input() public routeId!: number;
-    public editTimeIndex: number | null = null;
-    public editPriceIndex: number | null = null;
-    public selectedRideId: number | null = null;
+
     public minDate = new Date();
 
     constructor(
@@ -98,12 +96,14 @@ export class RideCreateFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        const path = this.rides?.path || [];
-        const carriages = Array.from(new Set(this.rides?.carriages));
         this.form.reset();
+        this.segments.reset();
+        this.segments.clear();
         this.form.patchValue({
             [CreateRideFormFields.ID]: this.rides?.id,
         });
+        const path = this.rides?.path || [];
+        const carriages = Array.from(new Set(this.rides?.carriages));
         this.createSegmentsFormArray(path, carriages);
     }
 
