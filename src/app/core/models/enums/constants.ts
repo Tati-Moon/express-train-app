@@ -15,7 +15,7 @@ export enum Themes {
 }
 
 export enum Constants {
-    TIME_LIFE_MESSAGE = 5000,
+    TIME_LIFE_MESSAGE = 2000,
 }
 
 export enum LocalStorageFields {
@@ -40,7 +40,7 @@ export enum SeatStatus {
 }
 
 export enum Loader {
-    TIME_WAIT = 2000,
+    TIME_WAIT = 5000,
 }
 
 export enum UsersEmail {
