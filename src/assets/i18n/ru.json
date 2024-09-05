@@ -73,8 +73,10 @@
     "NO_ORDER": "Заказы не найдены.",
     "STATUS": "Статус",
     "USER_EMAIL": "Эл. почта",
+    "ORDER_ID": "Заказ номер",
     "DELETE_CONFIRMATION": "Подтверждение отмены поездки",
-    "DELETE_CONFIRMATION_MESSAGE": "Вы уверены, что хотите отменить поездку? Это действие необратимо."
+    "DELETE_CONFIRMATION_MESSAGE": "Вы уверены, что хотите отменить поездку? Это действие необратимо.",
+    "DELETE_CONFIRMATION_MESSAGE_ADDITIONAL": "Данный заказ для пользователя"
   },
   "BUTTONS": {
     "SIGN_IN": "Войти",

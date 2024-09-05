@@ -9,9 +9,10 @@ import { Observable, of } from 'rxjs';
 
 // eslint-disable-next-line max-len
 import { DeleteConfirmationComponent } from '../../../admin/components/delete-confirmation/delete-confirmation.component';
-import { ConvertedOrder, Order, OrderStatus } from '../../../core/models/orders/orders.model';
+import { ConvertedOrder, OrderStatus } from '../../../core/models/orders/orders.model';
 import { Station } from '../../../core/models/station/station.model';
 import { AppDatePipe } from '../../../core/pipes/date.pipe';
+import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AppOrdersActions } from '../../../redux/actions/app-orders.actions';
 import { selectStationById } from '../../../redux/selectors/app-stations.selector';
 import { selectIsAdmin } from '../../../redux/selectors/app-user.selector';
@@ -25,11 +26,13 @@ import { selectIsAdmin } from '../../../redux/selectors/app-user.selector';
 })
 export class OrdersTableComponent {
     private store = inject(Store);
+    localStorage = inject(LocalStorageService);
 
     @Input() public orders: ConvertedOrder[] = [];
     stationsMap: Map<number, Observable<Station | null>> = new Map();
     public deleteModalVisible: boolean = false;
     public orderToDelete!: number;
+    public nameUserToDeleteOrder: string = '';
     public isAdmin: Signal<boolean> = signal(false);
     public OrderStatus = OrderStatus;
 
@@ -38,8 +41,9 @@ export class OrdersTableComponent {
         this.isAdmin = toSignal(isAdmin$, { initialValue: false });
     }
 
-    public handleDeleteOrder(order: Order): void {
+    public handleDeleteOrder(order: ConvertedOrder): void {
         this.orderToDelete = order.id;
+        this.nameUserToDeleteOrder = order.user?.name ?? order.user?.email ?? '';
         this.deleteModalVisible = true;
     }
 
