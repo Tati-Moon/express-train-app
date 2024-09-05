@@ -12,7 +12,8 @@ export class HomeFormService {
     public searchForm: FormGroup = this.fb.group<SearchForm>({
         [SearchFormFields.FROM_CITY]: ['', [Validators.required]],
         [SearchFormFields.TO_CITY]: ['', [Validators.required]],
-        [SearchFormFields.DATE]: [new Date(), []],
+        [SearchFormFields.DATE]: [null, [Validators.required]],
+        [SearchFormFields.TIME]: [null, []],
     });
 
     public markFormDirty(form: FormGroup): void {

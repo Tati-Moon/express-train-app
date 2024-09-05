@@ -143,7 +143,8 @@
         "PLACEHOLDER": "To"
       },
       "CALENDAR": {
-        "PLACEHOLDER": "Date/Time"
+        "PLACEHOLDER1": "Date",
+        "PLACEHOLDER2": "Time"
       },
       "CARRIAGE_TYPE": {
         "NAME": "Carriage type"
