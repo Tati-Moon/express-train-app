@@ -73,8 +73,10 @@
     "NO_ORDER": "No orders found.",
     "STATUS": "Status",
     "USER_EMAIL": "Email",
+    "ORDER_ID": "Order Id",
     "DELETE_CONFIRMATION": "Cancel order",
-    "DELETE_CONFIRMATION_MESSAGE": "Are you sure you want to cancel this order? This action cannot be undone."
+    "DELETE_CONFIRMATION_MESSAGE": "Are you sure you want to cancel this order? This action cannot be undone.",
+    "DELETE_CONFIRMATION_MESSAGE_ADDITIONAL": "This order is for the user"
   },
   "BUTTONS": {
     "SIGN_IN": "Sign In",

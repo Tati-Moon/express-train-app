@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, endWith, exhaustMap, map, of, startWith } from 'rxjs';
 
@@ -9,7 +8,6 @@ import { MessagesService } from '../../core/services/messages.service';
 import { OrdersService } from '../../user-profile/services/orders.service';
 import { AppConfigActions } from '../actions/app-config.actions';
 import { AppOrdersActions } from '../actions/app-orders.actions';
-import { selectIsAdmin } from '../selectors/app-user.selector';
 
 @Injectable()
 export class AppOrdersEffects {
@@ -24,9 +22,8 @@ export class AppOrdersEffects {
     loadOrders = createEffect(() =>
         this.actions$.pipe(
             ofType(AppOrdersActions.loadOrders),
-            concatLatestFrom(() => this.store.select(selectIsAdmin)),
-            exhaustMap(([, isAdmin]) => {
-                return this.ordersService.getOrders(isAdmin).pipe(
+            exhaustMap((action) => {
+                return this.ordersService.getOrders(action.all).pipe(
                     map((orders: Order[]) => {
                         return AppOrdersActions.loadOrdersSuccess({ orders });
                     }),

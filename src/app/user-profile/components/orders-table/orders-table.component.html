@@ -86,7 +86,19 @@
     [visible]="deleteModalVisible"
     [routeId]="orderToDelete"
     [header]="'ORDER.DELETE_CONFIRMATION' | translate"
-    [message]="'ORDER.DELETE_CONFIRMATION_MESSAGE' | translate"
+    [message]="
+        ('ORDER.DELETE_CONFIRMATION_MESSAGE' | translate) +
+        (isAdmin()
+            ? ' ' +
+              ('ORDER.DELETE_CONFIRMATION_MESSAGE_ADDITIONAL' | translate) +
+              ' ' +
+              nameUserToDeleteOrder +
+              '. ' +
+              ('ORDER.ORDER_ID' | translate) +
+              ' ' +
+              orderToDelete
+            : '')
+    "
     (confirm)="onConfirmDelete($event)"
     (cancel)="onCancelDelete()"
 >
