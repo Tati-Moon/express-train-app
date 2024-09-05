@@ -3,8 +3,33 @@
         src="assets/layout/images/{{ colorScheme() === 'light' ? 'logo-dark' : 'logo-white' }}.svg"
         alt="Logo"
         height="20"
-        class="mr-2"
+        class="mr-2 ml-2 footer-image"
+        [routerLink]="['/']"
     />
     by
     <span class="font-medium ml-2">Express Train App</span>
+    <img
+        src="assets/layout/images/{{ colorScheme() === 'light' ? 'git-dark' : 'git-white' }}.svg"
+        alt="Logo"
+        height="20"
+        class="ml-2 footer-image"
+        (click)="goToLink('https://github.com/DmitaN')"
+    />
+    <span class="font-medium ml-2">DmitaN</span>
+    <img
+        src="assets/layout/images/{{ colorScheme() === 'light' ? 'git-dark' : 'git-white' }}.svg"
+        alt="Logo"
+        height="20"
+        class="ml-2 footer-image"
+        (click)="goToLink('https://github.com/Trouvere')"
+    />
+    <span class="font-medium ml-2">Trouvere</span>
+    <img
+        src="assets/layout/images/{{ colorScheme() === 'light' ? 'git-dark' : 'git-white' }}.svg"
+        alt="Logo"
+        height="20"
+        class="ml-2 footer-image"
+        (click)="goToLink('https://github.com/lionna')"
+    />
+    <span class="font-medium ml-2">Lionna</span>
 </div>
