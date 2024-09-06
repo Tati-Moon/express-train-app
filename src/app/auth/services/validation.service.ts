@@ -13,7 +13,7 @@ export class ValidationService {
                 return null;
             }
 
-            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const emailPattern = /^[\w\d_]+@[\w\d_]+.\w{2,7}$/;
             if (!emailPattern.test(value)) {
                 return { invalidEmail: true };
             }

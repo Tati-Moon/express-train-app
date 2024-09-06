@@ -86,14 +86,9 @@
                                 [feedback]="false"
                             ></p-password>
                             @if (form.get(fields.REPEAT_PASSWORD); as repeatPassword) {
-                                @if (!repeatPassword.pristine && isClicked) {
-                                    @if (!password.pristine && isClicked) {
-                                        @for (
-                                            error of handlePasswordErrorMessages(repeatPassword.errors);
-                                            track $index
-                                        ) {
-                                            <small class="p-error block mt-2"> {{ error | translate }} </small>
-                                        }
+                                @for (error of handlePasswordErrorMessages(repeatPassword.errors); track $index) {
+                                    @if (!!repeatPassword.errors?.['matchPassword']) {
+                                        <small class="p-error block mt-2"> {{ error | translate }} </small>
                                     }
                                 }
                             }
@@ -105,7 +100,7 @@
                                 styleClass="w-full p-3 text-xl"
                                 class="btn-primary"
                                 (onClick)="handleSubmit()"
-                                [disabled]="isClicked && (disabledSubmitButton || submitForm)"
+                                [disabled]="disabledSubmitButton"
                             >
                             </p-button>
                             <p-button

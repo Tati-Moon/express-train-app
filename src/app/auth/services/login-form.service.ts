@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 import { AuthFormFields, LoginForm } from '../models/auth-form.model';
 import { ValidationService } from './validation.service';
@@ -15,7 +15,7 @@ export class LoginFormService {
 
     public loginForm: FormGroup = this.fb.group<LoginForm>({
         [AuthFormFields.LOGIN]: ['', [Validators.required, this.validationService.emailValidator()]],
-        [AuthFormFields.PASSWORD]: ['', [Validators.required]],
+        [AuthFormFields.PASSWORD]: ['', [this.stupidRequired()]],
     });
 
     public markFormDirty(form: FormGroup): void {
@@ -24,5 +24,17 @@ export class LoginFormService {
         Object.keys(controls).forEach((control: string) => {
             form.get(control)?.markAsDirty();
         });
+    }
+
+    private stupidRequired(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const trimmedValue = control?.value?.replace(/\s/g, '');
+
+            if ((trimmedValue?.length ?? 0) < 1) {
+                return { required: true };
+            }
+
+            return null;
+        };
     }
 }
