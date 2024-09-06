@@ -57,7 +57,13 @@
             ></p-button>
         }
         @if (editPriceIndex === index && selectedRideId === schedule.rideId) {
-            <p-button class="mb-2 ml-2" icon="pi pi-save" (click)="onSavePrices()" [rounded]="true"></p-button>
+            <p-button
+                class="mb-2 ml-2"
+                [disabled]="pricesForm.invalid"
+                icon="pi pi-save"
+                (click)="onSavePrices()"
+                [rounded]="true"
+            ></p-button>
             <p-button
                 class="mb-2 ml-2"
                 icon="pi pi-times"
