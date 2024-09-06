@@ -54,7 +54,7 @@
             <p-calendar
                 id="date"
                 type="date"
-                class="ng-dirty w-full date-input mr-2"
+                class="ng-dirty w-full date-input"
                 [iconDisplay]="'input'"
                 [showIcon]="true"
                 dateFormat="yy-mm-dd"
@@ -74,8 +74,9 @@
                     [timeOnly]="true"
                     [showTime]="true"
                     [showIcon]="true"
+                    icon="pi pi-clock"
                     type="date"
-                    class="time-input"
+                    class="time-input ml-2"
                     [iconDisplay]="'input'"
                     timeFormat="HH:mm"
                     inputId="date"
@@ -84,9 +85,6 @@
                     styleClass="w-full"
                     placeholder="{{ 'SEARCH_PAGE.FIELDS.CALENDAR.PLACEHOLDER2' | translate }}"
                 >
-                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                        <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
-                    </ng-template>
                 </p-calendar>
             }
         </div>
