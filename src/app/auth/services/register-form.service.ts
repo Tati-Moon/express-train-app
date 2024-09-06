@@ -15,18 +15,43 @@ export class RegisterFormService {
 
     public registerForm: FormGroup = this.fb.group<RegisterForm>({
         [AuthFormFields.LOGIN]: ['', [Validators.required, this.validationService.emailValidator()]],
-        [AuthFormFields.PASSWORD]: ['', [Validators.required, Validators.minLength(8)]],
+        [AuthFormFields.PASSWORD]: [
+            '',
+            [Validators.required, this.minLengthWithoutSpaces(8), this.matchPasswordValidators()],
+        ],
         [AuthFormFields.REPEAT_PASSWORD]: ['', [Validators.required, this.matchPasswordValidators()]],
     });
 
     private matchPasswordValidators(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
+            const { value } = control;
+
+            if (!value) {
+                return null;
+            }
+
             const password = this.registerForm?.get(AuthFormFields.PASSWORD)?.value;
             const confirmPassword = control.value;
 
             if (password !== confirmPassword) {
                 return { matchPassword: true };
             }
+            return null;
+        };
+    }
+
+    private minLengthWithoutSpaces(minLength: number): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            if (!control.value) {
+                return null;
+            }
+
+            const trimmedValue = control.value.replace(/\s/g, '');
+
+            if (trimmedValue.length < minLength) {
+                return { hasMinLength: { requiredLength: minLength, actualLength: trimmedValue.length } };
+            }
+
             return null;
         };
     }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
+import { Subscription } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { ConfigComponent } from '../../core/components/config/config.component';
@@ -45,13 +46,14 @@ import { RegisterFormService } from '../services/register-form.service';
     templateUrl: './signup.component.html',
     styleUrl: './signup.component.scss',
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit, OnDestroy {
     private store = inject(Store);
     messages: Message[] | undefined;
     public Routers = Routers;
     public colorScheme!: Signal<string>;
     public submitForm: boolean = false;
     public isClicked: boolean = false;
+    private userTypeSubscription!: Subscription;
 
     constructor(
         private registerFormService: RegisterFormService,
@@ -71,6 +73,23 @@ export class SignupComponent {
     login = this.form.get([this.fields.LOGIN])?.value;
     password = this.form.get([this.fields.PASSWORD])?.value;
     repeatPassword = this.form.get([this.fields.REPEAT_PASSWORD])?.value;
+
+    ngOnInit() {
+        this.subscribeToUserType();
+    }
+    private subscribeToUserType(): void {
+        const repeatPasswordControl = this.form.get(this.fields.PASSWORD);
+        if (repeatPasswordControl) {
+            this.userTypeSubscription = repeatPasswordControl.valueChanges.subscribe(() => {
+                this.form.get(this.fields.REPEAT_PASSWORD)?.updateValueAndValidity();
+            });
+        }
+    }
+    ngOnDestroy() {
+        if (this.userTypeSubscription) {
+            this.userTypeSubscription.unsubscribe();
+        }
+    }
 
     public get fields() {
         return AuthFormFields;
@@ -101,8 +120,9 @@ export class SignupComponent {
                         console.error('Sign-up failed:', response.error.message);
                     } else {
                         console.log('Sign-up successful');
-                        this.form.reset();
+
                         this.router.navigate([Routers.SIGNIN]);
+                        this.form.reset();
                     }
                 },
                 error: (error) => {
@@ -123,6 +143,6 @@ export class SignupComponent {
     }
 
     public get disabledSubmitButton(): boolean {
-        return !this.form.valid;
+        return !this.form.valid || this.submitForm;
     }
 }
