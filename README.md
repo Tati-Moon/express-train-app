@@ -385,7 +385,7 @@ The Orders Page shows a list of user’s current and past bookings. From this pa
 <details>
 <summary>Sign-Up Page:</summary>
 
-[![Video](doc/images/login.png)](doc/videos/register_login.wmv)
+![Video](doc/images/register_login.gif)
 
 ## Browser Path
 
@@ -532,7 +532,7 @@ Password recovery is not supported. If a user forgets their password, they will 
 <details>
 <summary>User login Page:</summary>
 
-[![Video](doc/images/login.png)](doc/videos/register_login.wmv)
+![Video](doc/images/register_login.gif)
 
 ## Browser Path
 
@@ -663,7 +663,7 @@ Password recovery is not supported. If a user forgets their password, they will 
 
 ### Sign In User
 
-[![Video](doc/images/login.png)](doc/videos/register_login.wmv)
+![Video](doc/images/register_login.gif)
 
 - **Endpoint**: `POST /api/signin`
 
@@ -681,7 +681,7 @@ Password recovery is not supported. If a user forgets their password, they will 
 <details>
 <summary>User Profile Page:</summary>
 
-[![Video](doc/images/profile.png)](doc/videos/profile.wmv)
+![Video](doc/images/profile.gif)
 
 ## Browser Path
 
@@ -761,7 +761,7 @@ The User Profile page allows authenticated users to view and update their person
 <details>
 <summary>Home Page:</summary>
 
-[![Video](doc/images/search.png)](doc/videos/search.wmv)
+![Video](doc/images/search.gif)
 
 # Home Page Documentation
 
@@ -986,7 +986,7 @@ The Home Page allows users to book train tickets by entering departure and desti
 <details>
 <summary>Trip Details Page:</summary>
 
-[![Video](doc/images/search.png)](doc/videos/search.wmv)
+![Video](doc/images/search.gif)
 
 ### Description
 
@@ -1113,7 +1113,7 @@ The Trip Details page provides specific information about a particular ride, inc
 <details>
 <summary>Orders Page:</summary>
 
-[![Video](doc/images/search.png)](doc/videos/search.wmv)
+![Video](doc/images/search.gif)
 
 ### Description
 
@@ -1271,7 +1271,7 @@ The Manager/Administrator page is designed for managing trips and the train move
 <details>
 <summary>Stations:</summary>
 
-[![Video](doc/images/Stations.png)](doc/videos/stations.wmv)
+![Video](doc/images/stations.gif)
 
 **Browser Path:** `/admin/stations`  
 **Score:** 50  
@@ -1334,7 +1334,7 @@ The **Stations** page allows the manager to manage train stations, which are key
 <details>
 <summary>Carriages:</summary>
 
-[![Video](doc/images/carriages.png)](doc/videos/carriages.wmv)
+![Video](doc/images/carriages.gif)
 
 **Browser Path:** `/admin/carriages`  
 **Score:** 60  
@@ -1382,7 +1382,7 @@ This page allows managers to create and configure different types of train carri
 <details>
 <summary>Routes:</summary>
 
-[![Video](doc/images/routes.png)](doc/videos/routes.wmv)
+![Video](doc/images/routes.gif)
 
 **Browser Path:** `/admin/routes`  
 **Score:** 100  
